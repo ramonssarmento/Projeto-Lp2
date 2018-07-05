@@ -69,7 +69,7 @@ public class Facade {
 		return null;
 	}
 
-	@Probe // pode ser adicionado double,devo sobrecarregar o metodo?
+	@Probe // pode ser adicionado quantidade double,devo sobrecarregar o metodo?
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		// TODO Auto-generated method stub
 	}
@@ -97,6 +97,16 @@ public class Facade {
 	}
 
 	public String imprimirListaDeCompras(String descritorLista) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getItemListaPorData(String data, int posicaoLista) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getItemListaPorItem(int id, String posicaoLista) {
 		// TODO Auto-generated method stub
 		return null;
 	}
