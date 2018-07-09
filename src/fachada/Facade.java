@@ -8,7 +8,7 @@ public class Facade {
 		// TODO Auto-generated method stub
 	}
 
-	public int adicionaItemPorQtd(String nome, String categoria, String unidadeDeMedida, String localDeCompra,
+	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
 		// TODO Auto-generated method stub
 		return 0;
