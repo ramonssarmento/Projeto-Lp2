@@ -1,5 +1,7 @@
 package classes;
 
+import classes.Item;
+
 public class ItemQtd extends Item {
 	private int qtd;
 	private String unidadeDeMedida;
@@ -10,9 +12,14 @@ public class ItemQtd extends Item {
 		this.unidadeDeMedida = unidadeDeMedida;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return super.ID + "." + super.nome + ", " + super.categoria
+		String result = "";
+		for(String supermercados : super.precos.keySet()) {
+			result += supermercados + ", " + super.precos.get(supermercados) + ";";
+		}	
+		return super.ID + "." + super.nome + ", " + super.categoria + ", " + this.qtd + " " + this.unidadeDeMedida + ", Preco: <" + result + ">";
 	}
 
 }
