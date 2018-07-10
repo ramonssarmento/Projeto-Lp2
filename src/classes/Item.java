@@ -2,16 +2,18 @@ package classes;
 
 import java.util.HashMap;
 
-public class Item {
+public abstract class Item {
 	/**
 	 * Mapa para o preco do item no supermercado
 	 */
 	protected HashMap<String, Double> precos;
 	
+	protected final int ID;
 	protected String nome;	
 	protected String categoria;
 	
-	public Item(String nome, String categoria, String localDeCompra, double preco) {
+	public Item(int ID, String nome, String categoria, String localDeCompra, double preco) {
+		this.ID = ID;
 		this.nome = nome;
 		this.categoria = categoria;
 		precos = new HashMap<>();
@@ -49,7 +51,6 @@ public class Item {
 			return false;
 		return true;
 	}
-	
 	
 
 }

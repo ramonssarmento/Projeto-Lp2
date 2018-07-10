@@ -3,15 +3,15 @@ package classes;
 import com.sun.org.glassfish.external.probe.provider.annotations.Probe;
 
 public class Controller {
-
+	private int id;
 	public Controller() {
-		// TODO Auto-generated constructor stub
+		this.id = 1;
 	}
 
-	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
-			double preco) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,double preco) {
+		ItemQtd item = new ItemQtd(this.id, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
+		this.id ++;
+		return id--;
 
 	}
 
