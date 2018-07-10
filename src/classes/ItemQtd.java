@@ -21,7 +21,7 @@ public class ItemQtd extends Item {
 			this.nome = novoValor;
 			break;
 		case "categoria":
-			if (verificaCategoria(novoValor)) {
+			if (super.verificaCategoria(novoValor)) {
 				this.categoria = novoValor;
 				break;
 			}
@@ -42,7 +42,7 @@ public class ItemQtd extends Item {
 		try {
 			quantidade = Integer.parseInt(valor);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Erro na atualizacao de item: quantidade nao inteira.");
 		}
 
 		if (quantidade < 0) {

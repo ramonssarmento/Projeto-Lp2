@@ -10,8 +10,7 @@ public class Controller {
 
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,double preco) {
 		ItemQtd item = new ItemQtd(this.id, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
-		this.id ++;
-		return id--;
+		return id++;
 
 	}
 
