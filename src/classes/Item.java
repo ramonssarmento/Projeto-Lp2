@@ -33,19 +33,7 @@ public abstract class Item implements ItemCompravel {
 		}
 	}
 
-	public boolean atualizaItem(String atributo, String novoValor) {
-		validaAtualizaItem(atributo, novoValor);
-		switch (atributo) {
-		case "nome":
-			this.nome = novoValor;
-			return true;
-		case "categoria":
-			this.categoria = novoValor;
-			return true;
-		default:
-			return false;
-		}
-	}
+	public abstract void atualizaItem(String atributo, String novoValor);
 
 	public double getMenorPreco() {
 		return this.menorPreco;
@@ -55,7 +43,20 @@ public abstract class Item implements ItemCompravel {
 		return this.nome;
 	}
 
-	private void validaAtualizaItem(String atributo, String novoValor) {
+	public String getCategoria() {
+		return this.categoria;
+	}
+
+	@Override
+	public String toString() {
+		String result = "";
+		for (String supermercados : precos.keySet()) {
+			result += supermercados + ", " + precos.get(supermercados) + ";";
+		}
+		return ", Preco: <" + result + ">";
+	}
+
+	protected void validaAtualizaItem(String atributo, String novoValor) {
 		if (atributo == null || atributo.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
 		} else if (novoValor == null || novoValor.trim().isEmpty()) {
@@ -78,14 +79,21 @@ public abstract class Item implements ItemCompravel {
 			throw new IllegalArgumentException("Erro no cadastro de item: nome nao pode ser vazio ou nulo.");
 		} else if (categoria == null || categoria.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao pode ser vazia ou nula.");
-		} else if (!categoria.equals("limpeza") && !categoria.equals("alimento industrializado")
-				&& !categoria.equals("higiene pessoal") && !categoria.equals("alimento nao industrializado")) {
+		} else if (!verificaCategoria(categoria)) {
 			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao existe.");
 		} else if (localDeCompra == null || localDeCompra.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
 		} else if (preco <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de item: preco de item invalido.");
 		}
+	}
+
+	protected boolean verificaCategoria(String categoria) {
+		if (categoria.equals("limpeza") || categoria.equals("alimento industrializado")
+				|| categoria.equals("higiene pessoal") || categoria.equals("alimento nao industrializado")) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
