@@ -1,101 +1,113 @@
-package fachada;
+package classes;
 
 import com.sun.org.glassfish.external.probe.provider.annotations.Probe;
 
-import classes.Controller;
+public class Controller {
 
-public class Facade {
-	private Controller controller;
-	public Facade() {
-		this.controller = new Controller();
+	public Controller() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
-		return controller.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
+		// TODO Auto-generated method stub
+		return 0;
 
 	}
 
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
-		return controller.adicionaItemPorQuilo(nome, categoria, kg, localDeCompra, preco);
+		// TODO Auto-generated method stub
+		return 0;
 
 	}
 
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		return controller.adicionaItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
+		// TODO Auto-generated method stub
+		return 0;
 
 	}
 
 	public String exibeItem(int id) {
-		return controller.exibeItem(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public void atualizaItem(int id, String atributo, String novoValor) {
-		controller.atualizaItem(id, atributo, novoValor);
+		// TODO Auto-generated method stub
 	}
 
 	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
-		controller.adicionaPrecoItem(id, localDeCompra, preco);
+		// TODO Auto-generated method stub
 	}
 
 	public void deletaItem(int id) {
-		controller.deletaItem(id);
+		// TODO Auto-generated method stub
 	}
 
 	public String getItem(int posicao) {
-		return controller.getItem(posicao);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getItemPorCategoria(String categoria, int posicao) {
-		return controller.getItemPorCategoria(categoria, posicao);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getItemPorMenorPreco(int posicao) {
-		return controller.getItemPorMenorPreco(posicao);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
-		return controller.getItemPorPesquisa(strPesquisada, posicao);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String adicionaListaDeCompras(String descritorLista) {
-		return controller.adicionaListaDeCompras(descritorLista);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Probe // pode ser adicionado quantidade double,devo sobrecarregar o metodo?
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
-		controller.adicionaCompraALista(descritorLista, quantidade, itemId);
+		// TODO Auto-generated method stub
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
-		controller.finalizarListaDeCompras(descritorLista, localDaCompra, valorFinalDaCompra);
+		// TODO Auto-generated method stub
 	}
 
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
-		return controller.pesquisaCompraEmLista(descritorLista, itemId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public void atualizaCompraDeLista(String descritorLista, int itemId, int quantidade) {
-		controller.atualizaCompraDeLista(descritorLista, itemId, quantidade);
+		// TODO Auto-generated method stub
 	}
 
 	public String getItemLista(String descritorLista, int posicaoItem) {
-		return controller.getItemLista(descritorLista, posicaoItem);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public void deletaCompraDeLista(String descritorLista, int itemId) {
-		controller.deletaCompraDeLista(descritorLista, itemId);
+		// TODO Auto-generated method stub
 	}
 
 	public String imprimirListaDeCompras(String descritorLista) {
-		return controller.imprimirListaDeCompras(descritorLista);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getItemListaPorData(String data, int posicaoLista) {
-		return controller.getItemListaPorData(data, posicaoLista);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getItemListaPorItem(int id, String posicaoLista) {
-		return controller.getItemListaPorItem(id, posicaoLista);
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
