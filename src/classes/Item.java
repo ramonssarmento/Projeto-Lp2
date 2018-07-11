@@ -10,14 +10,14 @@ public abstract class Item implements ItemCompravel {
 	 */
 	protected HashMap<String, Double> precos;
 
-	protected final int ID;
+	protected int id;
 	protected String nome;
 	protected String categoria;
 	protected double menorPreco;
 
-	public Item(int ID, String nome, String categoria, String localDeCompra, double preco) {
+	public Item(int id, String nome, String categoria, String localDeCompra, double preco) {
 		validaItem(nome, categoria, localDeCompra, preco);
-		this.ID = ID;
+		this.id = id;
 		this.nome = nome;
 		this.categoria = categoria;
 		this.precos = new HashMap<>();
@@ -43,6 +43,10 @@ public abstract class Item implements ItemCompravel {
 		return this.nome;
 	}
 
+	public int getId() {
+		return this.id;
+	}
+
 	public String getCategoria() {
 		return this.categoria;
 	}
@@ -51,9 +55,9 @@ public abstract class Item implements ItemCompravel {
 	public String toString() {
 		String result = "";
 		for (String supermercados : precos.keySet()) {
-			result += supermercados + ", " + precos.get(supermercados) + ";";
+			result += String.format("%s, R$ %.2f;", supermercados, precos.get(supermercados));
 		}
-		return ", Preco: <" + result + ">";
+		return "<" + result + ">";
 	}
 
 	protected void validaAtualizaItem(String atributo, String novoValor) {

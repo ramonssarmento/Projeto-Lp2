@@ -1,11 +1,11 @@
 package fachada;
 
-import com.sun.org.glassfish.external.probe.provider.annotations.Probe;
-
 import classes.Controller;
+import easyaccept.EasyAccept;
 
 public class Facade {
 	private Controller controller;
+
 	public Facade() {
 		this.controller = new Controller();
 	}
@@ -62,7 +62,6 @@ public class Facade {
 		return controller.adicionaListaDeCompras(descritorLista);
 	}
 
-	@Probe // pode ser adicionado quantidade double,devo sobrecarregar o metodo?
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		controller.adicionaCompraALista(descritorLista, quantidade, itemId);
 	}
@@ -97,5 +96,11 @@ public class Facade {
 
 	public String getItemListaPorItem(int id, String posicaoLista) {
 		return controller.getItemListaPorItem(id, posicaoLista);
+	}
+
+	public static void main(String[] args) {
+		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",
+				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt" };
+		EasyAccept.main(args);
 	}
 }

@@ -6,9 +6,10 @@ public class ItemQtd extends Item {
 	private int qtd;
 	private String unidadeDeMedida;
 
-	public ItemQtd(int ID, String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
+	public ItemQtd(int id, String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
-		super(ID, nome, categoria, localDeCompra, preco);
+		super(id, nome, categoria, localDeCompra, preco);
+		validaItemQtd(qtd, unidadeDeMedida);
 		this.qtd = qtd;
 		this.unidadeDeMedida = unidadeDeMedida;
 	}
@@ -37,6 +38,12 @@ public class ItemQtd extends Item {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return super.id + ". " + super.nome + ", " + super.categoria + ", " + this.qtd + " " + this.unidadeDeMedida
+				+ ", Preco: " + super.toString();
+	}
+
 	private int verificaQtd(String valor) {
 		int quantidade;
 		try {
@@ -53,10 +60,14 @@ public class ItemQtd extends Item {
 
 	}
 
-	@Override
-	public String toString() {
-		return super.ID + "." + super.nome + ", " + super.categoria + ", " + this.qtd + " " + this.unidadeDeMedida
-				+ super.toString();
-	}
+	private void validaItemQtd(int qtd, String unidadeDeMedida) {
+		if (qtd <= 0) {
+			throw new IllegalArgumentException(
+					"Erro no cadastro de item: valor de quantidade nao pode ser menor que zero.");
+		} else if (unidadeDeMedida == null || unidadeDeMedida.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"Erro no cadastro de item: unidade de medida nao pode ser vazia ou nula.");
+		}
 
+	}
 }
