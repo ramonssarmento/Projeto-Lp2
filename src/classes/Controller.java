@@ -7,7 +7,6 @@ import java.util.List;
 
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
-import jdk.jfr.SettingDefinition;
 
 public class Controller {
 	private int id;
@@ -68,7 +67,7 @@ public class Controller {
 	}
 
 	public void deletaItem(int id) {
-		// Futuramente colocar um validador de id (não possui esse caso)
+		// Futuramente colocar um validador de id (nï¿½o possui esse caso)
 		itens.remove(id);
 	}
 
@@ -126,7 +125,7 @@ public class Controller {
 		return null;
 	}
 
-	@SettingDefinition // pode ser adicionado quantidade double,devo sobrecarregar o metodo?
+	// pode ser adicionado quantidade double,devo sobrecarregar o metodo?
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		// TODO Auto-generated method stub
 	}
