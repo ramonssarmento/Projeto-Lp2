@@ -4,6 +4,11 @@ import java.util.HashMap;
 
 import interfaces.ItemCompravel;
 
+/**
+ * Classe abstrata que permite definir os atributos em comum de "item" e
+ * repassar para suas extensões
+ *
+ */
 public abstract class Item implements ItemCompravel {
 	/**
 	 * Mapa para o preco do item no supermercado
@@ -15,6 +20,16 @@ public abstract class Item implements ItemCompravel {
 	protected String categoria;
 	protected double menorPreco;
 
+	/**
+	 * Construtor que inicializa os atributos de Item e verifica a excecao lancada
+	 * para item
+	 * 
+	 * @param id
+	 * @param nome
+	 * @param categoria
+	 * @param localDeCompra
+	 * @param preco
+	 */
 	public Item(int id, String nome, String categoria, String localDeCompra, double preco) {
 		validaItem(nome, categoria, localDeCompra, preco);
 		this.id = id;
@@ -25,6 +40,12 @@ public abstract class Item implements ItemCompravel {
 		this.menorPreco = preco;
 	}
 
+	/**
+	 * Adiciona preco do item no mercado passado
+	 * 
+	 * @param localDeCompra
+	 * @param preco
+	 */
 	public void adicionaPrecoItem(String localDeCompra, double preco) {
 		validaAdicionaPreco(localDeCompra, preco);
 		this.precos.put(localDeCompra, preco);
@@ -33,20 +54,41 @@ public abstract class Item implements ItemCompravel {
 		}
 	}
 
+	/**
+	 * Atualiza item passando novos atributo
+	 * 
+	 * @param atributo
+	 * @param novoValor
+	 */
 	public abstract void atualizaItem(String atributo, String novoValor);
 
+	/**
+	 * Pega o menor preco do item comparando em todos os mercados que possuem tal
+	 * item
+	 */
 	public double getMenorPreco() {
 		return this.menorPreco;
 	}
 
+	/**
+	 * Pega nome do item
+	 */
 	public String getNome() {
 		return this.nome;
 	}
 
+	/**
+	 * Pega identificador do item
+	 */
 	public int getId() {
 		return this.id;
 	}
 
+	/**
+	 * Pega a categoria do item
+	 * 
+	 * @return
+	 */
 	public String getCategoria() {
 		return this.categoria;
 	}
@@ -60,6 +102,12 @@ public abstract class Item implements ItemCompravel {
 		return "<" + result + ">";
 	}
 
+	/**
+	 * Lanca excecoes para atualizar o item
+	 * 
+	 * @param atributo
+	 * @param novoValor
+	 */
 	protected void validaAtualizaItem(String atributo, String novoValor) {
 		if (atributo == null || atributo.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
@@ -69,6 +117,12 @@ public abstract class Item implements ItemCompravel {
 		}
 	}
 
+	/**
+	 * Lanca excecoes para validar preco do item em determinado mercado
+	 * 
+	 * @param localDeCompra
+	 * @param preco
+	 */
 	private void validaAdicionaPreco(String localDeCompra, double preco) {
 		if (localDeCompra == null || localDeCompra.trim().isEmpty()) {
 			throw new IllegalArgumentException(
@@ -78,6 +132,14 @@ public abstract class Item implements ItemCompravel {
 		}
 	}
 
+	/**
+	 * Lanca exececoes para validar um item e poder ser cadastrado
+	 * 
+	 * @param nome
+	 * @param categoria
+	 * @param localDeCompra
+	 * @param preco
+	 */
 	private void validaItem(String nome, String categoria, String localDeCompra, double preco) {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro no cadastro de item: nome nao pode ser vazio ou nulo.");
@@ -92,6 +154,12 @@ public abstract class Item implements ItemCompravel {
 		}
 	}
 
+	/**
+	 * Lanca excecoes para validar a categoria do item
+	 * 
+	 * @param categoria
+	 * @return
+	 */
 	protected boolean verificaCategoria(String categoria) {
 		if (categoria.equals("limpeza") || categoria.equals("alimento industrializado")
 				|| categoria.equals("higiene pessoal") || categoria.equals("alimento nao industrializado")) {

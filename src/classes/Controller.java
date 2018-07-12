@@ -8,15 +8,38 @@ import java.util.List;
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
 
+/**
+ * Classe controladora do sistema, que permite adicionar os itens em suas
+ * respectivas categorias, exibi-los, atualizar/deletar, recuperar informacoes.
+ * Tambem e possivel a manipulacao de listas de compras
+ *
+ */
 public class Controller {
 	private int id;
 	private HashMap<Integer, Item> itens;
 
+	/**
+	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
+	 * armazenado os itens
+	 */
 	public Controller() {
 		this.id = 0;
 		this.itens = new HashMap<>();
 	}
 
+	/**
+	 * Adiciona um item que tem seu preco calculado por quantidade ao mapa de itens,
+	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
+	 * era valida, e em seguida lhe é dado um identificador unico
+	 * 
+	 * @param nome
+	 * @param categoria
+	 * @param qtd
+	 * @param unidadeDeMedida
+	 * @param localDeCompra
+	 * @param preco
+	 * @return identificador unico gerado para o item
+	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
 		this.id++;
@@ -29,6 +52,18 @@ public class Controller {
 
 	}
 
+	/**
+	 * Adiciona um item que tem seu preco calculado por quilo ao mapa de itens,
+	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
+	 * era valida, e em seguida lhe é dado um identificador unico
+	 * 
+	 * @param nome
+	 * @param categoria
+	 * @param kg
+	 * @param localDeCompra
+	 * @param preco
+	 * @return identificador unico gerado para o item
+	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 		this.id++;
 		ItemQuilo novoItem = new ItemQuilo(this.id, nome, categoria, kg, localDeCompra, preco);
@@ -40,6 +75,18 @@ public class Controller {
 
 	}
 
+	/**
+	 * Adiciona um item que tem seu preco calculado por unidade ao mapa, depois de
+	 * ter verifacado as excecoes, para saber se a aquisição do novo item era
+	 * valida, e em seguida lhe é dado um identificador unico
+	 * 
+	 * @param nome
+	 * @param categoria
+	 * @param unidade
+	 * @param localDeCompra
+	 * @param preco
+	 * @return identificador unico gerado para o item
+	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
 		this.id++;
 		ItemUnidade novoItem = new ItemUnidade(this.id, nome, categoria, unidade, localDeCompra, preco);
@@ -51,26 +98,59 @@ public class Controller {
 
 	}
 
+	/**
+	 * Exibe um item a partir de seu identificador
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public String exibeItem(int id) {
 		validaListagem(id);
 		return itens.get(id).toString();
 	}
 
+	/**
+	 * Altera os atributos de um item, e verifica a excecao para saber se a
+	 * atualizacao é valida
+	 * 
+	 * @param id
+	 * @param atributo
+	 * @param novoValor
+	 */
 	public void atualizaItem(int id, String atributo, String novoValor) {
 		validaAtualizacao(id);
 		itens.get(id).atualizaItem(atributo, novoValor);
 	}
 
+	/**
+	 * Adiciona preco de item a lista de produtos de um supermercado, verificando a
+	 * excecao para saber se aquisicao é valida
+	 * 
+	 * @param id
+	 * @param localDeCompra
+	 * @param preco
+	 */
 	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
 		validaCadastroPreco(id);
 		itens.get(id).adicionaPrecoItem(localDeCompra, preco);
 	}
 
+	/**
+	 * Deleta um item presente no mapa de itens
+	 * 
+	 * @param id
+	 */
 	public void deletaItem(int id) {
 		// Futuramente colocar um validador de id (n�o possui esse caso)
 		itens.remove(id);
 	}
 
+	/**
+	 * Recupera um item presente no mapa de itens
+	 * 
+	 * @param posicao
+	 * @return representaçao em string do item
+	 */
 	public String getItem(int posicao) {
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
@@ -80,6 +160,13 @@ public class Controller {
 		return novaLista.get(posicao).toString();
 	}
 
+	/**
+	 * Recupera uma lista de todos itens cadastrados de um determinada categoria
+	 * 
+	 * @param categoria
+	 * @param posicao
+	 * @return a representacao dessa lista em string
+	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
 		verificaCategoria(categoria);
 		List<ItemCompravel> novaLista = new ArrayList<>();
@@ -96,6 +183,12 @@ public class Controller {
 		return novaLista.get(posicao).toString();
 	}
 
+	/**
+	 * Recupera uma lista com os itens de menor precos disponiveis no mapa de itens
+	 * 
+	 * @param posicao
+	 * @return a representacao dessa lista em string
+	 */
 	public String getItemPorMenorPreco(int posicao) {
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
@@ -105,6 +198,13 @@ public class Controller {
 		return novaLista.get(posicao).toString();
 	}
 
+	/**
+	 * Permite recuperar um produto disponivel no mapa de itens a partir de seu nome
+	 * 
+	 * @param strPesquisada
+	 * @param posicao
+	 * @return a representacao desse item em string
+	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
 		List<ItemCompravel> novaLista = new ArrayList<>();
 		for (int id : this.itens.keySet()) {
@@ -167,6 +267,11 @@ public class Controller {
 		return null;
 	}
 
+	/**
+	 * Lanca exececoes para verificar identificador unico do item
+	 * 
+	 * @param id
+	 */
 	private void validaListagem(int id) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Erro na listagem de item: id invalido.");
@@ -175,12 +280,23 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Lanca excecoes para verificar se o identificador unico ja foi gerado e esta
+	 * na no mapa
+	 * 
+	 * @param id
+	 */
 	private void validaAtualizacao(int id) {
 		if (!this.itens.containsKey(id)) {
 			throw new IllegalArgumentException("Erro na atualizacao de item: item nao existe.");
 		}
 	}
 
+	/**
+	 * Lanca excecoes para verificar se o item com determinado id existe no mapa
+	 * 
+	 * @param id
+	 */
 	private void validaCadastroPreco(int id) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: id de item invalido.");
@@ -189,6 +305,13 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Lanca excecao para verificar a categoria que o item pertence, e verificar se
+	 * a mesma e valida
+	 * 
+	 * @param categoria
+	 * @return um booleando caso a categoria seja valida
+	 */
 	private boolean verificaCategoria(String categoria) {
 		if (categoria.equals("limpeza") || categoria.equals("alimento industrializado")
 				|| categoria.equals("higiene pessoal") || categoria.equals("alimento nao industrializado")) {
