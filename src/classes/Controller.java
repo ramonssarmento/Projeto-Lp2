@@ -26,6 +26,7 @@ public class Controller {
 	public Controller() {
 		this.id = 0;
 		this.itens = new HashMap<>();
+		this.superMercados = new HashMap<>();
 	}
 
 	/**
