@@ -60,7 +60,22 @@ public abstract class Item implements ItemCompravel {
 	 * @param atributo
 	 * @param novoValor
 	 */
-	public abstract void atualizaItem(String atributo, String novoValor);
+	public boolean atualizaItem(String atributo, String novoValor) {
+		validaAtualizaItem(atributo, novoValor);
+		switch (atributo) {
+		case "nome":
+			this.nome = novoValor;
+			return true;
+		case "categoria":
+			if (verificaCategoria(novoValor)) {
+				this.categoria = novoValor;
+				return true;
+			}
+			throw new IllegalArgumentException("Erro na atualizacao de item: categoria nao existe.");
+		}
+
+		return false;
+	}
 
 	/**
 	 * Pega o menor preco do item comparando em todos os mercados que possuem tal
@@ -93,13 +108,17 @@ public abstract class Item implements ItemCompravel {
 		return this.categoria;
 	}
 
-	@Override
-	public String toString() {
+	public String getPrecos() {
 		String result = "";
 		for (String supermercados : precos.keySet()) {
 			result += String.format("%s, R$ %.2f;", supermercados, precos.get(supermercados));
 		}
 		return "<" + result + ">";
+	}
+
+	@Override
+	public String toString() {
+		return this.id + ". " + this.nome + ", " + this.categoria;
 	}
 
 	/**
@@ -160,7 +179,7 @@ public abstract class Item implements ItemCompravel {
 	 * @param categoria
 	 * @return
 	 */
-	protected boolean verificaCategoria(String categoria) {
+	private boolean verificaCategoria(String categoria) {
 		if (categoria.equals("limpeza") || categoria.equals("alimento industrializado")
 				|| categoria.equals("higiene pessoal") || categoria.equals("alimento nao industrializado")) {
 			return true;
@@ -197,6 +216,14 @@ public abstract class Item implements ItemCompravel {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(ItemCompravel o) {
+		if (this.getNome().equals(o.getNome())) {
+			return o.getId() - this.getId();
+		}
+		return this.getNome().compareTo(o.getNome());
 	}
 
 }

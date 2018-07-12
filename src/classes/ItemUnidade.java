@@ -30,21 +30,14 @@ public class ItemUnidade extends Item {
 	 * passados sao validos
 	 */
 	@Override
-	public void atualizaItem(String atributo, String novoValor) {
-		super.validaAtualizaItem(atributo, novoValor);
+	public boolean atualizaItem(String atributo, String novoValor) {
+		if (super.atualizaItem(atributo, novoValor)) {
+			return true;
+		}
 		switch (atributo) {
-		case "nome":
-			this.nome = novoValor;
-			break;
-		case "categoria":
-			if (super.verificaCategoria(novoValor)) {
-				this.categoria = novoValor;
-				break;
-			}
-			throw new IllegalArgumentException("Erro na atualizacao de item: categoria nao existe.");
 		case "unidade":
 			this.unidade = verificaUnidades(novoValor);
-			break;
+			return true;
 		default:
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao existe.");
 		}
@@ -52,7 +45,7 @@ public class ItemUnidade extends Item {
 
 	@Override
 	public String toString() {
-		return super.id + ". " + super.nome + ", " + super.categoria + ", Preco: " + super.toString();
+		return super.toString() + ", Preco: " + super.getPrecos();
 	}
 
 	/**

@@ -28,25 +28,20 @@ public class ItemQuilo extends Item {
 	}
 
 	/**
-	 * Atualiza o item passando novos atributo e verifica se os novos
-	 * atributos sao validos
+	 * Atualiza o item passando novos atributo e verifica se os novos atributos sao
+	 * validos
 	 */
 	@Override
-	public void atualizaItem(String atributo, String novoValor) {
-		super.validaAtualizaItem(atributo, novoValor);
+	public boolean atualizaItem(String atributo, String novoValor) {
+
+		if (super.atualizaItem(atributo, novoValor)) {
+			return true;
+		}
+
 		switch (atributo) {
-		case "nome":
-			this.nome = novoValor;
-			break;
-		case "categoria":
-			if (super.verificaCategoria(novoValor)) {
-				this.categoria = novoValor;
-				break;
-			}
-			throw new IllegalArgumentException("Erro na atualizacao de item: categoria nao existe.");
 		case "kg":
 			this.kg = verificaQuilo(novoValor);
-			break;
+			return true;
 		default:
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao existe.");
 		}
@@ -54,7 +49,7 @@ public class ItemQuilo extends Item {
 
 	@Override
 	public String toString() {
-		return super.id + ". " + super.nome + ", " + super.categoria + ", Preco por quilo: " + super.toString();
+		return super.toString() + ", Preco por quilo: " + super.getPrecos();
 	}
 
 	/**
