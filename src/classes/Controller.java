@@ -17,7 +17,8 @@ import interfaces.OrdenaItemMenorPreco;
 public class Controller {
 	private int id;
 	private HashMap<Integer, Item> itens;
-
+	private HashMap<String, SuperMercado> superMercados;
+	
 	/**
 	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
 	 * armazenado os itens
@@ -48,6 +49,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
+		
+		adicionaItemNoSupermercado(localDeCompra, preco);
+		
 		return this.id;
 
 	}
@@ -71,6 +75,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
+		
+		adicionaItemNoSupermercado(localDeCompra, preco);
+		
 		return this.id;
 
 	}
@@ -94,6 +101,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
+		
+		adicionaItemNoSupermercado(localDeCompra, preco);
+		
 		return this.id;
 
 	}
@@ -318,5 +328,26 @@ public class Controller {
 			return true;
 		}
 		throw new IllegalArgumentException("Erro na listagem de item: categoria nao existe.");
+	}
+	
+	private boolean verificaPresencaDeSupermercado(String nomeSupermercado) {
+		if (this.superMercados.containsKey(nomeSupermercado)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private void adicionaItemNoSupermercado(String localDeCompra, double preco) {
+		if (verificaPresencaDeSupermercado(localDeCompra)) {
+			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
+		}
+		
+		else {
+			
+			SuperMercado superMercado = new SuperMercado(localDeCompra); 
+			this.superMercados.put(localDeCompra, superMercado);
+			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
+		}
 	}
 }
