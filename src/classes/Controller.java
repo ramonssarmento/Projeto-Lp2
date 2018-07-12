@@ -18,7 +18,7 @@ public class Controller {
 	private int id;
 	private HashMap<Integer, Item> itens;
 	private HashMap<String, SuperMercado> superMercados;
-	
+
 	/**
 	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
 	 * armazenado os itens
@@ -33,12 +33,18 @@ public class Controller {
 	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
 	 * era valida, e em seguida lhe é dado um identificador unico
 	 * 
-	 * @param nome, representa nome do item
-	 * @param categoria, representa categoria do item
-	 * @param qtd, quantidade do item
-	 * @param unidadeDeMedida, unidade de medida do item (kg, g, mg)
-	 * @param localDeCompra, supermercado o qual o item vai ser cadastrad
-	 * @param preco, preco do produto em determinado supermercado
+	 * @param nome,
+	 *            representa nome do item
+	 * @param categoria,
+	 *            representa categoria do item
+	 * @param qtd,
+	 *            quantidade do item
+	 * @param unidadeDeMedida,
+	 *            unidade de medida do item (kg, g, mg)
+	 * @param localDeCompra,
+	 *            supermercado o qual o item vai ser cadastrad
+	 * @param preco,
+	 *            preco do produto em determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
@@ -49,9 +55,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
-		
+
 		adicionaItemNoSupermercado(localDeCompra, preco);
-		
+
 		return this.id;
 
 	}
@@ -61,11 +67,16 @@ public class Controller {
 	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
 	 * era valida, e em seguida lhe é dado um identificador unico
 	 * 
-	 * @param nome, nome do produto a ser adicionado
-	 * @param categoria, categoria do produto que vai ser adicionado
-	 * @param kg, unidade de medida do produto, que será usada no calculo do valor 
-	 * @param localDeCompra, supermercado o qual o produto sera cadastrado
-	 * @param preco, preco do produto no determinado supermercado
+	 * @param nome,
+	 *            nome do produto a ser adicionado
+	 * @param categoria,
+	 *            categoria do produto que vai ser adicionado
+	 * @param kg,
+	 *            unidade de medida do produto, que será usada no calculo do valor
+	 * @param localDeCompra,
+	 *            supermercado o qual o produto sera cadastrado
+	 * @param preco,
+	 *            preco do produto no determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
@@ -75,9 +86,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
-		
+
 		adicionaItemNoSupermercado(localDeCompra, preco);
-		
+
 		return this.id;
 
 	}
@@ -87,11 +98,16 @@ public class Controller {
 	 * ter verifacado as excecoes, para saber se a aquisição do novo item era
 	 * valida, e em seguida lhe é dado um identificador unico
 	 * 
-	 * @param nome, nome do produto a ser adicionado
-	 * @param categoria, categoria do produto que vai ser adicionado
-	 * @param unidade, produto é comprado por unidade
-	 * @param localDeCompra, supermercado onde o produto é comprado
-	 * @param preco, preco do produto em determinado supermercado
+	 * @param nome,
+	 *            nome do produto a ser adicionado
+	 * @param categoria,
+	 *            categoria do produto que vai ser adicionado
+	 * @param unidade,
+	 *            produto é comprado por unidade
+	 * @param localDeCompra,
+	 *            supermercado onde o produto é comprado
+	 * @param preco,
+	 *            preco do produto em determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
@@ -101,9 +117,9 @@ public class Controller {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
 		this.itens.put(this.id, novoItem);
-		
+
 		adicionaItemNoSupermercado(localDeCompra, preco);
-		
+
 		return this.id;
 
 	}
@@ -111,7 +127,8 @@ public class Controller {
 	/**
 	 * Exibe um item a partir de seu identificador
 	 * 
-	 * @param id, identificador unico do produto
+	 * @param id,
+	 *            identificador unico do produto
 	 * @return representacao do item em string
 	 */
 	public String exibeItem(int id) {
@@ -123,9 +140,12 @@ public class Controller {
 	 * Altera os atributos de um item, e verifica a excecao para saber se a
 	 * atualizacao é valida
 	 * 
-	 * @param id, identificador unico do item
-	 * @param atributo, atributo do item que sera mudado
-	 * @param novoValor, novo valor do atributo que sera passado
+	 * @param id,
+	 *            identificador unico do item
+	 * @param atributo,
+	 *            atributo do item que sera mudado
+	 * @param novoValor,
+	 *            novo valor do atributo que sera passado
 	 */
 	public void atualizaItem(int id, String atributo, String novoValor) {
 		validaAtualizacao(id);
@@ -136,9 +156,12 @@ public class Controller {
 	 * Adiciona preco de item a lista de produtos de um supermercado, verificando a
 	 * excecao para saber se aquisicao é valida
 	 * 
-	 * @param id, identificador unico do item
-	 * @param localDeCompra, supermercado que o item esta presente
-	 * @param preco, preco do item em determinado supermercado
+	 * @param id,
+	 *            identificador unico do item
+	 * @param localDeCompra,
+	 *            supermercado que o item esta presente
+	 * @param preco,
+	 *            preco do item em determinado supermercado
 	 */
 	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
 		validaCadastroPreco(id);
@@ -148,7 +171,8 @@ public class Controller {
 	/**
 	 * Deleta um item presente no mapa de itens
 	 * 
-	 * @param id, identificador unico
+	 * @param id,
+	 *            identificador unico
 	 */
 	public void deletaItem(int id) {
 		// Futuramente colocar um validador de id (n�o possui esse caso)
@@ -158,7 +182,8 @@ public class Controller {
 	/**
 	 * Recupera um item presente no mapa de itens
 	 * 
-	 * @param posicao, posicao do identificador 
+	 * @param posicao,
+	 *            posicao do identificador
 	 * @return representaçao em string do item
 	 */
 	public String getItem(int posicao) {
@@ -173,8 +198,10 @@ public class Controller {
 	/**
 	 * Recupera uma lista de todos itens cadastrados de um determinada categoria
 	 * 
-	 * @param categoria, categoria do produto
-	 * @param posicao, posicao do identificador
+	 * @param categoria,
+	 *            categoria do produto
+	 * @param posicao,
+	 *            posicao do identificador
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
@@ -196,7 +223,8 @@ public class Controller {
 	/**
 	 * Recupera uma lista com os itens de menor precos disponiveis no mapa de itens
 	 * 
-	 * @param posicao, posicao do identificador
+	 * @param posicao,
+	 *            posicao do identificador
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorMenorPreco(int posicao) {
@@ -211,8 +239,10 @@ public class Controller {
 	/**
 	 * Permite recuperar um produto disponivel no mapa de itens a partir de seu nome
 	 * 
-	 * @param strPesquisada, nome do produto que vai ser pesquisado
-	 * @param posicao, posicao do identificador unico
+	 * @param strPesquisada,
+	 *            nome do produto que vai ser pesquisado
+	 * @param posicao,
+	 *            posicao do identificador unico
 	 * @return a representacao desse item em string
 	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
@@ -280,7 +310,8 @@ public class Controller {
 	/**
 	 * Lanca exececoes para verificar identificador unico do item
 	 * 
-	 * @param id, identificador unico do produto
+	 * @param id,
+	 *            identificador unico do produto
 	 */
 	private void validaListagem(int id) {
 		if (id <= 0) {
@@ -294,7 +325,8 @@ public class Controller {
 	 * Lanca excecoes para verificar se o identificador unico ja foi gerado e esta
 	 * na no mapa
 	 * 
-	 * @param id, identificador unico do produto
+	 * @param id,
+	 *            identificador unico do produto
 	 */
 	private void validaAtualizacao(int id) {
 		if (!this.itens.containsKey(id)) {
@@ -305,7 +337,8 @@ public class Controller {
 	/**
 	 * Lanca excecoes para verificar se o item com determinado id existe no mapa
 	 * 
-	 * @param id, identificador unico do produto
+	 * @param id,
+	 *            identificador unico do produto
 	 */
 	private void validaCadastroPreco(int id) {
 		if (id <= 0) {
@@ -319,7 +352,8 @@ public class Controller {
 	 * Lanca excecao para verificar a categoria que o item pertence, e verificar se
 	 * a mesma e valida
 	 * 
-	 * @param categoria, categoria que o produto pertence
+	 * @param categoria,
+	 *            categoria que o produto pertence
 	 * @return um booleando caso a categoria seja valida
 	 */
 	private boolean verificaCategoria(String categoria) {
@@ -329,22 +363,22 @@ public class Controller {
 		}
 		throw new IllegalArgumentException("Erro na listagem de item: categoria nao existe.");
 	}
-	
+
 	private boolean verificaPresencaDeSupermercado(String nomeSupermercado) {
 		if (this.superMercados.containsKey(nomeSupermercado)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private void adicionaItemNoSupermercado(String localDeCompra, double preco) {
 		if (verificaPresencaDeSupermercado(localDeCompra)) {
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
 		}
-		
+
 		else {
-			
+
 			SuperMercado superMercado = new SuperMercado(localDeCompra);
 			this.superMercados.put(localDeCompra, superMercado);
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
