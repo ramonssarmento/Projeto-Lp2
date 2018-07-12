@@ -345,7 +345,7 @@ public class Controller {
 		
 		else {
 			
-			SuperMercado superMercado = new SuperMercado(localDeCompra); 
+			SuperMercado superMercado = new SuperMercado(localDeCompra);
 			this.superMercados.put(localDeCompra, superMercado);
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
 		}
