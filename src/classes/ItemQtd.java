@@ -2,27 +2,10 @@ package classes;
 
 import classes.Item;
 
-/**
- * Classe extendida de Item, implementa itens que seus precos sao calculados por
- * quantidade
- *
- */
 public class ItemQtd extends Item {
 	private int qtd;
 	private String unidadeDeMedida;
 
-	/**
-	 * Construtor que inicializa os atributos da classe Item, os atributos da classe ItemQtd e
-	 * verifica a excecao feita para itens que calcula preco por quantidade
-	 * 
-	 * @param id
-	 * @param nome
-	 * @param categoria
-	 * @param qtd
-	 * @param unidadeDeMedida
-	 * @param localDeCompra
-	 * @param preco
-	 */
 	public ItemQtd(int id, String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
 		super(id, nome, categoria, localDeCompra, preco);
@@ -30,21 +13,17 @@ public class ItemQtd extends Item {
 		this.qtd = qtd;
 		this.unidadeDeMedida = unidadeDeMedida;
 	}
-
-	/**
-	 * Atualiza o item passando novos atributos, e verifica se os novos
-	 * atributos sao validos
-	 */
+	
 	@Override
 	public void atualizaItem(String atributo, String novoValor) {
 		super.validaAtualizaItem(atributo, novoValor);
 		switch (atributo) {
 		case "nome":
-			this.nome = novoValor;
+			super.setNome(novoValor);
 			break;
 		case "categoria":
 			if (super.verificaCategoria(novoValor)) {
-				this.categoria = novoValor;
+				super.setCategoria(novoValor);
 				break;
 			}
 			throw new IllegalArgumentException("Erro na atualizacao de item: categoria nao existe.");
@@ -61,16 +40,10 @@ public class ItemQtd extends Item {
 
 	@Override
 	public String toString() {
-		return super.id + ". " + super.nome + ", " + super.categoria + ", " + this.qtd + " " + this.unidadeDeMedida
-				+ ", Preco: " + super.toString();
+		return super.toString() + ", " + this.qtd + " " + this.unidadeDeMedida
+				+ ", Preco: " + super.getPrecos();
 	}
 
-	/**
-	 * Lanca exececoes para verificar se a quantidade de itens passados é valida
-	 * 
-	 * @param valor
-	 * @return
-	 */
 	private int verificaQtd(String valor) {
 		int quantidade;
 		try {
@@ -87,12 +60,6 @@ public class ItemQtd extends Item {
 
 	}
 
-	/**
-	 * Lanca exececoes para verificar se a quantidade e unidade de medida é valida
-	 * 
-	 * @param qtd
-	 * @param unidadeDeMedida
-	 */
 	private void validaItemQtd(int qtd, String unidadeDeMedida) {
 		if (qtd <= 0) {
 			throw new IllegalArgumentException(
