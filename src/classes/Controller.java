@@ -1,9 +1,13 @@
 package classes;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JLabel;
 
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
@@ -385,4 +389,14 @@ public class Controller {
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
 		}
 	}
+	
+	private String adicionaDataFormatada() {
+		
+		Date data = new Date(System.currentTimeMillis());
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return formatador.format( data );
+	}
+	
+	
 }
