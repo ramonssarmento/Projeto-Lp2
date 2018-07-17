@@ -70,7 +70,8 @@ public class ItemQtd extends Item {
 	 * Lanca exececoes para verificar se a quantidade de itens passados é valida
 	 * 
 	 * @param valor,
-	 *            valor da quantidade passada @return, quantidade do item
+	 *            valor da quantidade passada 
+	 * @return quantidade do item
 	 */
 	private int verificaQtd(String valor) {
 		int quantidade;

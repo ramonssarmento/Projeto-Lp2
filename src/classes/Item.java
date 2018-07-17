@@ -13,12 +13,12 @@ public abstract class Item implements ItemCompravel {
 	/**
 	 * Mapa para o preco do item no supermercado
 	 */
-	protected HashMap<String, Double> precos;
+	private HashMap<String, Double> precos;
 
-	protected int id;
-	protected String nome;
-	protected String categoria;
-	protected double menorPreco;
+	private int id;
+	private String nome;
+	private String categoria;
+	private double menorPreco;
 
 	/**
 	 * Construtor que inicializa os atributos de Item e verifica a excecao lancada
@@ -101,8 +101,6 @@ public abstract class Item implements ItemCompravel {
 
 	/**
 	 * Pega a categoria do item
-	 * 
-	 * @return
 	 */
 	public String getCategoria() {
 		return this.categoria;
