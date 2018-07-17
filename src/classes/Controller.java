@@ -22,6 +22,7 @@ public class Controller {
 	private int id;
 	private HashMap<Integer, Item> itens;
 	private HashMap<String, SuperMercado> superMercados;
+	private HashMap<String, ListaDeCompras> listasDeCompras;
 
 	/**
 	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
@@ -31,6 +32,7 @@ public class Controller {
 		this.id = 0;
 		this.itens = new HashMap<>();
 		this.superMercados = new HashMap<>();
+		this.listasDeCompras = new HashMap<>();
 	}
 
 	/**
@@ -266,11 +268,21 @@ public class Controller {
 	}
 
 	public String adicionaListaDeCompras(String descritorLista) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String data = adicionaDataFormatada(); 
+		ListaDeCompras lista = new ListaDeCompras(descritorLista, data);
+		
+		if(!this.listasDeCompras.containsKey(descritorLista)) {
+				this.listasDeCompras.put(descritorLista, lista);
+		}
+		
+		else {
+			throw new IllegalArgumentException("Já existe uma lista de compras com esse descritor.");
+		}
+		
+		return descritorLista;
 	}
 
-	// pode ser adicionado quantidade double,devo sobrecarregar o metodo?
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		// TODO Auto-generated method stub
 	}

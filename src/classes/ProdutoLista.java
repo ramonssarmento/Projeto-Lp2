@@ -3,20 +3,19 @@ package classes;
 public class ProdutoLista {
 	
 	private int id;
-	private String nome, categoria, unidadeMedida;
-	private double quantidade;
+	private Item produto;
+	private int quantidade;
 	
 	
-	public ProdutoLista(int id, String nome, String categoria, double quantidade, String unidadeMedida) {
+	public ProdutoLista(Item produto, int quantidade) {
 		
-		this.id = id;
-		this.nome = nome;
-		this.categoria = categoria;
+		this.produto = produto;
+		this.id = produto.getId();
 		this.quantidade = quantidade;
-		this.unidadeMedida = unidadeMedida;
+		
 	}
 	
-	public void setQuantidade(double novaQuantidade) {
+	public void setQuantidade(int novaQuantidade) {
 		
 		this.quantidade = novaQuantidade;
 	}
@@ -26,4 +25,14 @@ public class ProdutoLista {
 		return this.id;
 	
 	}
+	
+	public int getQuantidade() {
+		return this.quantidade;
+	}
+	
+	public toString() {
+	
+		return String.format("%i %s, %s, %s", (this.quantidade, this.produto.getNome(), this.produto.getCategoria(), this.produto.getQuantidade()));
+	}
+	
 }
