@@ -10,7 +10,7 @@ public class ProdutoLista {
 
 		this.produto = produto;
 		this.id = produto.getId();
-		this.quantidade = quantidade;
+		this.quantidade = verificaQuantidade(quantidade);
 
 	}
 
@@ -31,8 +31,16 @@ public class ProdutoLista {
 
 	public String toString() {
 
-		return String.format("%d %s, %s, %s", this.quantidade, this.produto.getNome(), this.produto.getCategoria(),
+		return String.format("%d %s, %s%s", this.quantidade, this.produto.getNome(), this.produto.getCategoria(),
 				this.produto.getQuantidade());
+	}
+	
+	private int verificaQuantidade(int quantidade) {
+		if (quantidade <= 0) {
+		throw new IllegalArgumentException("Quantidade invalida!");
+		}
+		
+		return quantidade;
 	}
 
 }

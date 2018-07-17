@@ -26,6 +26,12 @@ public class ListaDeCompras {
 		}
 	}
 	
+	public String pesquisaCompraEmLista(int itemId) {
+		if () {
+			throw
+		}
+	}
+	
 	public ArrayList<Integer> getIdsProdutos(){
 		
 		ArrayList<Integer> ids = new ArrayList<Integer>();
