@@ -7,6 +7,8 @@ public interface ItemCompravel extends Comparable<ItemCompravel> {
 	public String getNome();
 
 	public int getId();
+	
+	public String getCategoria();
 
 	@Override
 	public int compareTo(ItemCompravel o);

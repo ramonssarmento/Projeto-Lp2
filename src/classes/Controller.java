@@ -268,23 +268,17 @@ public class Controller {
 	}
 
 	public String adicionaListaDeCompras(String descritorLista) {
-		
-		String data = adicionaDataFormatada(); 
+		validaAdicionaLista(descritorLista);
+		String data = adicionaDataFormatada();
 		ListaDeCompras lista = new ListaDeCompras(descritorLista, data);
-		
-		if(!this.listasDeCompras.containsKey(descritorLista)) {
-				this.listasDeCompras.put(descritorLista, lista);
-		}
-		
-		else {
-			throw new IllegalArgumentException("Já existe uma lista de compras com esse descritor.");
-		}
-		
+
+		this.listasDeCompras.put(descritorLista, lista);
+
 		return descritorLista;
 	}
 
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
-		// TODO Auto-generated method stub
+		validaAdicionaCompraLista(descritorLista, itemId);
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
@@ -415,6 +409,29 @@ public class Controller {
 			this.superMercados.put(localDeCompra, superMercado);
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
 		}
+	}
+
+	private void validaAdicionaLista(String descritorLista) {
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		}
+		if (this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro na criacao de lista de compras: Lista ja cadastrada");
+		}
+	}
+
+	private void validaAdicionaCompraLista(String descritorLista, int itemId) {
+		if (!this.itens.containsKey(itemId)) {
+			throw new IllegalArgumentException("Erro na compra de item: item nao existe no sistema.");
+		}
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na compra de item: descritor nao pode ser vazio ou nulo.");
+		}
+		if (!this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro na compra de item: Lista nao cadastrada");
+		}
+
 	}
 
 	private String adicionaDataFormatada() {
