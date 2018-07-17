@@ -16,13 +16,20 @@ public class ItemQtd extends Item {
 	 * ItemQtd e verifica a excecao feita para itens que calcula preco por
 	 * quantidade
 	 * 
-	 * @param id, identificador unico do produto
-	 * @param nome, nome do produto
-	 * @param categoria, categoria a qual o produto pertence
-	 * @param qtd, quantidade que uma unidade do produto possui
-	 * @param unidadeDeMedida, unidade de medida padrão do produto
-	 * @param localDeCompra, mercado o qual o produto sera adicionado
-	 * @param preco, preco do produto
+	 * @param id,
+	 *            identificador unico do produto
+	 * @param nome,
+	 *            nome do produto
+	 * @param categoria,
+	 *            categoria a qual o produto pertence
+	 * @param qtd,
+	 *            quantidade que uma unidade do produto possui
+	 * @param unidadeDeMedida,
+	 *            unidade de medida padrão do produto
+	 * @param localDeCompra,
+	 *            mercado o qual o produto sera adicionado
+	 * @param preco,
+	 *            preco do produto
 	 */
 	public ItemQtd(int id, String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
@@ -62,8 +69,8 @@ public class ItemQtd extends Item {
 	/**
 	 * Lanca exececoes para verificar se a quantidade de itens passados é valida
 	 * 
-	 * @param valor, valor da quantidade passada
-	 * @return, quantidade do item
+	 * @param valor,
+	 *            valor da quantidade passada @return, quantidade do item
 	 */
 	private int verificaQtd(String valor) {
 		int quantidade;
@@ -84,8 +91,10 @@ public class ItemQtd extends Item {
 	/**
 	 * Lanca exececoes para verificar se a quantidade e unidade de medida é valida
 	 * 
-	 * @param qtd, quantidade disponivel em uma unidade do produto
-	 * @param unidadeDeMedida, unidade de medida padrao do produto
+	 * @param qtd,
+	 *            quantidade disponivel em uma unidade do produto
+	 * @param unidadeDeMedida,
+	 *            unidade de medida padrao do produto
 	 */
 	private void validaItemQtd(int qtd, String unidadeDeMedida) {
 		if (qtd <= 0) {

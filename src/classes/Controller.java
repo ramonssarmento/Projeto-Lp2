@@ -368,10 +368,13 @@ public class Controller {
 		}
 		throw new IllegalArgumentException("Erro na listagem de item: categoria nao existe.");
 	}
+
 	/**
 	 * Verifica se determinado supermercado contém tal produto
-	 * @param nomeSupermercado,  nome do supermercado o qual deseja procurar
-	 * @return, um boolenado true se houver, false se não houver
+	 * 
+	 * @param nomeSupermercado,
+	 *            nome do supermercado o qual deseja procurar @return, um boolenado
+	 *            true se houver, false se não houver
 	 */
 	private boolean verificaPresencaDeSupermercado(String nomeSupermercado) {
 		if (this.superMercados.containsKey(nomeSupermercado)) {
@@ -380,10 +383,14 @@ public class Controller {
 
 		return false;
 	}
+
 	/**
 	 * Adiciona determinado produto ao supermercado
-	 * @param localDeCompra, supermercado o qual o produto sera adicionado
-	 * @param preco, preco do produto
+	 * 
+	 * @param localDeCompra,
+	 *            supermercado o qual o produto sera adicionado
+	 * @param preco,
+	 *            preco do produto
 	 */
 	private void adicionaItemNoSupermercado(String localDeCompra, double preco) {
 		if (verificaPresencaDeSupermercado(localDeCompra)) {
@@ -397,14 +404,13 @@ public class Controller {
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
 		}
 	}
-	
+
 	private String adicionaDataFormatada() {
-		
+
 		Date data = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		
-		return formatador.format( data );
+
+		return formatador.format(data);
 	}
-	
-	
+
 }
