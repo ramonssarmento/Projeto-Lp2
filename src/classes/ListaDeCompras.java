@@ -1,24 +1,25 @@
 package classes;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListaDeCompras {
 	
 	private String descritor, data;
-	private ArrayList<ProdutoLista> produtosLista;
+	private HashMap<Integer, ProdutoLista> produtosLista;
 	
 	public ListaDeCompras(String descritor, String data) {
 		
 		this.descritor = descritor;
 		this.data = data;
-		this.produtosLista = new ArrayList<ProdutoLista>();
+		this.produtosLista = new HashMap<>();
 		
 	}
 	
 	public void adicionaProdutoNaLista(ProdutoLista produto) {
 		
-		if (!this.produtosLista.contains(produto)) {
-			this.produtosLista.add(produto);
+		int id = produto.getId();
+		if (!this.produtosLista.containsValue(produto)) {
+			this.produtosLista.put(id, produto);
 		}
 		
 		else {
