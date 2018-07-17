@@ -12,12 +12,12 @@ public class ItemUnidade extends Item {
 	 * Construtor que inicializa os atributos da classe Item, os atributos da classe
 	 * ItemUnidade e verifica as exececoes lancadas para ItemUnidade é valido
 	 * 
-	 * @param id
-	 * @param nome
-	 * @param categoria
-	 * @param unidade
-	 * @param localDeCompra
-	 * @param preco
+	 * @param id, identificador unico do produto
+	 * @param nome, nome do produto
+	 * @param categoria, categoria a qual o produto pertence
+	 * @param unidade, unidade do produto
+	 * @param localDeCompra, supermercado o qual o produto sera adicionado
+	 * @param preco, preco do produto
 	 */
 	public ItemUnidade(int id, String nome, String categoria, int unidade, String localDeCompra, double preco) {
 		super(id, nome, categoria, localDeCompra, preco);
@@ -51,7 +51,7 @@ public class ItemUnidade extends Item {
 	/**
 	 * Lanca excecoes para verificar se as unidades passadas sao validas
 	 * 
-	 * @param valor
+	 * @param valor, valor das unidades
 	 * @return a quantidade de Unidades
 	 */
 	private int verificaUnidades(String valor) {
@@ -73,7 +73,7 @@ public class ItemUnidade extends Item {
 	/**
 	 * Lanca excecoes para verificar se a quantidade de unidades e valida
 	 * 
-	 * @param unidade
+	 * @param unidade, unidade passada
 	 */
 	private void validaItemUnidade(int unidade) {
 		if (unidade <= 0) {

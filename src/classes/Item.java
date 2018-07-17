@@ -24,11 +24,11 @@ public abstract class Item implements ItemCompravel {
 	 * Construtor que inicializa os atributos de Item e verifica a excecao lancada
 	 * para item
 	 * 
-	 * @param id
-	 * @param nome
-	 * @param categoria
-	 * @param localDeCompra
-	 * @param preco
+	 * @param id, identificador unico do produto
+	 * @param nome, nome do produto
+	 * @param categoria, categoria ao qual o produto pertence
+	 * @param localDeCompra, mercado em que o produto esta sendo registrado
+	 * @param preco, preco do produto
 	 */
 	public Item(int id, String nome, String categoria, String localDeCompra, double preco) {
 		validaItem(nome, categoria, localDeCompra, preco);
@@ -43,8 +43,8 @@ public abstract class Item implements ItemCompravel {
 	/**
 	 * Adiciona preco do item no mercado passado
 	 * 
-	 * @param localDeCompra
-	 * @param preco
+	 * @param localDeCompra, mercado o qual o item vai ser adicionado
+	 * @param preco, preco do item
 	 */
 	public void adicionaPrecoItem(String localDeCompra, double preco) {
 		validaAdicionaPreco(localDeCompra, preco);
@@ -139,8 +139,8 @@ public abstract class Item implements ItemCompravel {
 	/**
 	 * Lanca excecoes para validar preco do item em determinado mercado
 	 * 
-	 * @param localDeCompra
-	 * @param preco
+	 * @param localDeCompra, supermercado o qual o produto sera adicionado
+	 * @param preco, preco do produto
 	 */
 	private void validaAdicionaPreco(String localDeCompra, double preco) {
 		if (localDeCompra == null || localDeCompra.trim().isEmpty()) {
@@ -154,10 +154,10 @@ public abstract class Item implements ItemCompravel {
 	/**
 	 * Lanca exececoes para validar um item e poder ser cadastrado
 	 * 
-	 * @param nome
-	 * @param categoria
-	 * @param localDeCompra
-	 * @param preco
+	 * @param nome, nome do produto
+	 * @param categoria, categoria a qual o produto pertence
+	 * @param localDeCompra, supermercado o qual o produto sera adicionado
+	 * @param preco, preco do produto
 	 */
 	private void validaItem(String nome, String categoria, String localDeCompra, double preco) {
 		if (nome == null || nome.trim().isEmpty()) {
@@ -176,7 +176,7 @@ public abstract class Item implements ItemCompravel {
 	/**
 	 * Lanca excecoes para validar a categoria do item
 	 * 
-	 * @param categoria
+	 * @param categoria, categoria a qual o produto pertence
 	 * @return
 	 */
 	private boolean verificaCategoria(String categoria) {

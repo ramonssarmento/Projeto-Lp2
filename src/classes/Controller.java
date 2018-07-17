@@ -368,7 +368,11 @@ public class Controller {
 		}
 		throw new IllegalArgumentException("Erro na listagem de item: categoria nao existe.");
 	}
-
+	/**
+	 * Verifica se determinado supermercado contém tal produto
+	 * @param nomeSupermercado,  nome do supermercado o qual deseja procurar
+	 * @return, um boolenado true se houver, false se não houver
+	 */
 	private boolean verificaPresencaDeSupermercado(String nomeSupermercado) {
 		if (this.superMercados.containsKey(nomeSupermercado)) {
 			return true;
@@ -376,7 +380,11 @@ public class Controller {
 
 		return false;
 	}
-
+	/**
+	 * Adiciona determinado produto ao supermercado
+	 * @param localDeCompra, supermercado o qual o produto sera adicionado
+	 * @param preco, preco do produto
+	 */
 	private void adicionaItemNoSupermercado(String localDeCompra, double preco) {
 		if (verificaPresencaDeSupermercado(localDeCompra)) {
 			this.superMercados.get(localDeCompra).adicionarItem(this.id, preco);
