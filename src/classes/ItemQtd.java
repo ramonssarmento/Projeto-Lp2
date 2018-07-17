@@ -62,6 +62,11 @@ public class ItemQtd extends Item {
 	}
 
 	@Override
+	public String getQuantidade() {
+		return ", " + this.qtd + " " + this.unidadeDeMedida;
+	}
+
+	@Override
 	public String toString() {
 		return super.toString() + ", " + this.qtd + " " + this.unidadeDeMedida + ", Preco: " + super.getPrecos();
 	}
@@ -70,7 +75,7 @@ public class ItemQtd extends Item {
 	 * Lanca exececoes para verificar se a quantidade de itens passados é valida
 	 * 
 	 * @param valor,
-	 *            valor da quantidade passada 
+	 *            valor da quantidade passada
 	 * @return quantidade do item
 	 */
 	private int verificaQtd(String valor) {
@@ -107,4 +112,5 @@ public class ItemQtd extends Item {
 		}
 
 	}
+
 }

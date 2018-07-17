@@ -50,6 +50,11 @@ public class ItemUnidade extends Item {
 	}
 
 	@Override
+	public String getQuantidade() {
+		return "";
+	}
+
+	@Override
 	public String toString() {
 		return super.toString() + ", Preco: " + super.getPrecos();
 	}

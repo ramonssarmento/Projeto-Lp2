@@ -105,6 +105,8 @@ public abstract class Item implements ItemCompravel {
 	public String getCategoria() {
 		return this.categoria;
 	}
+	
+	public abstract String getQuantidade();
 
 	public String getPrecos() {
 		String result = "";

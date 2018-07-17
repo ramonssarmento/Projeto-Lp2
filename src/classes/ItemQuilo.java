@@ -58,6 +58,11 @@ public class ItemQuilo extends Item {
 		return super.toString() + ", Preco por quilo: " + super.getPrecos();
 	}
 
+	@Override
+	public String getQuantidade() {
+		return "";
+	}
+
 	/**
 	 * Lanca excecao para verificar se os paramentros passados sao validos
 	 * 
