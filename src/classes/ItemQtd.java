@@ -62,8 +62,8 @@ public class ItemQtd extends Item {
 	}
 
 	@Override
-	public String getQuantidade() {
-		return ", " + this.qtd + " " + this.unidadeDeMedida;
+	public String getDescricao() {
+		return super.getNome() + ", " + super.getCategoria() + ", " + this.qtd + " " + this.unidadeDeMedida;
 	}
 
 	@Override

@@ -59,8 +59,8 @@ public class ItemQuilo extends Item {
 	}
 
 	@Override
-	public String getQuantidade() {
-		return "";
+	public String getDescricao() {
+		return super.getNome() + ", " + super.getCategoria();
 	}
 
 	/**
