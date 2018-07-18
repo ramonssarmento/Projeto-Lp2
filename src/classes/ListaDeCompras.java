@@ -1,17 +1,21 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class ListaDeCompras {
 
 	private String descritor, data;
-	private ArrayList<ProdutoLista> produtosLista;
+	private HashMap<Integer, ProdutoLista> produtosLista;
 
 	public ListaDeCompras(String descritor, String data) {
 
 		this.descritor = descritor;
 		this.data = data;
-		this.produtosLista = new ArrayList<>();
+		this.produtosLista = new HashMap<>();
 
 	}
 
@@ -24,58 +28,78 @@ public class ListaDeCompras {
 
 	private void adicionaProdutoNaLista(ProdutoLista produto) {
 
-		if (!verificaPresencaNaListaProduto(produto)) {
-			this.produtosLista.add(produto);
+		int id = produto.getId();
+		if (!verificaPresencaNaLista(id)) {
+			this.produtosLista.put(id, produto);
 		}
 
 		else {
 			throw new IllegalArgumentException("Esse produto ja foi adicionado!");
 		}
 	}
-
-	public String pesquisaCompraEmLista(int itemId) {
-		return retornaProdutoPorId(itemId).toString();
-	}
-
-	private boolean verificaPresencaNaListaProduto(ProdutoLista produto) {
-		if (this.produtosLista.contains(produto)) {
-			return true;
+	
+	public void deletaProdutoLista(int id) {
+		
+		if (!verificaPresencaNaLista(id)) {
+			throw new IllegalAccessError("Esse produto não está na lista!");
 		}
-
-		return false;
+		
+		this.produtosLista.remove(id);
 	}
-
-	private boolean verificaPresencaNaListaId(int id) {
-
-		if (getIdsProdutos().contains(id)) {
-			return true;
+	
+	public void atualizaProduto(int itemId, String operacao, int quantidade) {
+		
+		if (operacao.equals("adiciona")) {
+			int novaQuantidade = (this.produtosLista.get(itemId).getQuantidade()) + quantidade;
+			this.produtosLista.get(itemId).setQuantidade(novaQuantidade);
 		}
-
-		return false;
-	}
-
-	private ProdutoLista retornaProdutoPorId(int id) {
-
-		for (ProdutoLista produto : this.produtosLista) {
-
-			if (id == produto.getId()) {
-				return produto;
+		
+		else if (operacao.equals("diminui")) {
+			int novaQuantidade = (this.produtosLista.get(itemId).getQuantidade()) + quantidade;
+			
+			if(novaQuantidade <= 0) {
+				this.produtosLista.remove(itemId);
+			}
+			
+			else {
+				this.produtosLista.get(itemId).setQuantidade(novaQuantidade);
 			}
 		}
-
-		throw new IllegalAccessError("Esse item nao esta presente na lista!");
+		
+		else {
+			throw new IllegalArgumentException("Operacao invalida!");
+		}
+	}
+	
+	public String pesquisaCompraEmLista(int itemId) {
+		
+		if (verificaPresencaNaLista(itemId)) {
+			return this.produtosLista.get(itemId).toString();
+		}
+		
+		throw new IllegalAccessError("Esse Item nao esta na lista!");
 	}
 
-	public ArrayList<Integer> getIdsProdutos() {
-
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-
-		for (ProdutoLista produto : this.produtosLista) {
-
-			ids.add(produto.getId());
+	private boolean verificaPresencaNaLista(int id) {
+		if (this.produtosLista.containsKey(id)) {
+			return true;
 		}
 
-		return ids;
+		return false;
 	}
 
+
+	public Set<Integer> getIdsProdutos() {
+
+		return this.produtosLista.keySet();
+	}
+
+	public String toString() {
+		
+		String saida = "";
+		
+		for (ProdutoLista produto : this.produtosLista) {
+			
+		}
+	}
 }

@@ -31,8 +31,7 @@ public class ProdutoLista {
 
 	public String toString() {
 
-		return String.format("%d %s, %s%s", this.quantidade, this.produto.getNome(), this.produto.getCategoria(),
-				this.produto.getQuantidade());
+		return String.format("%d %s", this.quantidade, this.produto.getDescricao());
 	}
 	
 	private int verificaQuantidade(int quantidade) {
