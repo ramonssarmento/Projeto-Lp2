@@ -290,7 +290,7 @@ public class Controller {
 		return null;
 	}
 
-	public void atualizaCompraDeLista(String descritorLista, int itemId, int quantidade) {
+	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
 		// TODO Auto-generated method stub
 	}
 

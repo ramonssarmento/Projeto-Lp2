@@ -74,8 +74,8 @@ public class Facade {
 		return controller.pesquisaCompraEmLista(descritorLista, itemId);
 	}
 
-	public void atualizaCompraDeLista(String descritorLista, int itemId, int quantidade) {
-		controller.atualizaCompraDeLista(descritorLista, itemId, quantidade);
+	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
+		controller.atualizaCompraDeLista(descritorLista, itemId, operacao, quantidade);
 	}
 
 	public String getItemLista(String descritorLista, int posicaoItem) {
