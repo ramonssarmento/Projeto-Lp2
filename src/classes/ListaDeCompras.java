@@ -9,7 +9,8 @@ import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class ListaDeCompras {
 
-	private String descritor, data;
+	private String descritor;
+	private String data;
 	private HashMap<Integer, ProdutoLista> produtosLista;
 
 	public ListaDeCompras(String descritor, String data) {
