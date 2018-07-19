@@ -18,6 +18,7 @@ public class ControllerTest {
 		this.controle.adicionaItemPorUnidade("Refrigerante Cola-Coca", "alimento industrializado", 1, "Atacadinho",
 				3.5);
 		this.controle.adicionaItemPorQuilo("Bisteca suina", "alimento nao industrializado", 0.5, "Pentagrama", 10.89);
+		this.controle.adicionaListaDeCompras("Cachaça de Domingo");
 	}
 
 	@Test
@@ -80,7 +81,7 @@ public class ControllerTest {
 
 	@Test
 	public void testeGetItemPorCategoria() {
-		String primeiroItemDaCategoria = this.controle.getItemPorCategoria("higiene pessoal", 1);
+		String primeiroItemDaCategoria = this.controle.getItemPorCategoria("higiene pessoal", 0);
 		String itemInexistente = this.controle.getItemPorCategoria("higiene pessoal", 3);
 		assertEquals(primeiroItemDaCategoria,
 				"1. Papel Higienico, higiene pessoal, 6 rolos, Preco: <Preco HiperBom, R$ 7,85;>");
@@ -89,7 +90,7 @@ public class ControllerTest {
 
 	@Test
 	public void testeGetItemPorMenorPreco() {
-		String itemDeMenorPreco = this.controle.getItemPorMenorPreco(1);
+		String itemDeMenorPreco = this.controle.getItemPorMenorPreco(0);
 		String itemInexistente = this.controle.getItemPorMenorPreco(6);
 		assertEquals(itemDeMenorPreco,
 				"2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
@@ -98,9 +99,15 @@ public class ControllerTest {
 
 	@Test
 	public void testeGetItemPorPesquisa() {
-		String itemComNomePesquisado = this.controle.getItemPorPesquisa("Refrigerante Cola-Coca", 1);
+		String itemComNomePesquisado = this.controle.getItemPorPesquisa("Refrigerante Cola-Coca", 0);
 		String itemInexistente = this.controle.getItemPorPesquisa("Refrigerante Cola-Coca", 8);
-		assertEquals(itemComNomePesquisado, "2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
+		assertEquals(itemComNomePesquisado,
+				"2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
 		assertEquals(itemInexistente, "");
+	}
+	@Test
+	public void testeAdicionaListaDeCompras() {
+		String descricaoDaLista = this.controle.adicionaListaDeCompras("Ressaca de segunda");
+		assertEquals(descricaoDaLista, "Ressaca de segunda");
 	}
 }
