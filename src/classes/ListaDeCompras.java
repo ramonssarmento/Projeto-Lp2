@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.sun.org.apache.xml.internal.serialize.LineSeparator;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class ListaDeCompras {
@@ -98,8 +99,10 @@ public class ListaDeCompras {
 		
 		String saida = "";
 		
-		for (ProdutoLista produto : this.produtosLista) {
-			
+		for (ProdutoLista produto : this.produtosLista.values()) {
+			saida += produto.toString() + System.lineSeparator();
 		}
+		
+		return saida.trim();
 	}
 }

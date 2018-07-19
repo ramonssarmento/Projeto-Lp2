@@ -70,4 +70,37 @@ public class ControllerTest {
 
 	}
 
+	@Test
+	public void testeGetItem() {
+		String itemInexistente = this.controle.getItem(6);
+		String primeiroItem = this.controle.getItem(1);
+		assertEquals(itemInexistente, "");
+		assertEquals(primeiroItem, "1. Papel Higienico, higiene pessoal, 6 rolos, Preco: <Preco HiperBom, R$ 7,85;>");
+	}
+
+	@Test
+	public void testeGetItemPorCategoria() {
+		String primeiroItemDaCategoria = this.controle.getItemPorCategoria("higiene pessoal", 1);
+		String itemInexistente = this.controle.getItemPorCategoria("higiene pessoal", 3);
+		assertEquals(primeiroItemDaCategoria,
+				"1. Papel Higienico, higiene pessoal, 6 rolos, Preco: <Preco HiperBom, R$ 7,85;>");
+		assertEquals(itemInexistente, "");
+	}
+
+	@Test
+	public void testeGetItemPorMenorPreco() {
+		String itemDeMenorPreco = this.controle.getItemPorMenorPreco(1);
+		String itemInexistente = this.controle.getItemPorMenorPreco(6);
+		assertEquals(itemDeMenorPreco,
+				"2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
+		assertEquals(itemInexistente, "");
+	}
+
+	@Test
+	public void testeGetItemPorPesquisa() {
+		String itemComNomePesquisado = this.controle.getItemPorPesquisa("Refrigerante Cola-Coca", 1);
+		String itemInexistente = this.controle.getItemPorPesquisa("Refrigerante Cola-Coca", 8);
+		assertEquals(itemComNomePesquisado, "2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
+		assertEquals(itemInexistente, "");
+	}
 }
