@@ -282,6 +282,11 @@ public class Controller {
 
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		validaAdicionaCompraLista(descritorLista, itemId);
+		
+		Item item = this.itens.get(itemId);
+		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
+		
+		lista.criaProdutoLista(item, quantidade);
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
