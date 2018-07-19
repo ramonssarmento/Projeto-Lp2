@@ -56,11 +56,12 @@ public class Controller {
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
-		this.id++;
-		ItemQtd novoItem = new ItemQtd(this.id, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
+		
+		ItemQtd novoItem = new ItemQtd(this.id+1, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
+		this.id++;
 		this.itens.put(this.id, novoItem);
 
 		adicionaItemNoSupermercado(localDeCompra, preco);
@@ -87,11 +88,12 @@ public class Controller {
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
-		this.id++;
-		ItemQuilo novoItem = new ItemQuilo(this.id, nome, categoria, kg, localDeCompra, preco);
+		
+		ItemQuilo novoItem = new ItemQuilo(this.id+1, nome, categoria, kg, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
+		this.id++;
 		this.itens.put(this.id, novoItem);
 
 		adicionaItemNoSupermercado(localDeCompra, preco);
@@ -118,11 +120,12 @@ public class Controller {
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		this.id++;
-		ItemUnidade novoItem = new ItemUnidade(this.id, nome, categoria, unidade, localDeCompra, preco);
+		
+		ItemUnidade novoItem = new ItemUnidade(this.id+1, nome, categoria, unidade, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
 			throw new IllegalArgumentException("Item ja adicionado");
 		}
+		this.id++;
 		this.itens.put(this.id, novoItem);
 
 		adicionaItemNoSupermercado(localDeCompra, preco);
