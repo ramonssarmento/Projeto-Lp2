@@ -2,10 +2,10 @@ package interfaces;
 
 import java.util.Comparator;
 
-public class OrdenaItemLista implements Comparator<ItemCompravel> {
+public class OrdenaItemLista implements Comparator<ProdutoListaOrdenavel> {
 
 	@Override
-	public int compare(ItemCompravel o1, ItemCompravel o2) {
+	public int compare(ProdutoListaOrdenavel o1, ProdutoListaOrdenavel o2) {
 		int v1, v2;
 		switch (o1.getCategoria()) {
 		case "higiene pessoal":
@@ -39,7 +39,7 @@ public class OrdenaItemLista implements Comparator<ItemCompravel> {
 			break;
 		}
 
-		return v1 < v2 ? 1 : v1 > v2 ? 1 : o1.getNome().compareTo(o2.getNome());
+		return v1 > v2 ? 1 : v1 < v2 ? -1 : o1.getNome().compareTo(o2.getNome());
 
 	}
 

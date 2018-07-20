@@ -1,6 +1,6 @@
 package fachada;
 
-import classes.Controller;
+import Controllers.Controller;
 import easyaccept.EasyAccept;
 
 public class Facade {

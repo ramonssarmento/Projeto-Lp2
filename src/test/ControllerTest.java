@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.Controller;
+import Controllers.Controller;
 
 public class ControllerTest {
 	private Controller controle;

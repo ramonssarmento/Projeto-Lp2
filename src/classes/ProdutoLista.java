@@ -1,17 +1,21 @@
 package classes;
 
-public class ProdutoLista {
+import interfaces.ProdutoListaOrdenavel;
+
+public class ProdutoLista implements ProdutoListaOrdenavel {
 
 	private int id;
 	private Item produto;
 	private int quantidade;
+	private String nome, categoria;
 
 	public ProdutoLista(Item produto, int quantidade) {
 
 		this.produto = produto;
 		this.id = produto.getId();
 		this.quantidade = verificaQuantidade(quantidade);
-
+		this.nome = produto.getNome();
+		this.categoria = produto.getCategoria();
 	}
 
 	public void setQuantidade(int novaQuantidade) {
@@ -27,6 +31,14 @@ public class ProdutoLista {
 
 	public int getQuantidade() {
 		return this.quantidade;
+	}
+	
+	public String getNome() {
+		return this.nome;
+	}
+	
+	public String getCategoria() {
+		return this.categoria;
 	}
 
 	public String toString() {
