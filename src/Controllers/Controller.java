@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.JLabel;
 
@@ -17,6 +20,7 @@ import classes.ListaDeCompras;
 import classes.SuperMercado;
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
+import interfaces.OrdenaListaDescritorEData;
 
 /**
  * Classe controladora do sistema, que permite adicionar os itens em suas
@@ -296,7 +300,11 @@ public class Controller {
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
-		// TODO Auto-generated method stub
+		validaLista(descritorLista);
+		
+		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
+		
+		lista.finalizarLista(localDaCompra, valorFinalDaCompra);
 	}
 
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
@@ -342,14 +350,92 @@ public class Controller {
 		return lista.toString();
 	}
 
-	public String getItemListaPorData(String data, int posicaoLista) {
-		// TODO Auto-generated method stub
-		return null;
+	public String buscaListaPorData(String data, int posicaoLista) {
+		String saida = "";
+		SortedSet<String> saidaOrdenada =  new TreeSet<String>();
+		
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (data.equals(lista.getData())) {
+				saidaOrdenada.add(lista.getDescritor());
+			}
+		}
+		
+		for (String descritor : saidaOrdenada) {
+			saida += descritor + System.lineSeparator();
+		}
+		
+		if (saida.equals("")) {
+			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na data informada!");
+		}
+		
+		return saida.trim();
 	}
-
-	public String getItemListaPorItem(int id, String posicaoLista) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+	 * Esse método serve para pesquisar listas que possuem um determinado item.
+	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas vindo à frente
+	 * Caso hajam datas iguais, as listas são ordenadas alfabéticamente.
+	 *  
+	 * @param itemId - Id do itém à ser pesquisado.
+	 * 
+	 * @return - Representação textual das datas e dos descritores das listas.
+	 */
+	
+	public String buscaListaPorItem(int itemId) {
+		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
+		
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (lista.getExistenciaDeItem(itemId)) {
+				listaSaidaOrdenada.add(lista);
+			}
+		}
+		
+		if (listaSaidaOrdenada.size() == 0) {
+			throw new IllegalArgumentException("Erro de busca: nao existem listas com esse item!");
+		}
+		
+		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
+		
+		String saida = "";
+		for (ListaDeCompras lista : listaSaidaOrdenada) {
+			saida += lista.getDescritorComData() + System.lineSeparator();
+		}
+		
+		return saida.trim();
+	}
+	
+	/**
+	 * Esse método serve para pesquisar uma lista que contém um determinado item, pesquisando pela posição da lista.
+	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas vindo à frente
+	 * Caso hajam datas iguais, as listas são ordenadas alfabéticamente.
+	 *  
+	 * @param itemId - Id do itém à ser pesquisado.
+	 * 
+	 * @param posicaoLista - Posição da lista desejada.
+	 * 
+	 * @return - Representação textual da data e do descritor da lista.
+	 */
+	
+	public String buscaListaPorItem(int itemId, int posicaoLista) {
+		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
+		
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (lista.getExistenciaDeItem(itemId)) {
+				listaSaidaOrdenada.add(lista);
+			}
+		}
+		
+		if (listaSaidaOrdenada.size() == 0) {
+			throw new IllegalArgumentException("Erro de busca: nao existem listas com esse item!");
+		}
+		
+		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
+		
+		if (posicaoLista < 0 || posicaoLista > listaSaidaOrdenada.size()) {
+			throw new IllegalArgumentException("Erro de busca: posicao invalida ou inexistente entre as listas com esse item!");
+		}
+		
+		return listaSaidaOrdenada.get(posicaoLista).getDescritorComData();
 	}
 
 	/**
@@ -488,5 +574,10 @@ public class Controller {
 
 		return formatador.format(data);
 	}
-
+	
+	// Apenas para testes
+	public void setData(String nomeLista, String novaData) {
+		this.listasDeCompras.get(nomeLista).setData(novaData);
+	}
+		
 }

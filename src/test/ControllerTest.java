@@ -7,10 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Controllers.Controller;
+import classes.ItemQtd;
+import classes.ItemQuilo;
+import classes.ListaDeCompras;
 
 public class ControllerTest {
 	private Controller controle;
-
+	private ListaDeCompras lista;
+	private ItemQuilo item;
+	private ItemQtd item2;
+	private ItemQtd item3;
+	
 	@Before
 	public void setUp() {
 		this.controle = new Controller();
@@ -18,7 +25,11 @@ public class ControllerTest {
 		this.controle.adicionaItemPorUnidade("Refrigerante Cola-Coca", "alimento industrializado", 1, "Atacadinho",
 				3.5);
 		this.controle.adicionaItemPorQuilo("Bisteca suina", "alimento nao industrializado", 0.5, "Pentagrama", 10.89);
-		this.controle.adicionaListaDeCompras("Cachaça de Domingo");
+		this.controle.adicionaListaDeCompras("Cachaca de Domingo");
+		this.controle.adicionaListaDeCompras("Compras da semana");
+		this.controle.adicionaCompraALista("Compras da semana", 2, 1);
+		this.controle.adicionaCompraALista("Compras da semana", 3, 2);
+		this.controle.adicionaCompraALista("Cachaca de Domingo", 4, 2);
 	}
 
 	@Test
@@ -109,5 +120,15 @@ public class ControllerTest {
 	public void testeAdicionaListaDeCompras() {
 		String descricaoDaLista = this.controle.adicionaListaDeCompras("Ressaca de segunda");
 		assertEquals(descricaoDaLista, "Ressaca de segunda");
+	}
+	
+	//Mudar nome
+	//Testando coisas especificas
+	//Eu sei que as palavras deviam ter acentos
+	//mas...
+	@Test
+	public void testAbel() {
+		assertEquals("20/07/2018 - Cachaca de Domingo\n" + 
+				"20/07/2018 - Compras da semana", controle.buscaListaPorItem(2));
 	}
 }

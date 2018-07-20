@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 
+import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
 import javafx.collections.transformation.SortedList;
 
 
-public class ListaDeCompras {
+public class ListaDeCompras implements ListaOrdenavel{
 
-	private String descritor;
-	private String data;
+	private String descritor, data, localDeCompra;
 	private HashMap<Integer, ProdutoLista> produtosLista;
 	private ArrayList<String> saidaOrdenada;
+	private double valorFinal;
 
 	public ListaDeCompras(String descritor, String data) {
 
@@ -111,6 +112,11 @@ public class ListaDeCompras {
 		}
 	}
 	
+	public void finalizarLista(String localDaCompra, double valorFinalDaCompra) {
+		this.localDeCompra = localDaCompra;
+		this.valorFinal = valorFinalDaCompra;
+	}
+	
 	private void ordenaSaida() {
 		
 		this.saidaOrdenada.clear();
@@ -129,7 +135,28 @@ public class ListaDeCompras {
 
 		return this.produtosLista.keySet();
 	}
-
+	
+	public String getDescritor() {
+		return this.descritor;
+	}
+	
+	public String getData() {
+		return this.data;
+	}
+	
+	public String getDescritorComData() {
+		return String.format("%s - %s", this.data, this.descritor);
+	}
+	
+	public boolean getExistenciaDeItem(int itemId) {
+		
+		if (this.produtosLista.containsKey(itemId)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public String toString() {
 		
 		String saida = "";
@@ -139,6 +166,11 @@ public class ListaDeCompras {
 		}
 		
 		return saida.trim();
+	}
+	
+	// para testes apenas
+	public void setData(String novaData) {
+		this.data = novaData;
 	}
 	
 }

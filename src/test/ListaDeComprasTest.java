@@ -12,17 +12,17 @@ import classes.ListaDeCompras;
 
 public class ListaDeComprasTest {
 
-	ListaDeCompras lista;
-	ItemQuilo item;
-	ItemQtd item2;
-	ItemQtd item3;
-	ItemQtd item4;
-	ItemQuilo item5;
-	ItemQuilo item6;
-	ItemUnidade item7;
-	ItemUnidade item8;
-	ItemUnidade item9;
-	ItemUnidade item10;
+	private ListaDeCompras lista;
+	private ItemQuilo item;
+	private ItemQtd item2;
+	private ItemQtd item3;
+	private ItemQtd item4;
+	private ItemQuilo item5;
+	private ItemQuilo item6;
+	private ItemUnidade item7;
+	private ItemUnidade item8;
+	private ItemUnidade item9;
+	private ItemUnidade item10;
 	
 	@Before
 	public void setUp() {
