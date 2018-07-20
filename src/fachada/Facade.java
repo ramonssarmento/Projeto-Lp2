@@ -66,6 +66,10 @@ public class Facade {
 		controller.adicionaCompraALista(descritorLista, quantidade, itemId);
 	}
 
+	public String pesquisaListaDeCompras(String descritorLista) {
+		return controller.pesquisaListaDeCompras(descritorLista);
+	}
+
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
 		controller.finalizarListaDeCompras(descritorLista, localDaCompra, valorFinalDaCompra);
 	}
@@ -100,7 +104,9 @@ public class Facade {
 
 	public static void main(String[] args) {
 		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",
-				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt" };
+				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt", "EasyAccept/use_case3.txt",
+				"EasyAccept/use_case3_exception.txt", "EasyAccept/use_case4.txt",
+				"EasyAccept/use_case4_exception.txt" };
 		EasyAccept.main(args);
 	}
 }

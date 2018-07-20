@@ -66,10 +66,10 @@ public class Controller {
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
-		
-		ItemQtd novoItem = new ItemQtd(this.id+1, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
+
+		ItemQtd novoItem = new ItemQtd(this.id + 1, nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
-			throw new IllegalArgumentException("Item ja adicionado");
+			throw new IllegalArgumentException("Erro no cadastro de item: item ja cadastrado no sistema.");
 		}
 		this.id++;
 		this.itens.put(this.id, novoItem);
@@ -98,10 +98,10 @@ public class Controller {
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
-		
-		ItemQuilo novoItem = new ItemQuilo(this.id+1, nome, categoria, kg, localDeCompra, preco);
+
+		ItemQuilo novoItem = new ItemQuilo(this.id + 1, nome, categoria, kg, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
-			throw new IllegalArgumentException("Item ja adicionado");
+			throw new IllegalArgumentException("Erro no cadastro de item: item ja cadastrado no sistema.");
 		}
 		this.id++;
 		this.itens.put(this.id, novoItem);
@@ -130,10 +130,10 @@ public class Controller {
 	 * @return identificador unico gerado para o item
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		
-		ItemUnidade novoItem = new ItemUnidade(this.id+1, nome, categoria, unidade, localDeCompra, preco);
+
+		ItemUnidade novoItem = new ItemUnidade(this.id + 1, nome, categoria, unidade, localDeCompra, preco);
 		if (this.itens.containsValue(novoItem)) {
-			throw new IllegalArgumentException("Item ja adicionado");
+			throw new IllegalArgumentException("Erro no cadastro de item: item ja cadastrado no sistema.");
 		}
 		this.id++;
 		this.itens.put(this.id, novoItem);
@@ -290,151 +290,160 @@ public class Controller {
 		return descritorLista;
 	}
 
+	public String pesquisaListaDeCompras(String descritorLista) {
+		return descritorLista;
+	}
+
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		validaCompraELista(descritorLista, itemId);
-		
+
 		Item item = this.itens.get(itemId);
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		lista.criaProdutoLista(item, quantidade);
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
 		validaLista(descritorLista);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		lista.finalizarLista(localDaCompra, valorFinalDaCompra);
 	}
 
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
 		validaCompraELista(descritorLista, itemId);
-		
-		Item item = this.itens.get(itemId);
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		return lista.pesquisaCompraEmLista(itemId);
-		
+
 	}
 
 	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
 		validaCompraELista(descritorLista, itemId);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		lista.atualizaProduto(itemId, operacao, quantidade);
 	}
 
 	public String getItemLista(String descritorLista, int itemPosicao) {
 		validaLista(descritorLista);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		return lista.retornaItemPosicao(itemPosicao);
-		
+
 	}
 
 	public void deletaCompraDeLista(String descritorLista, int itemId) {
 		validaCompraELista(descritorLista, itemId);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		lista.deletaProdutoLista(itemId);
 	}
 
 	public String imprimirListaDeCompras(String descritorLista) {
 		validaLista(descritorLista);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
-		
+
 		return lista.toString();
 	}
 
 	public String buscaListaPorData(String data, int posicaoLista) {
 		String saida = "";
-		SortedSet<String> saidaOrdenada =  new TreeSet<String>();
-		
+		SortedSet<String> saidaOrdenada = new TreeSet<String>();
+
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (data.equals(lista.getData())) {
 				saidaOrdenada.add(lista.getDescritor());
 			}
 		}
-		
+
 		for (String descritor : saidaOrdenada) {
 			saida += descritor + System.lineSeparator();
 		}
-		
+
 		if (saida.equals("")) {
 			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na data informada!");
 		}
-		
+
 		return saida.trim();
 	}
-	
+
 	/**
 	 * Esse método serve para pesquisar listas que possuem um determinado item.
-	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas vindo à frente
-	 * Caso hajam datas iguais, as listas são ordenadas alfabéticamente.
-	 *  
-	 * @param itemId - Id do itém à ser pesquisado.
+	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas
+	 * vindo à frente Caso hajam datas iguais, as listas são ordenadas
+	 * alfabéticamente.
+	 * 
+	 * @param itemId
+	 *            - Id do itém à ser pesquisado.
 	 * 
 	 * @return - Representação textual das datas e dos descritores das listas.
 	 */
-	
+
 	public String buscaListaPorItem(int itemId) {
 		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
-		
+
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (lista.getExistenciaDeItem(itemId)) {
 				listaSaidaOrdenada.add(lista);
 			}
 		}
-		
+
 		if (listaSaidaOrdenada.size() == 0) {
 			throw new IllegalArgumentException("Erro de busca: nao existem listas com esse item!");
 		}
-		
+
 		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
-		
+
 		String saida = "";
 		for (ListaDeCompras lista : listaSaidaOrdenada) {
 			saida += lista.getDescritorComData() + System.lineSeparator();
 		}
-		
+
 		return saida.trim();
 	}
-	
+
 	/**
-	 * Esse método serve para pesquisar uma lista que contém um determinado item, pesquisando pela posição da lista.
-	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas vindo à frente
-	 * Caso hajam datas iguais, as listas são ordenadas alfabéticamente.
-	 *  
-	 * @param itemId - Id do itém à ser pesquisado.
+	 * Esse método serve para pesquisar uma lista que contém um determinado item,
+	 * pesquisando pela posição da lista. Essas listas são ordenadas primeiramente
+	 * pelas datas, com as mais antigas vindo à frente Caso hajam datas iguais, as
+	 * listas são ordenadas alfabéticamente.
 	 * 
-	 * @param posicaoLista - Posição da lista desejada.
+	 * @param itemId
+	 *            - Id do itém à ser pesquisado.
+	 * 
+	 * @param posicaoLista
+	 *            - Posição da lista desejada.
 	 * 
 	 * @return - Representação textual da data e do descritor da lista.
 	 */
-	
+
 	public String buscaListaPorItem(int itemId, int posicaoLista) {
 		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
-		
+
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (lista.getExistenciaDeItem(itemId)) {
 				listaSaidaOrdenada.add(lista);
 			}
 		}
-		
+
 		if (listaSaidaOrdenada.size() == 0) {
 			throw new IllegalArgumentException("Erro de busca: nao existem listas com esse item!");
 		}
-		
+
 		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
-		
+
 		if (posicaoLista < 0 || posicaoLista > listaSaidaOrdenada.size()) {
-			throw new IllegalArgumentException("Erro de busca: posicao invalida ou inexistente entre as listas com esse item!");
+			throw new IllegalArgumentException(
+					"Erro de busca: posicao invalida ou inexistente entre as listas com esse item!");
 		}
-		
+
 		return listaSaidaOrdenada.get(posicaoLista).getDescritorComData();
 	}
 
@@ -545,26 +554,26 @@ public class Controller {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na compra de item: descritor nao pode ser vazio ou nulo.");
 		}
-		
+
 		if (!this.itens.containsKey(itemId)) {
 			throw new IllegalArgumentException("Erro na compra de item: item nao existe no sistema.");
 		}
-		
+
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na compra de item: Lista nao cadastrada");
 		}
 
 	}
-	
-	private void validaLista(String descritorLista){
+
+	private void validaLista(String descritorLista) {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na compra de item: descritor nao pode ser vazio ou nulo.");
 		}
-		
+
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na compra de item: Lista nao cadastrada");
 		}
-		
+
 	}
 
 	private String adicionaDataFormatada() {
@@ -574,10 +583,10 @@ public class Controller {
 
 		return formatador.format(data);
 	}
-	
+
 	// Apenas para testes
 	public void setData(String nomeLista, String novaData) {
 		this.listasDeCompras.get(nomeLista).setData(novaData);
 	}
-		
+
 }
