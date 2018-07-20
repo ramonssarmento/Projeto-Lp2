@@ -20,7 +20,7 @@ public class OrdenaListaDescritorEData implements Comparator<ListaOrdenavel> {
 		int ano1 = Integer.parseInt(data1[2]);
 		int ano2 = Integer.parseInt(data2[2]);
 		
-		return ano1 < ano2 ? -1 : ano1 > ano2 ? 1 : mes1 < mes2 ? -1 : mes1 > mes2 ? 1 : dia1 < dia2 ? -1 : dia1 > dia2 ? 1 : descritor1.compareTo(descritor2);
+		return ano1 < ano2 ? -1 : ano1 > ano2 ? 1 : mes1 < mes2 ? -1 : mes1 > mes2 ? 1 : dia1 < dia2 ? -1 : dia1 > dia2 ? 1 : descritor1.toLowerCase().compareTo(descritor2.toLowerCase());
 	}
 
 }

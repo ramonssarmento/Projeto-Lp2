@@ -20,6 +20,7 @@ import classes.ListaDeCompras;
 import classes.SuperMercado;
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
+import interfaces.OrdenaStrings;
 import interfaces.OrdenaListaDescritorEData;
 
 /**
@@ -282,7 +283,7 @@ public class Controller {
 
 	public String adicionaListaDeCompras(String descritorLista) {
 		validaAdicionaLista(descritorLista);
-		String data = adicionaDataFormatada();
+		String data = dataAtual();
 		ListaDeCompras lista = new ListaDeCompras(descritorLista, data);
 
 		this.listasDeCompras.put(descritorLista, lista);
@@ -291,29 +292,31 @@ public class Controller {
 	}
 
 	public String pesquisaListaDeCompras(String descritorLista) {
+		validaPesquisaListaDeCompras(descritorLista);
+		
 		return descritorLista;
 	}
 
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
-		validaCompraELista(descritorLista, itemId);
+		validaCompraDeItem(descritorLista, itemId);
 
 		Item item = this.itens.get(itemId);
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
-		lista.criaProdutoLista(item, quantidade);
+		lista.adicionaProdutoNaLista(item, quantidade);
 	}
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
-		validaLista(descritorLista);
-
+		validaFinalizaLista(descritorLista);
+		
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
 		lista.finalizarLista(localDaCompra, valorFinalDaCompra);
 	}
 
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
-		validaCompraELista(descritorLista, itemId);
-
+		validaItemPesquisaCompraLista(itemId, descritorLista);
+		
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
 		return lista.pesquisaCompraEmLista(itemId);
@@ -321,7 +324,7 @@ public class Controller {
 	}
 
 	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
-		validaCompraELista(descritorLista, itemId);
+		validaAtualizaCompraDeLista(descritorLista, itemId);
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
@@ -329,7 +332,6 @@ public class Controller {
 	}
 
 	public String getItemLista(String descritorLista, int itemPosicao) {
-		validaLista(descritorLista);
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
@@ -338,7 +340,7 @@ public class Controller {
 	}
 
 	public void deletaCompraDeLista(String descritorLista, int itemId) {
-		validaCompraELista(descritorLista, itemId);
+		validaExcluirItemDaLista(descritorLista, itemId);
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
@@ -346,14 +348,13 @@ public class Controller {
 	}
 
 	public String imprimirListaDeCompras(String descritorLista) {
-		validaLista(descritorLista);
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
 		return lista.toString();
 	}
 
-	public String buscaListaPorData(String data, int posicaoLista) {
+	public String getItemListaPorData(String data) {
 		String saida = "";
 		SortedSet<String> saidaOrdenada = new TreeSet<String>();
 
@@ -373,7 +374,28 @@ public class Controller {
 
 		return saida.trim();
 	}
+	
+	public String getItemListaPorData(String data, int posicaoLista) {
+		String saida = "";
+		List<String> saidaOrdenada = new ArrayList<>();
+		
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (data.equals(lista.getData())) {
+				saidaOrdenada.add(lista.getDescritor());
+			}
+		}
+		
+		Collections.sort(saidaOrdenada, new OrdenaStrings());
 
+		if (posicaoLista < 0 || posicaoLista > saidaOrdenada.size()) {
+			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na posicao informada!");
+		}
+		
+		saida = saidaOrdenada.get(posicaoLista);
+		return saida;
+	}
+
+	
 	/**
 	 * Esse método serve para pesquisar listas que possuem um determinado item.
 	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas
@@ -396,7 +418,7 @@ public class Controller {
 		}
 
 		if (listaSaidaOrdenada.size() == 0) {
-			throw new IllegalArgumentException("Erro de busca: nao existem listas com esse item!");
+			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
 		}
 
 		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
@@ -441,9 +463,9 @@ public class Controller {
 
 		if (posicaoLista < 0 || posicaoLista > listaSaidaOrdenada.size()) {
 			throw new IllegalArgumentException(
-					"Erro de busca: posicao invalida ou inexistente entre as listas com esse item!");
+					"Erro na pesquisa de compra: compra nao encontrada na lista.");
 		}
-
+		
 		return listaSaidaOrdenada.get(posicaoLista).getDescritorComData();
 	}
 
@@ -550,7 +572,7 @@ public class Controller {
 		}
 	}
 
-	private void validaCompraELista(String descritorLista, int itemId) {
+	private void validaCompraDeItem(String descritorLista, int itemId) {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na compra de item: descritor nao pode ser vazio ou nulo.");
 		}
@@ -564,29 +586,70 @@ public class Controller {
 		}
 
 	}
-
-	private void validaLista(String descritorLista) {
-		if (descritorLista == null || descritorLista.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro na compra de item: descritor nao pode ser vazio ou nulo.");
+	
+	private void validaItemPesquisaCompraLista(int itemId, String descritorLista) {
+		
+		if (!this.itens.containsKey(itemId)) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: item id invalido.");
 		}
-
+		
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+		}
+		
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na compra de item: Lista nao cadastrada");
 		}
+		
+	}
+	
+	private void validaExcluirItemDaLista(String descritorLista, int itemId){
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na exclusao de compra: descritor nao pode ser vazio ou nulo.");
+		}
 
+		if (!this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
+		}
+		
+		if (!this.itens.containsKey(itemId)) {
+			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
+		}
+	}
+	
+	private void validaAtualizaCompraDeLista(String descritorLista, int itemId) {
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na exclusao de compra: descritor nao pode ser vazio ou nulo.");
+		}
+
+		if (!this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
+		}
+	}
+	
+	private void validaFinalizaLista(String descritorLista) {
+		if (descritorLista == null || descritorLista.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na finalizacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		}
+	}
+	
+	private void validaPesquisaListaDeCompras(String descritorLista) {
+		if (descritorLista.equals("") || descritorLista == null) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+		}
+		
+		if (!this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: lista de compras nao existe.");
+		}
 	}
 
-	private String adicionaDataFormatada() {
+
+	public String dataAtual() {
 
 		Date data = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 		return formatador.format(data);
-	}
-
-	// Apenas para testes
-	public void setData(String nomeLista, String novaData) {
-		this.listasDeCompras.get(nomeLista).setData(novaData);
 	}
 
 }

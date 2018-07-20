@@ -29,7 +29,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 
 	}
 
-	private void adicionaProdutoNaLista(Item item, int quantidade) {
+	public void adicionaProdutoNaLista(Item item, int quantidade) {
 		ProdutoLista produto = new ProdutoLista(item, quantidade);
 		int id = produto.getId();
 		if (!this.produtosLista.containsKey(id)) {
@@ -55,6 +55,10 @@ public class ListaDeCompras implements ListaOrdenavel {
 
 	public void atualizaProduto(int itemId, String operacao, int quantidade) {
 
+		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
+			throw new IllegalArgumentException("Erro na atualizacao de compra: operacao invalida para atualizacao.");
+		}
+
 		if (!this.produtosLista.containsKey(itemId)) {
 			throw new IllegalArgumentException("Erro na atualizacao de compra: compra nao encontrada na lista.");
 		}
@@ -76,17 +80,13 @@ public class ListaDeCompras implements ListaOrdenavel {
 			}
 		}
 
-		else {
-			throw new IllegalArgumentException("Operacao invalida!");
-		}
-
 		ordenaSaida();
 	}
 
 	public String pesquisaCompraEmLista(int itemId) {
 
 		if (!this.produtosLista.containsKey(itemId)) {
-			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista");
+			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
 		}
 
 		return this.produtosLista.get(itemId).toString();

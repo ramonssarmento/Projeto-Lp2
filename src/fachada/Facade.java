@@ -98,8 +98,16 @@ public class Facade {
 		return controller.getItemListaPorData(data, posicaoLista);
 	}
 
-	public String getItemListaPorItem(int id, String posicaoLista) {
-		return controller.getItemListaPorItem(id, posicaoLista);
+	public String getItemListaPorItem(int id, int posicaoLista) {
+		return controller.buscaListaPorItem(id, posicaoLista);
+	}
+	
+	public String pesquisaListasDeComprasPorItem(int id) {
+		return controller.buscaListaPorItem(id);
+	}
+	
+	public String dataAtual() {
+		return controller.dataAtual();
 	}
 
 	public static void main(String[] args) {
