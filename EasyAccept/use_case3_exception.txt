@@ -21,7 +21,7 @@ expectError "Erro na atualizacao de compra: compra nao encontrada na lista." atu
 
 ## Atualizacao com operacao invalida ##
 
-expectError "Erro na atualizacao de compra: operacao invalida para atualizacao." atualizaCompraDeLista descritorLista="feira quinzenal" itemId=5 operacao="multiplica" novaQuantidade=5
+expectError "Erro na atualizacao de compra: operacao invalida para atualizacao." atualizaCompraDeLista descritorLista="feira quinzenal" itemId=15 operacao="multiplica" novaQuantidade=5
 
 
 ## Adicionar a lista de compras Itens nao cadastrados ##
