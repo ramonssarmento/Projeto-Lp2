@@ -651,5 +651,16 @@ public class Controller {
 
 		return formatador.format(data);
 	}
+	
+	public void verificaData(String data) {
+		if(data.equals("") || data == null) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+		}
+		
+		String[] dataTeste = data.split("/");
+		if (dataTeste.length != 3 ||  !Character.isDigit((char) dataTeste[0])) {
+			pass
+		}
+	}
 
 }

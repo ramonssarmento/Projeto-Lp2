@@ -41,16 +41,16 @@ public class ListaDeComprasTest {
 		
 		// Criacao da lista.
 		lista = new ListaDeCompras("Feira de sabado", "11/06/2018");
-		lista.criaProdutoLista(item, 4);
-		lista.criaProdutoLista(item2, 2);
-		lista.criaProdutoLista(item3, 3);
-		lista.criaProdutoLista(item4, 2);
-		lista.criaProdutoLista(item5, 2);
-		lista.criaProdutoLista(item6, 2);
-		lista.criaProdutoLista(item7, 6);
-		lista.criaProdutoLista(item8, 1);
-		lista.criaProdutoLista(item9, 7);
-		lista.criaProdutoLista(item10, 4);
+		lista.adicionaProdutoNaLista(item, 4);
+		lista.adicionaProdutoNaLista(item2, 2);
+		lista.adicionaProdutoNaLista(item3, 3);
+		lista.adicionaProdutoNaLista(item4, 2);
+		lista.adicionaProdutoNaLista(item5, 2);
+		lista.adicionaProdutoNaLista(item6, 2);
+		lista.adicionaProdutoNaLista(item7, 6);
+		lista.adicionaProdutoNaLista(item8, 1);
+		lista.adicionaProdutoNaLista(item9, 7);
+		lista.adicionaProdutoNaLista(item10, 4);
 	}
 	
 	@Test

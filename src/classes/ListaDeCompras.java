@@ -30,7 +30,9 @@ public class ListaDeCompras implements ListaOrdenavel {
 	}
 
 	public void adicionaProdutoNaLista(Item item, int quantidade) {
+		
 		ProdutoLista produto = new ProdutoLista(item, quantidade);
+		
 		int id = produto.getId();
 		if (!this.produtosLista.containsKey(id)) {
 			this.produtosLista.put(id, produto);
