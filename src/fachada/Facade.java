@@ -101,20 +101,36 @@ public class Facade {
 	public String getItemListaPorItem(int id, int posicaoLista) {
 		return controller.buscaListaPorItem(id, posicaoLista);
 	}
-	
+
 	public String pesquisaListasDeComprasPorItem(int id) {
 		return controller.buscaListaPorItem(id);
 	}
-	
+
+	public String pesquisaListasDeComprasPorData(String data) {
+		return controller.pesquisaListasDeComprasPorData(data);
+	}
+
 	public String dataAtual() {
 		return controller.dataAtual();
+	}
+
+	public String geraAutomaticaUltimaLista() {
+		return controller.geraAutomaticaUltimaLista();
+	}
+
+	public String geraAutomaticaItem(String descritorItem) {
+		return controller.geraAutomaticaItem(descritorItem);
+	}
+
+	public String geraAutomaticaItensMaisPresentes() {
+		return controller.geraAutomaticaItensMaisPresentes();
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",
 				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt", "EasyAccept/use_case3.txt",
-				"EasyAccept/use_case3_exception.txt", "EasyAccept/use_case4.txt",
-				"EasyAccept/use_case4_exception.txt" };
+				"EasyAccept/use_case3_exception.txt", "EasyAccept/use_case4.txt", "EasyAccept/use_case4_exception.txt",
+				"EasyAccept/use_case5.txt" };
 		EasyAccept.main(args);
 	}
 }

@@ -1,17 +1,14 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedMap;
 
 import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
-import javafx.collections.transformation.SortedList;
 
 public class ListaDeCompras implements ListaOrdenavel {
 

@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.swing.JLabel;
-
 import classes.Item;
 import classes.ItemQtd;
 import classes.ItemQuilo;
@@ -20,8 +18,8 @@ import classes.ListaDeCompras;
 import classes.SuperMercado;
 import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
-import interfaces.OrdenaStrings;
 import interfaces.OrdenaListaDescritorEData;
+import interfaces.OrdenaStrings;
 
 /**
  * Classe controladora do sistema, que permite adicionar os itens em suas
@@ -293,7 +291,7 @@ public class Controller {
 
 	public String pesquisaListaDeCompras(String descritorLista) {
 		validaPesquisaListaDeCompras(descritorLista);
-		
+
 		return descritorLista;
 	}
 
@@ -308,7 +306,7 @@ public class Controller {
 
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
 		validaFinalizaLista(descritorLista);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
 		lista.finalizarLista(localDaCompra, valorFinalDaCompra);
@@ -316,7 +314,7 @@ public class Controller {
 
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
 		validaItemPesquisaCompraLista(itemId, descritorLista);
-		
+
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
 
 		return lista.pesquisaCompraEmLista(itemId);
@@ -374,28 +372,27 @@ public class Controller {
 
 		return saida.trim();
 	}
-	
+
 	public String getItemListaPorData(String data, int posicaoLista) {
 		String saida = "";
 		List<String> saidaOrdenada = new ArrayList<>();
-		
+
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (data.equals(lista.getData())) {
 				saidaOrdenada.add(lista.getDescritor());
 			}
 		}
-		
+
 		Collections.sort(saidaOrdenada, new OrdenaStrings());
 
 		if (posicaoLista < 0 || posicaoLista > saidaOrdenada.size()) {
 			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na posicao informada!");
 		}
-		
+
 		saida = saidaOrdenada.get(posicaoLista);
 		return saida;
 	}
 
-	
 	/**
 	 * Esse método serve para pesquisar listas que possuem um determinado item.
 	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas
@@ -409,7 +406,7 @@ public class Controller {
 	 */
 
 	public String buscaListaPorItem(int itemId) {
-		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
+		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList<ListaDeCompras>();
 
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (lista.getExistenciaDeItem(itemId)) {
@@ -447,7 +444,7 @@ public class Controller {
 	 */
 
 	public String buscaListaPorItem(int itemId, int posicaoLista) {
-		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList();
+		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList<ListaDeCompras>();
 
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (lista.getExistenciaDeItem(itemId)) {
@@ -462,11 +459,34 @@ public class Controller {
 		Collections.sort(listaSaidaOrdenada, new OrdenaListaDescritorEData());
 
 		if (posicaoLista < 0 || posicaoLista > listaSaidaOrdenada.size()) {
-			throw new IllegalArgumentException(
-					"Erro na pesquisa de compra: compra nao encontrada na lista.");
+			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
 		}
-		
+
 		return listaSaidaOrdenada.get(posicaoLista).getDescritorComData();
+	}
+
+	public String pesquisaListasDeComprasPorData(String data) {
+		// TODO Auto-generated method stub
+		if (data == null || data.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+		}
+		// so para passar
+		throw new IllegalArgumentException("Erro na pesquisa de compra: data em formato invalido, tente dd/MM/yyyy");
+	}
+
+	public String geraAutomaticaUltimaLista() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String geraAutomaticaItem(String descritorItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String geraAutomaticaItensMaisPresentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -586,24 +606,24 @@ public class Controller {
 		}
 
 	}
-	
+
 	private void validaItemPesquisaCompraLista(int itemId, String descritorLista) {
-		
+
 		if (!this.itens.containsKey(itemId)) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: item id invalido.");
 		}
-		
+
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
 		}
-		
+
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na compra de item: Lista nao cadastrada");
 		}
-		
+
 	}
-	
-	private void validaExcluirItemDaLista(String descritorLista, int itemId){
+
+	private void validaExcluirItemDaLista(String descritorLista, int itemId) {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na exclusao de compra: descritor nao pode ser vazio ou nulo.");
 		}
@@ -611,12 +631,12 @@ public class Controller {
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
 		}
-		
+
 		if (!this.itens.containsKey(itemId)) {
 			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
 		}
 	}
-	
+
 	private void validaAtualizaCompraDeLista(String descritorLista, int itemId) {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na exclusao de compra: descritor nao pode ser vazio ou nulo.");
@@ -626,23 +646,23 @@ public class Controller {
 			throw new IllegalArgumentException("Erro na exclusao de compra: item nao existe no sistema.");
 		}
 	}
-	
+
 	private void validaFinalizaLista(String descritorLista) {
 		if (descritorLista == null || descritorLista.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro na finalizacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+			throw new IllegalArgumentException(
+					"Erro na finalizacao de lista de compras: descritor nao pode ser vazio ou nulo.");
 		}
 	}
-	
+
 	private void validaPesquisaListaDeCompras(String descritorLista) {
 		if (descritorLista.equals("") || descritorLista == null) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
 		}
-		
+
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: lista de compras nao existe.");
 		}
 	}
-
 
 	public String dataAtual() {
 
