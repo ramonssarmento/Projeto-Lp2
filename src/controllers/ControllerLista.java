@@ -205,6 +205,15 @@ public class ControllerLista {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean verificaPresencaDeLista(String descritorLista) {
+		
+		if (this.listasDeCompras.containsKey(descritorLista)) {
+			return true;
+		}
+		
+		return false;
+	}
 
 
 }

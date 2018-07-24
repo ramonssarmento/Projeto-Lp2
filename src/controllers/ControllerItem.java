@@ -17,7 +17,7 @@ import interfaces.OrdenaItemMenorPreco;
  * respectivas categorias, exibi-los, atualizar/deletar, recuperar informacoes.
  */	
 
-public class ItemController {
+public class ControllerItem {
 	private int id;
 	private HashMap<Integer, Item> itens;
 	
@@ -25,7 +25,7 @@ public class ItemController {
 	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
 	 * armazenado os itens
 	 */
-	public ItemController() {
+	public ControllerItem() {
 		this.id = 0;
 		this.itens = new HashMap<>();
 	}
@@ -258,6 +258,23 @@ public class ItemController {
 		return novaLista.get(posicao).toString();
 	}
 	
+	public boolean verificaPresencaItem(Item item) {
+		
+		if (this.itens.containsValue(item)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean verificaPresencaItem(int id) {
+		
+		if (this.itens.containsKey(id)) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 }
