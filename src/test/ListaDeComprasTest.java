@@ -40,7 +40,7 @@ public class ListaDeComprasTest {
 		item10 = new ItemUnidade(3, "Esponja", "limpeza", 1, "Carrefulto", 2.0);
 
 		// Criacao da lista.
-		lista = new ListaDeCompras(1, "Feira de sabado", "11/06/2018");
+		lista = new ListaDeCompras("Feira de sabado", "11/06/2018");
 		lista.adicionaProdutoNaLista(item, 4);
 		lista.adicionaProdutoNaLista(item2, 2);
 		lista.adicionaProdutoNaLista(item3, 3);

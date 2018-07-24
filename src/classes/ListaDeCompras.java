@@ -16,10 +16,8 @@ public class ListaDeCompras implements ListaOrdenavel {
 	private HashMap<Integer, ProdutoLista> produtosLista;
 	private ArrayList<String> saidaOrdenada;
 	private double valorFinal;
-	private int id;
 
-	public ListaDeCompras(int id, String descritor, String data) {
-		this.id = id;
+	public ListaDeCompras(String descritor, String data) {
 		this.descritor = descritor;
 		this.data = data;
 		this.produtosLista = new HashMap<>();
