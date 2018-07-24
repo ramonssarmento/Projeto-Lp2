@@ -16,9 +16,10 @@ public class ListaDeCompras implements ListaOrdenavel {
 	private HashMap<Integer, ProdutoLista> produtosLista;
 	private ArrayList<String> saidaOrdenada;
 	private double valorFinal;
+	private int id;
 
-	public ListaDeCompras(String descritor, String data) {
-
+	public ListaDeCompras(int id, String descritor, String data) {
+		this.id = id;
 		this.descritor = descritor;
 		this.data = data;
 		this.produtosLista = new HashMap<>();
@@ -121,6 +122,10 @@ public class ListaDeCompras implements ListaOrdenavel {
 
 	public String getData() {
 		return this.data;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	public String getDescritorComData() {
