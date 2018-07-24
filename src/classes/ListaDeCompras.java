@@ -122,10 +122,6 @@ public class ListaDeCompras implements ListaOrdenavel {
 		return this.data;
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
 	public String getDescritorComData() {
 		return String.format("%s - %s", this.data, this.descritor);
 	}
