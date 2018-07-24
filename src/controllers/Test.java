@@ -3,6 +3,7 @@ package controllers;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import classes.Item;
 import classes.SuperMercado;
 
 public class Test {
@@ -26,6 +27,146 @@ public class Test {
 		
 		return id;
 	}
+	
+	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
+		
+		int id = controleItem.adicionaItemPorQuilo(nome, categoria, kg, localDeCompra, preco);
+		
+		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
+		
+		return id;
+	}
+	
+	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
+		
+		int id = controleItem.adicionaItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
+		
+		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
+		
+		return id;
+	}
+	
+	public String exibeItem(int id) {
+		validaListagem(id);
+		
+		return controleItem.exibeItem(id);
+	}
+	
+	public void atualizaItem(int id, String atributo, String novoValor) {
+		validaAtualizacao(id);
+		
+		controleItem.atualizaItem(id, atributo, novoValor);
+	}
+	
+	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
+		validaCadastroPreco(id);
+		
+		controleItem.adicionaPrecoItem(id, localDeCompra, preco);
+	}
+	
+	public void deletaItem(int id) {
+		validaDeletaItem(id);
+		
+		controleItem.deletaItem(id);
+	}
+	
+	public String getItem(int posicao) {
+		
+		return controleItem.getItem(posicao);
+	}
+	
+	public String getItemPorCategoria(String categoria, int posicao) {
+		verificaCategoria(categoria);
+		
+		return controleItem.getItemPorCategoria(categoria, posicao);
+	}	
+	
+	public String getItemPorMenorPreco(int posicao) {
+		
+		return controleItem.getItemPorMenorPreco(posicao);
+	}
+	
+	public String getItemPorPesquisa(String strPesquisada, int posicao) {
+		
+		return controleItem.getItemPorPesquisa(strPesquisada, posicao);
+	}
+	
+	public String adicionaListaDeCompras(String descritorLista) {
+		validaAdicionaLista(descritorLista);
+		String data = null;//
+		
+		return controleListas.adicionaListaDeCompras(descritorLista, data);
+	}
+	
+	public String pesquisaListaDeCompras(String descritorLista) {
+		validaPesquisaListaDeCompras(descritorLista);
+
+		return controleListas.pesquisaListaDeCompras(descritorLista);
+	}
+
+	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
+		validaCompraDeItem(descritorLista, itemId);
+		
+		Item item = controleItem.retornaItem(itemId);
+		controleListas.adicionaCompraALista(descritorLista, quantidade, item);
+	}
+	
+	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
+		validaFinalizaLista(descritorLista);
+		
+		controleListas.finalizarListaDeCompras(descritorLista, localDaCompra, valorFinalDaCompra);
+	}
+	
+	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
+		validaItemPesquisaCompraLista(itemId, descritorLista);
+		
+		return controleListas.pesquisaCompraEmLista(descritorLista, itemId);
+	}
+	
+	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
+		validaAtualizaCompraDeLista(descritorLista, itemId);
+		
+		controleListas.atualizaCompraDeLista(descritorLista, itemId, operacao, quantidade);
+	}
+	
+	public String getItemLista(String descritorLista, int itemPosicao) {
+		
+		return controleListas.getItemLista(descritorLista, itemPosicao);
+	}
+	
+	public void deletaCompraDeLista(String descritorLista, int itemId) {
+		validaExcluirItemDaLista(descritorLista, itemId);
+		
+		controleListas.deletaCompraDeLista(descritorLista, itemId);
+	}
+	
+	public String imprimirListaDeCompras(String descritorLista) {
+		
+		return controleListas.imprimirListaDeCompras(descritorLista);
+	}
+	
+	public String getListaPorData(String data, int posicaoLista) {
+		verificaData(data);
+		
+		return controleListas.getListaPorData(data, posicaoLista);
+	}
+	
+	public String buscaListasPorItem(int itemId) {
+		
+		return controleListas.buscaListasPorItem(itemId);
+	}
+	
+	public String buscaListaPorItem(int itemId, int posicaoLista) {
+		
+		return controleListas.buscaListaPorItem(itemId, posicaoLista);
+	}
+	
+	public String pesquisaListasDeComprasPorData(String data) {
+		
+		return controleListas.pesquisaListasDeComprasPorData(data);
+	}
+	
+	
 	
 	/**
 	 * Lanca exececoes para verificar identificador unico do item
@@ -160,6 +301,12 @@ public class Test {
 
 		if (!controleListas.verificaPresencaDeLista(descritorLista)) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: lista de compras nao existe.");
+		}
+	}
+	
+	private void validaDeletaItem(int id) {
+		if (!controleItem.verificaPresencaItem(id)) {
+			throw new IllegalArgumentException("Erro ao deletar item: esse item nao existe");
 		}
 	}
 

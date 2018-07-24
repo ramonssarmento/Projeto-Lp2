@@ -276,5 +276,10 @@ public class ControllerItem {
 		return false;
 	}
 	
+	public Item retornaItem(int id) {
+		
+		return this.itens.get(id);
+	}
+	
 	
 }

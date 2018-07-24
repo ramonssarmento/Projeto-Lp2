@@ -206,6 +206,7 @@ public class Controller {
 	 * @return representaçao em string do item
 	 */
 	public String getItem(int posicao) {
+		
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
 		}

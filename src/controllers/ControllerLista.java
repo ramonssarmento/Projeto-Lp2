@@ -86,7 +86,7 @@ public class ControllerLista {
 		return lista.toString();
 	}
 
-	public String getItemListaPorData(String data, int posicaoLista) {
+	public String getListaPorData(String data, int posicaoLista) {
 
 		String saida = "";
 		List<String> saidaOrdenada = new ArrayList<>();
@@ -119,7 +119,7 @@ public class ControllerLista {
 	 * @return - Representação textual das datas e dos descritores das listas.
 	 */
 
-	public String buscaListaPorItem(int itemId) {
+	public String buscaListasPorItem(int itemId) {
 		List<ListaDeCompras> listaSaidaOrdenada = new LinkedList<ListaDeCompras>();
 
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
