@@ -14,15 +14,15 @@ import interfaces.OrdenaListaDescritorEData;
 import interfaces.OrdenaStrings;
 
 public class ControllerLista {
-	
+
 	private HashMap<String, ListaDeCompras> listasDeCompras;
-	
+
 	public ControllerLista() {
-		this.listasDeCompras = listasDeCompras;
+		this.listasDeCompras = new HashMap<>();
 	}
-	
+
 	public String adicionaListaDeCompras(String descritorLista, String data) {
-	
+
 		ListaDeCompras lista = new ListaDeCompras(descritorLista, data);
 
 		this.listasDeCompras.put(descritorLista, lista);
@@ -215,5 +215,14 @@ public class ControllerLista {
 		return false;
 	}
 
+	public String geraAutomaticaItem(String descritorItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String geraAutomaticaItensMaisPresentes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
