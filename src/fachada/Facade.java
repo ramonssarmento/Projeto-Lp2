@@ -95,7 +95,7 @@ public class Facade {
 	}
 
 	public String getItemListaPorData(String data, int posicaoLista) {
-		return controller.getItemListaPorData(data, posicaoLista);
+		return controller.getListaPorData(data, posicaoLista);
 	}
 
 	public String getItemListaPorItem(int id, int posicaoLista) {
@@ -103,7 +103,7 @@ public class Facade {
 	}
 
 	public String pesquisaListasDeComprasPorItem(int id) {
-		return controller.buscaListaPorItem(id);
+		return controller.buscaListasPorItem(id);
 	}
 
 	public String pesquisaListasDeComprasPorData(String data) {

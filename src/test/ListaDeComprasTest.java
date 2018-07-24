@@ -40,7 +40,7 @@ public class ListaDeComprasTest {
 		item10 = new ItemUnidade(3, "Esponja", "limpeza", 1, "Carrefulto", 2.0);
 
 		// Criacao da lista.
-		lista = new ListaDeCompras("Feira de sabado", "11/06/2018");
+		lista = new ListaDeCompras("Feira de sabado", "11/06/2018 13:03:45:3343");
 		lista.adicionaProdutoNaLista(item, 4);
 		lista.adicionaProdutoNaLista(item2, 2);
 		lista.adicionaProdutoNaLista(item3, 3);
@@ -52,7 +52,7 @@ public class ListaDeComprasTest {
 		lista.adicionaProdutoNaLista(item9, 7);
 		lista.adicionaProdutoNaLista(item10, 4);
 	}
-
+	
 	@Test
 	public void testToString() {
 		assertEquals("1 Creme dental, higiene pessoal\n" + "6 Papel higienico, higiene pessoal\n"

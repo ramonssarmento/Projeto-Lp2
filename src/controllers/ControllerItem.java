@@ -174,7 +174,7 @@ public class ControllerItem {
 	 *            identificador unico
 	 */
 	public void deletaItem(int id) {
-		// Futuramente colocar um validador de id (n�o possui esse caso)
+		
 		itens.remove(id);
 	}
 	
@@ -186,6 +186,7 @@ public class ControllerItem {
 	 * @return representaçao em string do item
 	 */
 	public String getItem(int posicao) {
+		
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
 		}
@@ -204,6 +205,7 @@ public class ControllerItem {
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
+		
 		List<ItemCompravel> novaLista = new ArrayList<>();
 		for (int id : this.itens.keySet()) {
 			if (this.itens.get(id).getCategoria().equals(categoria)) {
@@ -226,6 +228,7 @@ public class ControllerItem {
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorMenorPreco(int posicao) {
+		
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
 		}
@@ -244,6 +247,7 @@ public class ControllerItem {
 	 * @return a representacao desse item em string
 	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
+		
 		List<ItemCompravel> novaLista = new ArrayList<>();
 		for (int id : this.itens.keySet()) {
 			if (this.itens.get(id).getNome().toLowerCase().contains(strPesquisada.toLowerCase())) {

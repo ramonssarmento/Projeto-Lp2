@@ -12,14 +12,15 @@ import interfaces.OrdenaItemLista;
 
 public class ListaDeCompras implements ListaOrdenavel {
 
-	private String descritor, data, localDeCompra;
+	private String descritor, data, localDeCompra, hora;
 	private HashMap<Integer, ProdutoLista> produtosLista;
 	private ArrayList<String> saidaOrdenada;
 	private double valorFinal;
 
 	public ListaDeCompras(String descritor, String data) {
 		this.descritor = descritor;
-		this.data = data;
+		this.data = data.split(" ")[0];
+		this.hora = data.split(" ")[1];
 		this.produtosLista = new HashMap<>();
 		this.saidaOrdenada = new ArrayList();
 
@@ -123,7 +124,11 @@ public class ListaDeCompras implements ListaOrdenavel {
 	public String getData() {
 		return this.data;
 	}
-
+	
+	public String getHora() {
+		return this.hora;
+	}
+	
 	public String getDescritorComData() {
 		return String.format("%s - %s", this.data, this.descritor);
 	}

@@ -128,7 +128,6 @@ public class ControllerTest {
 	//mas...
 	@Test
 	public void testAbel() {
-		assertEquals("20/07/2018 - Cachaca de Domingo\n" + 
-				"20/07/2018 - Compras da semana", controle.buscaListaPorItem(2));
+		assertEquals("", controle.dataAtual());
 	}
 }
