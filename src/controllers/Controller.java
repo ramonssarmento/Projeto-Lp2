@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -352,28 +352,9 @@ public class Controller {
 		return lista.toString();
 	}
 
-	public String getItemListaPorData(String data) {
-		String saida = "";
-		SortedSet<String> saidaOrdenada = new TreeSet<String>();
-
-		for (ListaDeCompras lista : this.listasDeCompras.values()) {
-			if (data.equals(lista.getData())) {
-				saidaOrdenada.add(lista.getDescritor());
-			}
-		}
-
-		for (String descritor : saidaOrdenada) {
-			saida += descritor + System.lineSeparator();
-		}
-
-		if (saida.equals("")) {
-			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na data informada!");
-		}
-
-		return saida.trim();
-	}
-
 	public String getItemListaPorData(String data, int posicaoLista) {
+		verificaData(data);
+
 		String saida = "";
 		List<String> saidaOrdenada = new ArrayList<>();
 
@@ -466,12 +447,26 @@ public class Controller {
 	}
 
 	public String pesquisaListasDeComprasPorData(String data) {
-		// TODO Auto-generated method stub
-		if (data == null || data.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+		verificaData(data);
+
+		String saida = "";
+		SortedSet<String> saidaOrdenada = new TreeSet<String>();
+
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (data.equals(lista.getData())) {
+				saidaOrdenada.add(lista.getDescritor());
+			}
 		}
-		// so para passar
-		throw new IllegalArgumentException("Erro na pesquisa de compra: data em formato invalido, tente dd/MM/yyyy");
+
+		for (String descritor : saidaOrdenada) {
+			saida += descritor + System.lineSeparator();
+		}
+
+		if (saida.equals("")) {
+			throw new IllegalArgumentException("Erro na busca: nao existem listas criadas na data informada!");
+		}
+
+		return saida.trim();
 	}
 
 	public String geraAutomaticaUltimaLista() {
@@ -587,9 +582,6 @@ public class Controller {
 			throw new IllegalArgumentException(
 					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
 		}
-		if (this.listasDeCompras.containsKey(descritorLista)) {
-			throw new IllegalArgumentException("Erro na criacao de lista de compras: Lista ja cadastrada");
-		}
 	}
 
 	private void validaCompraDeItem(String descritorLista, int itemId) {
@@ -670,6 +662,40 @@ public class Controller {
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 		return formatador.format(data);
+	}
+
+	private void verificaData(String data) {
+
+		if (data == null || data.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+		}
+
+		String[] dataTest = data.split("/");
+
+		if (dataTest.length != 3 || data.length() != 10) {
+
+			throw new IllegalArgumentException(
+					"Erro na pesquisa de compra: data em formato invalido, tente dd/MM/yyyy");
+		}
+
+		try {
+			int dia = Integer.parseInt(dataTest[0]);
+			int mes = Integer.parseInt(dataTest[1]);
+			int ano = Integer.parseInt(dataTest[2]);
+
+			if (dataTest[2].length() != 4) {
+				throw new IllegalArgumentException();
+			}
+
+			if (dia > 31 || dia < 1 || mes < 1 || mes > 12) {
+				throw new IllegalArgumentException();
+			}
+		}
+
+		catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Erro na pesquisa de compra: data em formato invalido, tente dd/MM/yyyy");
+		}
 	}
 
 }
