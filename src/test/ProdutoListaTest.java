@@ -14,7 +14,7 @@ import classes.ProdutoLista;
 public class ProdutoListaTest {
 	private Item produto1, produto2, produto3;
 	private ProdutoLista novoProdutoLista, novoProdutoLista2, novoProdutoLista3;
-
+	
 	@Before
 	public void setUp() {
 		produto1 = new ItemQtd(0, "Algodao", "higiene pessoal", 2, "gramas", "Seu Olavo", 500);
@@ -24,6 +24,7 @@ public class ProdutoListaTest {
 		novoProdutoLista2 = new ProdutoLista(produto2, 5);
 		novoProdutoLista3 = new ProdutoLista(produto3, 1);
 	}
+	
 
 	@Test
 	public void testSetQuantidade() {
@@ -33,27 +34,30 @@ public class ProdutoListaTest {
 
 	@Test
 	public void testGetId() {
-		assertEquals(1, novoProdutoLista2.getId());
+		int identificador = 1;
+		assertEquals(identificador, novoProdutoLista2.getId());
 	}
 
 	@Test
 	public void testGetQuantidade() {
-		assertEquals(2, novoProdutoLista.getQuantidade());
+		int quantidade = 2;
+		assertEquals(quantidade, novoProdutoLista.getQuantidade());
 	}
 
 	@Test
 	public void testToString() {
-		assertEquals("1 Pneu de caminhao, alimento industrializado", novoProdutoLista3.toString());
+		String representacaoTextual = "1 Pneu de caminhao, alimento industrializado";
+		assertEquals(representacaoTextual, novoProdutoLista3.toString());
 	}
-
+	
 	@Test(expected = RuntimeException.class)
 	public void testQuantidade0() {
-		novoProdutoLista = new ProdutoLista(produto1, 0);
+		novoProdutoLista = new ProdutoLista(produto1, 0); 
 	}
-
+	
 	@Test(expected = RuntimeException.class)
 	public void testQuantidadeNegativa() {
-		novoProdutoLista = new ProdutoLista(produto1, -1);
+		novoProdutoLista = new ProdutoLista(produto1, -1); 
 	}
 
 }

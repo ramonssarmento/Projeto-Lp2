@@ -6,10 +6,10 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import Controllers.Controller;
 import classes.ItemQtd;
 import classes.ItemQuilo;
 import classes.ListaDeCompras;
+import controllers.Controller;
 
 public class ControllerTest {
 	private Controller controle;
