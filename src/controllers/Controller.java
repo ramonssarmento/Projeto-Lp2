@@ -94,8 +94,9 @@ public class Controller {
 	public String adicionaListaDeCompras(String descritorLista) {
 		validaAdicionaLista(descritorLista);
 		String data = dataAtual();
+		String hora = horaAtual();
 		
-		return controleListas.adicionaListaDeCompras(descritorLista, data);
+		return controleListas.adicionaListaDeCompras(descritorLista, data, hora);
 	}
 	
 	public String pesquisaListaDeCompras(String descritorLista) {
@@ -169,7 +170,7 @@ public class Controller {
 	
 	public String geraAutomaticaUltimaLista() {
 		
-		return controleListas.geraAutomaticaUltimaLista();
+		return controleListas.geraAutomaticaUltimaLista(dataAtual(), horaAtual());
 	}
 	
 	public String geraAutomaticaItem(String descritorItem) {
@@ -183,11 +184,17 @@ public class Controller {
 	}
 	
 	public String dataAtual() {
-
 		Date data = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss:ms");
-
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+		
 		return formatador.format(data);
+	}
+	
+	private String horaAtual() {
+		Date hora = new Date(System.currentTimeMillis());
+		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:ms");
+		
+		return formatador.format(hora);
 	}
 	
 	/**

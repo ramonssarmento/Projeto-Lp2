@@ -10,6 +10,8 @@ import java.util.TreeSet;
 
 import classes.Item;
 import classes.ListaDeCompras;
+import interfaces.ListaOrdenavel;
+import interfaces.OrdenaDataEHora;
 import interfaces.OrdenaListaDescritorEData;
 import interfaces.OrdenaStrings;
 
@@ -21,15 +23,23 @@ public class ControllerLista {
 		this.listasDeCompras = new HashMap<>();
 	}
 
-	public String adicionaListaDeCompras(String descritorLista, String data) {
+	public String adicionaListaDeCompras(String descritorLista, String data, String hora) {
 
-		ListaDeCompras lista = new ListaDeCompras(descritorLista, data);
+		ListaDeCompras lista = new ListaDeCompras(descritorLista, data, hora);
 
 		this.listasDeCompras.put(descritorLista, lista);
 
 		return descritorLista;
 	}
+	
+	public String adicionaListaDeCompras(ListaDeCompras lista) {
 
+		this.listasDeCompras.put(lista.getDescritor(), lista);
+
+		return lista.getDescritor();
+	}
+
+	
 	public String pesquisaListaDeCompras(String descritorLista) {
 
 		return descritorLista;
@@ -201,9 +211,20 @@ public class ControllerLista {
 		return saida.trim();
 	}
 
-	public String geraAutomaticaUltimaLista() {
-		// TODO Auto-generated method stub
-		return null;
+	public String geraAutomaticaUltimaLista(String data, String hora) {
+		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
+		
+		listaOrdenada.addAll(this.listasDeCompras.values());
+		Collections.sort(listaOrdenada, new OrdenaDataEHora());
+		
+		String descritor = "Lista automatica 1 " + data;
+		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora); 
+		
+		System.out.println(listaOrdenada.get(0).getDescritor());
+		this.adicionaListaDeCompras(lista);
+		
+		return lista.getDescritor();
+		
 	}
 	
 	public boolean verificaPresencaDeLista(String descritorLista) {
@@ -224,5 +245,5 @@ public class ControllerLista {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

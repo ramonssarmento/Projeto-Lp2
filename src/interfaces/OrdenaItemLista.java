@@ -39,7 +39,7 @@ public class OrdenaItemLista implements Comparator<ProdutoListaOrdenavel> {
 			break;
 		}
 
-		return v1 > v2 ? 1 : v1 < v2 ? -1 : o1.getNome().compareTo(o2.getNome());
+		return v1 > v2 ? 1 : v1 < v2 ? -1 : o1.getNome().toLowerCase().compareTo(o2.getNome().toLowerCase());
 
 	}
 

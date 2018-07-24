@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+
 import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
 
@@ -16,14 +17,16 @@ public class ListaDeCompras implements ListaOrdenavel {
 	private HashMap<Integer, ProdutoLista> produtosLista;
 	private ArrayList<String> saidaOrdenada;
 	private double valorFinal;
+	private boolean finalizada;
 
-	public ListaDeCompras(String descritor, String data) {
+	public ListaDeCompras(String descritor, String data, String hora) {
 		this.descritor = descritor;
-		this.data = data.split(" ")[0];
-		this.hora = data.split(" ")[1];
+		this.data = data;
+		this.hora = hora;
 		this.produtosLista = new HashMap<>();
 		this.saidaOrdenada = new ArrayList();
-
+		this.finalizada = false;
+		
 	}
 
 	public void adicionaProdutoNaLista(Item item, int quantidade) {
@@ -31,6 +34,21 @@ public class ListaDeCompras implements ListaOrdenavel {
 		ProdutoLista produto = new ProdutoLista(item, quantidade);
 		
 		int id = produto.getId();
+		if (!this.produtosLista.containsKey(id)) {
+			this.produtosLista.put(id, produto);
+		}
+
+		else {
+			throw new IllegalArgumentException("Esse produto ja foi adicionado!");
+		}
+
+		ordenaSaida();
+	}
+	
+	public void adicionaProdutoNaLista(ProdutoLista produto) {
+		
+		int id = produto.getId();
+		
 		if (!this.produtosLista.containsKey(id)) {
 			this.produtosLista.put(id, produto);
 		}
@@ -108,6 +126,8 @@ public class ListaDeCompras implements ListaOrdenavel {
 			throw new IllegalArgumentException(
 					"Erro na finalizacao de lista de compras: valor final da lista invalido.");
 		}
+		
+		this.finalizada = true;
 		this.localDeCompra = localDaCompra;
 		this.valorFinal = valorFinalDaCompra;
 	}
@@ -120,7 +140,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 	public String getDescritor() {
 		return this.descritor;
 	}
-
+		
 	public String getData() {
 		return this.data;
 	}
@@ -153,12 +173,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 		return saida.trim();
 	}
 
-	// para testes apenas
-	public void setData(String novaData) {
-		this.data = novaData;
-	}
-
-	private void ordenaSaida() {
+	public void ordenaSaida() {
 
 		this.saidaOrdenada.clear();
 		List<ProdutoLista> produtos = new LinkedList<>();
@@ -168,8 +183,17 @@ public class ListaDeCompras implements ListaOrdenavel {
 
 		for (ProdutoLista produto : produtos) {
 			this.saidaOrdenada.add(produto.toString());
-		}
-
+		}		
 	}
-
+	
+    public ListaDeCompras getClone(String descritor, String data, String hora) {
+        
+    	ListaDeCompras lista = new ListaDeCompras(descritor, data, hora);
+    	
+    	for (ProdutoLista produto : this.produtosLista.values()) {
+    		lista.adicionaProdutoNaLista(produto);
+    	}
+    	
+    	return lista;
+    }
 }
