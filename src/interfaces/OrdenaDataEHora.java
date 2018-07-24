@@ -29,8 +29,11 @@ public class OrdenaDataEHora implements Comparator <ListaOrdenavel>{
 		int milesimos2 = Integer.parseInt(hora2[3]);
 		
 		
-		return ano1 > ano2 ? -1 : ano1 < ano2 ? 1 : mes1 > mes2 ? -1 : mes1 < mes2 ? 1 : dia1 > dia2 ? -1 : dia1 < dia2 ? 1 :
-			horas1 > horas2 ? -1 : horas1 < horas2 ? 1 : minutos1 > minutos2 ?
+		return ano1 > ano2 ? -1 : ano1 < ano2 ? 1 : mes1 > mes2 ? -1 : 
+			mes1 < mes2 ? 1 : dia1 > dia2 ? -1 : dia1 < dia2 ? 1 :
+			horas1 > horas2 ? -1 : horas1 < horas2 ? 1 : minutos1 > minutos2 ? -1 : 
+				minutos1 < minutos2 ? 1 : segundos1 > segundos2 ? -1 : segundos1 < segundos2 ? 1 : 
+					milesimos1 > milesimos2 ? -1 : 1;
 	}
 	
 	
