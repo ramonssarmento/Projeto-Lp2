@@ -128,6 +128,6 @@ public class ControllerTest {
 	//mas...
 	@Test
 	public void testAbel() {
-		assertEquals("", controle.dataAtual());
+		assertEquals("", controle.horaAtual());
 	}
 }

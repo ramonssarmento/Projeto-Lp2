@@ -33,7 +33,7 @@ public class OrdenaDataEHora implements Comparator <ListaOrdenavel>{
 			mes1 < mes2 ? 1 : dia1 > dia2 ? -1 : dia1 < dia2 ? 1 :
 			horas1 > horas2 ? -1 : horas1 < horas2 ? 1 : minutos1 > minutos2 ? -1 : 
 				minutos1 < minutos2 ? 1 : segundos1 > segundos2 ? -1 : segundos1 < segundos2 ? 1 : 
-					milesimos1 > milesimos2 ? -1 : 1;
+					milesimos1 > milesimos2 ? -1 : milesimos1 > milesimos2 ? 1 : 0;
 	}
 	
 	

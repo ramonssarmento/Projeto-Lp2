@@ -31,7 +31,7 @@ public class ControllerLista {
 
 		return descritorLista;
 	}
-	
+
 	public String adicionaListaDeCompras(ListaDeCompras lista) {
 
 		this.listasDeCompras.put(lista.getDescritor(), lista);
@@ -39,7 +39,6 @@ public class ControllerLista {
 		return lista.getDescritor();
 	}
 
-	
 	public String pesquisaListaDeCompras(String descritorLista) {
 
 		return descritorLista;
@@ -213,37 +212,50 @@ public class ControllerLista {
 
 	public String geraAutomaticaUltimaLista(String data, String hora) {
 		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
-		
+
 		listaOrdenada.addAll(this.listasDeCompras.values());
 		Collections.sort(listaOrdenada, new OrdenaDataEHora());
-		
+
 		String descritor = "Lista automatica 1 " + data;
-		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora); 
+		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora);
+
+		this.adicionaListaDeCompras(lista);
+
+		return lista.getDescritor();
+
+	}
+
+	public String geraAutomaticaItem(String descritorItem, String data, String hora) {
+		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
 		
-		System.out.println(listaOrdenada.get(0).getDescritor());
+		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+			if (lista.getExistenciaDeItem(descritorItem)) {
+				listaOrdenada.add(lista);
+			}
+		}
+		
+		Collections.sort(listaOrdenada, new OrdenaDataEHora());
+		
+		String descritor = "Lista automatica 2 " + data;
+		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora);
+
 		this.adicionaListaDeCompras(lista);
 		
 		return lista.getDescritor();
-		
-	}
-	
-	public boolean verificaPresencaDeLista(String descritorLista) {
-		
-		if (this.listasDeCompras.containsKey(descritorLista)) {
-			return true;
-		}
-		
-		return false;
-	}
-
-	public String geraAutomaticaItem(String descritorItem) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public String geraAutomaticaItensMaisPresentes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	public boolean verificaPresencaDeLista(String descritorLista) {
+
+		if (this.listasDeCompras.containsKey(descritorLista)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
+import java.util.concurrent.TimeUnit;
 
 import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
@@ -27,6 +27,9 @@ public class ListaDeCompras implements ListaOrdenavel {
 		this.saidaOrdenada = new ArrayList();
 		this.finalizada = false;
 		
+		// Atrasa o funcionamento em 1 Microsegundo, pois estava sendo capaz de gerar mais de uma lista
+		// em um milisegundo, o que dificultava a ordenacao por hora gerada.
+		try {TimeUnit.MICROSECONDS.sleep(1);} catch (InterruptedException e){}
 	}
 
 	public void adicionaProdutoNaLista(Item item, int quantidade) {
@@ -159,6 +162,16 @@ public class ListaDeCompras implements ListaOrdenavel {
 			return true;
 		}
 
+		return false;
+	}
+	
+	public boolean getExistenciaDeItem(String descritor) {
+
+		for (ProdutoLista produto : this.produtosLista.values()) {
+			if (descritor.equals(produto.getNome())) {
+				return true;
+			}
+		}
 		return false;
 	}
 

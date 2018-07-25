@@ -19,8 +19,8 @@ public class ControllerListaTest {
 	@Before
 	public void setUP() {
 		controle = new ControllerLista();
-		controle.adicionaListaDeCompras("Hiperzinho", "14/10/2018", "02:12:12:3698");
-		controle.adicionaListaDeCompras("Mini Box da Ana", "14/10/2018", "02:12:12:3788");
+		controle.adicionaListaDeCompras("Mini Box da Ana", "14/10/2018", "02:12:12:3600");
+		controle.adicionaListaDeCompras("Hiperzinho", "14/10/2018", "02:12:12:3601");
 		
 		item = new ItemQuilo(10, "Carne de boi", "alimento nao industrializado", 2, "Hiper Bom Preco", 4.5);
 		item2 = new ItemQtd(5, "Amendoim", "alimento industrializado", 3, "kg", "Hiper Bom Preco", 4.5);

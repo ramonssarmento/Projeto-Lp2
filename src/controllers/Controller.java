@@ -175,7 +175,7 @@ public class Controller {
 	
 	public String geraAutomaticaItem(String descritorItem) {
 		
-		return controleListas.geraAutomaticaItem(descritorItem);
+		return controleListas.geraAutomaticaItem(descritorItem, dataAtual(), horaAtual());
 	}
 	
 	public String geraAutomaticaItensMaisPresentes() {
@@ -190,9 +190,9 @@ public class Controller {
 		return formatador.format(data);
 	}
 	
-	private String horaAtual() {
+	public String horaAtual() {
 		Date hora = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:ms");
+		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:S");
 		
 		return formatador.format(hora);
 	}
