@@ -227,65 +227,66 @@ public class ControllerLista {
 
 	public String geraAutomaticaItem(String descritorItem, String data, String hora) {
 		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
-		
+
 		for (ListaDeCompras lista : this.listasDeCompras.values()) {
 			if (lista.getExistenciaDeItem(descritorItem)) {
 				listaOrdenada.add(lista);
 			}
 		}
-		
+
 		if (listaOrdenada.size() == 0) {
-			throw new IllegalArgumentException("Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado.");
+			throw new IllegalArgumentException(
+					"Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado.");
 		}
-		
+
 		Collections.sort(listaOrdenada, new OrdenaDataEHora());
-		
+
 		String descritor = "Lista automatica 2 " + data;
 		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora);
 
 		this.adicionaListaDeCompras(lista);
-		
+
 		return lista.getDescritor();
 	}
 
-	public String geraAutomaticaItensMaisPresentes(String data, String hora, HashMap<Integer, Item> IdsEItens, HashMap<Integer, Integer> idsEQuantidades) {
+	public String geraAutomaticaItensMaisPresentes(String data, String hora, HashMap<Integer, Item> IdsEItens,
+			HashMap<Integer, Integer> idsEQuantidades) {
 		ListaDeCompras lista = new ListaDeCompras("Lista automatica 3 " + data, data, hora);
-		
+
 		for (int id : idsEQuantidades.keySet()) {
 			lista.adicionaProdutoNaLista(IdsEItens.get(id), idsEQuantidades.get(id));
 		}
-		
+
 		this.adicionaListaDeCompras(lista);
-		
+
 		return lista.getDescritor();
-		
+
 	}
-	
-	public HashMap<Integer, Integer> geraListaDeIdsEQuantidadesItensMaisRecorrentes(ArrayList<Integer> idsItens){
-		
+
+	public HashMap<Integer, Integer> geraListaDeIdsEQuantidadesItensMaisRecorrentes(ArrayList<Integer> idsItens) {
+
 		HashMap<Integer, Integer> idsParaAdicionar = new HashMap<Integer, Integer>();
 		for (int id : idsItens) {
 			int cont = 0;
 			int meta = (this.listasDeCompras.size() / 2);
 			int quantidade = 0;
-			
+
 			for (ListaDeCompras listaCompras : this.listasDeCompras.values()) {
 				if (listaCompras.getExistenciaDeItem(id)) {
 					cont += 1;
 					quantidade += listaCompras.getQuantidadeItem(id);
 				}
 			}
-			
+
 			quantidade = quantidade > 0 ? Math.floorDiv(quantidade, cont) : 0;
 			if (cont >= meta) {
 				idsParaAdicionar.put(id, quantidade);
 			}
 		}
-		
+
 		return idsParaAdicionar;
-		
+
 	}
-		
 
 	public boolean verificaPresencaDeLista(String descritorLista) {
 
