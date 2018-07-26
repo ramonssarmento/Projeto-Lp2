@@ -125,12 +125,12 @@ public class Facade {
 	public String geraAutomaticaItensMaisPresentes() {
 		return controller.geraAutomaticaItensMaisPresentes();
 	}
-
+	
 	public static void main(String[] args) {
 		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",
 				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt", "EasyAccept/use_case3.txt",
 				"EasyAccept/use_case3_exception.txt", "EasyAccept/use_case4.txt", "EasyAccept/use_case4_exception.txt",
-				"EasyAccept/use_case5.txt" };
+				"EasyAccept/use_case5.txt", "EasyAccept/use_case6.txt", "EasyAccept/use_case6_exception.txt" };
 		EasyAccept.main(args);
 	}
 }

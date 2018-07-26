@@ -101,3 +101,4 @@ expectError "Erro na geracao de lista automatica por item: nao ha compras cadast
 expectError "Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado." geraAutomaticaItem descritorItem="Coentro"
 expectError "Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado." geraAutomaticaItem descritorItem="Agua Sanitaria Drogon"
 expectError "Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado." geraAutomaticaItem descritorItem="Agua Mineral"
+
