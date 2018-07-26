@@ -3,7 +3,6 @@ package classes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -204,7 +203,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 	private void ordenaSaida() {
 
 		this.saidaOrdenada.clear();
-		List<ProdutoLista> produtos = new LinkedList<>();
+		ArrayList<ProdutoLista> produtos = new ArrayList<ProdutoLista>();
 		produtos.addAll(this.produtosLista.values());
 
 		Collections.sort(produtos, new OrdenaItemLista());
