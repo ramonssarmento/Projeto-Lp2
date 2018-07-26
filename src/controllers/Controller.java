@@ -2,6 +2,7 @@ package controllers;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import classes.Item;
 import classes.SuperMercado;
@@ -180,7 +181,10 @@ public class Controller {
 	
 	public String geraAutomaticaItensMaisPresentes() {
 		
-		return controleListas.geraAutomaticaItensMaisPresentes();
+		HashMap<Integer, Integer> idsEQuantidades = controleListas.geraListaDeIdsEQuantidadesItensMaisRecorrentes(controleItem.getIds());
+		HashMap<Integer, Item> idsEItensParaListaAutomatica = controleItem.getItensParaListaAutomatica(idsEQuantidades.keySet());
+		
+		return controleListas.geraAutomaticaItensMaisPresentes(dataAtual(), horaAtual(), idsEItensParaListaAutomatica, idsEQuantidades);
 	}
 	
 	public String dataAtual() {

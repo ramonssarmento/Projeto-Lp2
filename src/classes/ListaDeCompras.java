@@ -157,7 +157,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 	}
 
 	public boolean getExistenciaDeItem(int itemId) {
-
+		
 		if (this.produtosLista.containsKey(itemId)) {
 			return true;
 		}
@@ -174,6 +174,25 @@ public class ListaDeCompras implements ListaOrdenavel {
 		}
 		return false;
 	}
+	
+	public int getQuantidadeItem(int id) {
+		if (!this.getExistenciaDeItem(id)) {
+			throw new IllegalArgumentException("Erro: Esse item nao esta na lista.");
+		}
+		
+		return this.produtosLista.get(id).getQuantidade();
+	}
+	
+	public ListaDeCompras getClone(String descritor, String data, String hora) {
+		
+		ListaDeCompras lista = new ListaDeCompras(descritor, data, hora);
+		
+		for (ProdutoLista produto : this.produtosLista.values()) {
+			lista.adicionaProdutoNaLista(produto);
+		}
+		
+		return lista;
+	}
 
 	public String toString() {
 
@@ -186,7 +205,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 		return saida.trim();
 	}
 
-	public void ordenaSaida() {
+	private void ordenaSaida() {
 
 		this.saidaOrdenada.clear();
 		List<ProdutoLista> produtos = new LinkedList<>();
@@ -199,14 +218,4 @@ public class ListaDeCompras implements ListaOrdenavel {
 		}		
 	}
 	
-    public ListaDeCompras getClone(String descritor, String data, String hora) {
-        
-    	ListaDeCompras lista = new ListaDeCompras(descritor, data, hora);
-    	
-    	for (ProdutoLista produto : this.produtosLista.values()) {
-    		lista.adicionaProdutoNaLista(produto);
-    	}
-    	
-    	return lista;
-    }
 }

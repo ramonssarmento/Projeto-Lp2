@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import classes.Item;
 import classes.ItemQtd;
@@ -13,14 +14,14 @@ import interfaces.ItemCompravel;
 import interfaces.OrdenaItemMenorPreco;
 
 /**
- * Classe controladora dos itens, permite adicionar os itens em suas
- * respectivas categorias, exibi-los, atualizar/deletar, recuperar informacoes.
- */	
+ * Classe controladora dos itens, permite adicionar os itens em suas respectivas
+ * categorias, exibi-los, atualizar/deletar, recuperar informacoes.
+ */
 
 public class ControllerItem {
 	private int id;
 	private HashMap<Integer, Item> itens;
-	
+
 	/**
 	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
 	 * armazenado os itens
@@ -29,7 +30,7 @@ public class ControllerItem {
 		this.id = 0;
 		this.itens = new HashMap<>();
 	}
-	
+
 	/**
 	 * Adiciona um item que tem seu preco calculado por quantidade ao mapa de itens,
 	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
@@ -59,11 +60,10 @@ public class ControllerItem {
 		this.id++;
 		this.itens.put(this.id, novoItem);
 
-
 		return this.id;
 
 	}
-	
+
 	/**
 	 * Adiciona um item que tem seu preco calculado por quilo ao mapa de itens,
 	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
@@ -90,11 +90,10 @@ public class ControllerItem {
 		this.id++;
 		this.itens.put(this.id, novoItem);
 
-
 		return this.id;
 
 	}
-	
+
 	/**
 	 * Adiciona um item que tem seu preco calculado por unidade ao mapa, depois de
 	 * ter verifacado as excecoes, para saber se a aquisição do novo item era
@@ -121,11 +120,10 @@ public class ControllerItem {
 		this.id++;
 		this.itens.put(this.id, novoItem);
 
-
 		return this.id;
 
 	}
-	
+
 	/**
 	 * Exibe um item a partir de seu identificador
 	 * 
@@ -174,10 +172,10 @@ public class ControllerItem {
 	 *            identificador unico
 	 */
 	public void deletaItem(int id) {
-		
+
 		itens.remove(id);
 	}
-	
+
 	/**
 	 * Recupera um item presente no mapa de itens
 	 * 
@@ -186,7 +184,7 @@ public class ControllerItem {
 	 * @return representaçao em string do item
 	 */
 	public String getItem(int posicao) {
-		
+
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
 		}
@@ -205,7 +203,7 @@ public class ControllerItem {
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
-		
+
 		List<ItemCompravel> novaLista = new ArrayList<>();
 		for (int id : this.itens.keySet()) {
 			if (this.itens.get(id).getCategoria().equals(categoria)) {
@@ -219,7 +217,7 @@ public class ControllerItem {
 		Collections.sort(novaLista);
 		return novaLista.get(posicao).toString();
 	}
-	
+
 	/**
 	 * Recupera uma lista com os itens de menor precos disponiveis no mapa de itens
 	 * 
@@ -228,7 +226,7 @@ public class ControllerItem {
 	 * @return a representacao dessa lista em string
 	 */
 	public String getItemPorMenorPreco(int posicao) {
-		
+
 		if (posicao >= itens.size() || posicao < 0) {
 			return "";
 		}
@@ -247,7 +245,7 @@ public class ControllerItem {
 	 * @return a representacao desse item em string
 	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
-		
+
 		List<ItemCompravel> novaLista = new ArrayList<>();
 		for (int id : this.itens.keySet()) {
 			if (this.itens.get(id).getNome().toLowerCase().contains(strPesquisada.toLowerCase())) {
@@ -261,29 +259,51 @@ public class ControllerItem {
 		Collections.sort(novaLista);
 		return novaLista.get(posicao).toString();
 	}
-	
+
 	public boolean verificaPresencaItem(Item item) {
-		
+
 		if (this.itens.containsValue(item)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public boolean verificaPresencaItem(int id) {
-		
+
 		if (this.itens.containsKey(id)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public Item retornaItem(int id) {
-		
+
 		return this.itens.get(id);
 	}
-	
-	
+
+	public ArrayList<Integer> getIds() {
+
+		ArrayList<Integer> ids = new ArrayList<Integer>(this.itens.keySet());
+
+		return ids;
+
+	}
+
+	public HashMap<Integer, Item> getItensParaListaAutomatica(Set<Integer> ids) {
+		HashMap<Integer, Item> itensListaAutomatica = new HashMap<Integer, Item>();
+
+		for (int id : ids) {
+			if (!this.verificaPresencaItem(id)) {
+				throw new IllegalArgumentException("Erro: Esse Item nao Existe.");
+			}
+
+			itensListaAutomatica.put(id, this.itens.get(id));
+		}
+
+		return itensListaAutomatica;
+
+	}
+
 }
