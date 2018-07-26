@@ -39,7 +39,7 @@ public class ControllerListaTest {
 	public void testaCriaUltimaListaAutomatica() {
 		controle.geraAutomaticaUltimaLista("15/10/2018", "08:12:12:3699");
 
-		assertEquals("", controle.getItemLista("Lista automatica 1 15/10/2018", 1));
+		assertEquals("3 Carne de boi, alimento nao industrializado", controle.getItemLista("Lista automatica 1 15/10/2018", 0));
 	}
 
 	@Test

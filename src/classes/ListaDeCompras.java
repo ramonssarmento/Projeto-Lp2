@@ -25,11 +25,7 @@ public class ListaDeCompras implements ListaOrdenavel {
 		this.hora = hora;
 		this.produtosLista = new HashMap<>();
 		this.saidaOrdenada = new ArrayList();
-		this.finalizada = false;
-		
-		// Atrasa o funcionamento em 1 Microsegundo, pois estava sendo capaz de gerar mais de uma lista
-		// em um milisegundo, o que dificultava a ordenacao por hora gerada.
-		try {TimeUnit.MICROSECONDS.sleep(1);} catch (InterruptedException e){}
+		this.finalizada = false;		
 	}
 
 	public void adicionaProdutoNaLista(Item item, int quantidade) {

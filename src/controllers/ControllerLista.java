@@ -3,8 +3,11 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -17,10 +20,10 @@ import interfaces.OrdenaStrings;
 
 public class ControllerLista {
 
-	private HashMap<String, ListaDeCompras> listasDeCompras;
+	private LinkedHashMap<String, ListaDeCompras> listasDeCompras;
 
 	public ControllerLista() {
-		this.listasDeCompras = new HashMap<>();
+		this.listasDeCompras = new LinkedHashMap<>();
 	}
 
 	public String adicionaListaDeCompras(String descritorLista, String data, String hora) {
@@ -211,13 +214,18 @@ public class ControllerLista {
 	}
 
 	public String geraAutomaticaUltimaLista(String data, String hora) {
-		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
-
-		listaOrdenada.addAll(this.listasDeCompras.values());
-		Collections.sort(listaOrdenada, new OrdenaDataEHora());
-
+		
+		
+		Set<String> chaves = this.listasDeCompras.keySet();
+		Iterator<String>  it = chaves.iterator();
+		
+		String key = null;
+		while(it.hasNext()) {
+			key = it.next();	
+		}
+		
 		String descritor = "Lista automatica 1 " + data;
-		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora);
+		ListaDeCompras lista = this.listasDeCompras.get(key).getClone(descritor, data, hora);
 
 		this.adicionaListaDeCompras(lista);
 
@@ -226,27 +234,32 @@ public class ControllerLista {
 	}
 
 	public String geraAutomaticaItem(String descritorItem, String data, String hora) {
-		ArrayList<ListaOrdenavel> listaOrdenada = new ArrayList<>();
-
-		for (ListaDeCompras lista : this.listasDeCompras.values()) {
+		Set<String> chaves = this.listasDeCompras.keySet();
+		Iterator<String> it = chaves.iterator();
+		String key = null;
+		ListaDeCompras ultimaListaComItem = null;
+		
+		while (it.hasNext()) {
+			key = it.next(); 
+			ListaDeCompras lista = this.listasDeCompras.get(key);
+			
 			if (lista.getExistenciaDeItem(descritorItem)) {
-				listaOrdenada.add(lista);
+				ultimaListaComItem = lista;
 			}
 		}
 
-		if (listaOrdenada.size() == 0) {
+		if (ultimaListaComItem == null) {
 			throw new IllegalArgumentException(
 					"Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado.");
 		}
 
-		Collections.sort(listaOrdenada, new OrdenaDataEHora());
 
 		String descritor = "Lista automatica 2 " + data;
-		ListaDeCompras lista = listaOrdenada.get(0).getClone(descritor, data, hora);
+		ListaDeCompras listaSaida = ultimaListaComItem.getClone(descritor, data, hora);
 
-		this.adicionaListaDeCompras(lista);
+		this.adicionaListaDeCompras(listaSaida);
 
-		return lista.getDescritor();
+		return listaSaida.getDescritor();
 	}
 
 	public String geraAutomaticaItensMaisPresentes(String data, String hora, HashMap<Integer, Item> IdsEItens,
