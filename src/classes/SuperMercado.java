@@ -67,4 +67,20 @@ public class SuperMercado {
 		return retorno;
 
 	}
+	
+	/**
+	 * Metodo responsavel para verificar se existe produto no supermercado
+	 * 
+	 * @param id, recebe o id(inteiro) representativo de um produto.
+	 * @return
+	 * 		boolean, true caso tenha, caso contrário, false.
+	 */
+	public boolean verificaExistProduto(int id) {
+		for(Integer ids: produtos.keySet()) {
+			if(id == ids) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

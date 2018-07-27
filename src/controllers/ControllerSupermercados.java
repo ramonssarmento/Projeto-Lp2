@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import classes.SuperMercado;
@@ -46,5 +47,22 @@ public class ControllerSupermercados {
 			this.superMercados.put(localDeCompra, superMercado);
 			this.superMercados.get(localDeCompra).adicionarItem(id, preco);
 		}
+	}
+	
+	public String sugereMelhorSuperMercado(ArrayList<Integer> ids) {
+		
+		return "";
+		
+	}
+	/**
+	 * Metodo privado responsavel por verificar, a partir de uma lista de Id's, se existe algum produto da lista nos supermecados
+	 * 
+	 * @param ids, recebe uma lista de inteiros que representam os produtos.
+	 * @return
+	 * 		Retorna uma lista com o nome dos supermercados que contem todos/alguns itens.
+	 */
+	private ArrayList<String> getSuperComProdutos(ArrayList<Integer> ids){
+		for(String nome: superMercados.keySet())
+		
 	}
 }
