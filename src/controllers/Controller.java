@@ -253,7 +253,8 @@ public class Controller {
 	 * 
 	 * Assim como para: valores invalidos e locais de compras vazios ou nulos.
 	 * 
-	 * @param id - identificador unico do produto
+	 * @param id
+	 *            - identificador unico do produto
 	 */
 	private void validaCadastroPreco(int id, String localDeCompras, double valor) {
 		if (id <= 0) {
@@ -261,12 +262,13 @@ public class Controller {
 		} else if (!controleItem.verificaPresencaItem(id)) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: item nao existe.");
 		}
-		
-		if(localDeCompras == null || localDeCompras.equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
+
+		if (localDeCompras == null || localDeCompras.trim().isEmpty()) {
+			throw new IllegalArgumentException(
+					"Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
 		}
-		
-		if(valor <= 0){
+
+		if (valor <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: preco de item invalido.");
 		}
 	}
@@ -357,7 +359,7 @@ public class Controller {
 	}
 
 	private void validaPesquisaListaDeCompras(String descritorLista) {
-		if (descritorLista.equals("") || descritorLista == null) {
+		if (descritorLista.trim().isEmpty() || descritorLista == null) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
 		}
 

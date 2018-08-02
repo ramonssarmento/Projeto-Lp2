@@ -6,18 +6,11 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.ItemQtd;
-import classes.ItemQuilo;
-import classes.ListaDeCompras;
 import controllers.Controller;
 
 public class ControllerTest {
 	private Controller controle;
-	private ListaDeCompras lista;
-	private ItemQuilo item;
-	private ItemQtd item2;
-	private ItemQtd item3;
-	
+
 	@Before
 	public void setUp() {
 		this.controle = new Controller();
@@ -46,6 +39,12 @@ public class ControllerTest {
 				this.controle.exibeItem(2));
 		assertEquals("3. Bisteca suina, alimento nao industrializado, Preco por quilo: <Pentagrama, R$ 10,89;>",
 				this.controle.exibeItem(3));
+		try {
+			this.controle.exibeItem(-1);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro na listagem de item: id invalido.", e.getMessage());
+		}
 	}
 
 	@Test
@@ -54,6 +53,13 @@ public class ControllerTest {
 		this.controle.atualizaItem(1, "unidade de medida", "pacotes");
 		assertEquals("1. Papel Higienico, higiene pessoal, 2 pacotes, Preco: <Preco HiperBom, R$ 7,85;>",
 				this.controle.exibeItem(1));
+
+		try {
+			this.controle.atualizaItem(10, "quantidade", "2");
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro na atualizacao de item: item nao existe.", e.getMessage());
+		}
 	}
 
 	@Test
@@ -64,6 +70,41 @@ public class ControllerTest {
 				"1. Papel Higienico, higiene pessoal, 6 rolos, Preco: <CamPharm, R$ 7,20;Pentagrama, R$ 6,80;Preco HiperBom, R$ 7,85;>",
 				this.controle.exibeItem(1));
 
+		try {
+			this.controle.adicionaPrecoItem(-5, "Pentagrama", 6.80);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro no cadastro de preco: id de item invalido.", e.getMessage());
+		}
+
+		try {
+			this.controle.adicionaPrecoItem(10, "Pentagrama", 6.80);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro no cadastro de preco: item nao existe.", e.getMessage());
+		}
+
+		try {
+			this.controle.adicionaPrecoItem(2, "     ", 6.80);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.", e.getMessage());
+		}
+
+		try {
+			this.controle.adicionaPrecoItem(2, null, 6.80);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.", e.getMessage());
+		}
+
+		try {
+			this.controle.adicionaPrecoItem(2, "Pentagrama", -5);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro no cadastro de preco: preco de item invalido.", e.getMessage());
+		}
+
 	}
 
 	@Test
@@ -73,9 +114,10 @@ public class ControllerTest {
 				this.controle.exibeItem(1));
 		assertEquals("3. Bisteca suina, alimento nao industrializado, Preco por quilo: <Pentagrama, R$ 10,89;>",
 				this.controle.exibeItem(3));
+
 		try {
 			this.controle.exibeItem(2);
-			fail("Deveria ter falhado");
+			fail("Deveria ter lancado excecao");
 		} catch (IllegalArgumentException e) {
 			assertEquals("Erro na listagem de item: item nao existe.", e.getMessage());
 		}
@@ -97,6 +139,12 @@ public class ControllerTest {
 		assertEquals(primeiroItemDaCategoria,
 				"1. Papel Higienico, higiene pessoal, 6 rolos, Preco: <Preco HiperBom, R$ 7,85;>");
 		assertEquals(itemInexistente, "");
+		try {
+			this.controle.getItemPorCategoria("Tempo", 2);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro na listagem de item: categoria nao existe.", e.getMessage());
+		}
 	}
 
 	@Test
@@ -116,18 +164,101 @@ public class ControllerTest {
 				"2. Refrigerante Cola-Coca, alimento industrializado, Preco: <Atacadinho, R$ 3,50;>");
 		assertEquals(itemInexistente, "");
 	}
+
 	@Test
 	public void testeAdicionaListaDeCompras() {
 		String descricaoDaLista = this.controle.adicionaListaDeCompras("Ressaca de segunda");
 		assertEquals(descricaoDaLista, "Ressaca de segunda");
+		try {
+			this.controle.adicionaListaDeCompras("  ");
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.", e.getMessage());
+		}
+
+		try {
+			this.controle.adicionaListaDeCompras(null);
+			fail("Deveria ter lancado excecao");
+		} catch (IllegalArgumentException e) {
+			assertEquals("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.", e.getMessage());
+		}
 	}
-	
-	//Mudar nome
-	//Testando coisas especificas
-	//Eu sei que as palavras deviam ter acentos
-	//mas...
+
 	@Test
-	public void testAbel() {
-		assertEquals("", controle.horaAtual());
+	public void testPesquisaListaDeCompras() {
+		assertEquals("Compras da semana", controle.pesquisaListaDeCompras("Compras da semana"));
 	}
+
+	@Test
+	public void testFinalizarListaDeCompras() {
+		controle.finalizarListaDeCompras("Compras da semana", "Preco HiperBom", 25);
+	}
+
+	@Test
+	public void testPesquisaCompraEmLista() {
+		assertEquals("3 Refrigerante Cola-Coca, alimento industrializado",
+				controle.pesquisaCompraEmLista("Compras da semana", 2));
+	}
+
+	@Test
+	public void testAtualizaCompraDeLista() {
+		controle.atualizaCompraDeLista("Compras da semana", 2, "adiciona", 4);
+		controle.atualizaCompraDeLista("Compras da semana", 2, "diminui", 1);
+		assertEquals("6 Refrigerante Cola-Coca, alimento industrializado",
+				controle.getItemLista("Compras da semana", 1));
+	}
+
+	@Test
+	public void testGetItemLista() {
+		assertEquals("3 Refrigerante Cola-Coca, alimento industrializado",
+				controle.getItemLista("Compras da semana", 1));
+	}
+
+	@Test
+	public void testDeletaCompraDeLista() {
+		controle.deletaCompraDeLista("Compras da semana", 2);
+	}
+
+	@Test
+	public void testImprimirListaDeCompras() {
+		assertEquals(
+				"2 Papel Higienico, higiene pessoal, 6 rolos\n" + "3 Refrigerante Cola-Coca, alimento industrializado",
+				controle.imprimirListaDeCompras("Compras da semana"));
+	}
+
+	@Test
+	public void testGetListaPorData() {
+		assertEquals("Compras da semana", controle.getListaPorData(controle.dataAtual(), 1));
+		assertEquals("Cachaca de Domingo\n" + "Compras da semana",
+				controle.pesquisaListasDeComprasPorData(controle.dataAtual()));
+	}
+
+	@Test
+	public void testBuscaListasPorItem() {
+		assertEquals("02/08/2018 - Cachaca de Domingo\n" + "02/08/2018 - Compras da semana",
+				controle.buscaListasPorItem(2));
+		assertEquals("02/08/2018 - Compras da semana", controle.buscaListaPorItem(2, 1));
+	}
+
+	@Test
+	public void testGeraAutomaticaUltimaLista() {
+		assertEquals("Lista automatica 1 02/08/2018", controle.geraAutomaticaUltimaLista());
+	}
+
+	@Test
+	public void testGeraAutomaticaItem() {
+		assertEquals("Lista automatica 2 02/08/2018", controle.geraAutomaticaItem("Refrigerante Cola-Coca"));
+	}
+
+	@Test
+	public void testGeraAutomaticaItensMaisPresentes() {
+		assertEquals("Lista automatica 3 02/08/2018", controle.geraAutomaticaItensMaisPresentes());
+	}
+
+	@Test
+	public void testSugereMelhorEstabelecimentos() {
+		assertEquals("- 2 Papel Higienico, higiene pessoal, 6 rolos",
+				controle.sugereMelhorEstabelecimento("Compras da semana", 1, 1));
+	}
+
 }
