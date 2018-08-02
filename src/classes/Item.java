@@ -54,6 +54,12 @@ public abstract class Item implements ItemCompravel {
 	 *            preco do item
 	 */
 	public void adicionaPrecoItem(String localDeCompra, double preco) {
+		if(!verificaSuperMercado(localDeCompra)) {
+			throw new IllegalArgumentException("Local de compra invalido");
+		}
+		if(preco < 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		this.precos.put(localDeCompra, preco);
 		if (preco < this.menorPreco) {
 			this.menorPreco = preco;
@@ -141,6 +147,8 @@ public abstract class Item implements ItemCompravel {
 					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
 		}
 	}
+	
+	
 
 	/**
 	 * Lanca exececoes para validar um item e poder ser cadastrado
@@ -167,7 +175,23 @@ public abstract class Item implements ItemCompravel {
 			throw new IllegalArgumentException("Erro no cadastro de item: preco de item invalido.");
 		}
 	}
-
+	
+	/**
+	 * Metodo privado para verificar Local de compra
+	 * 
+	 * @param localDeCompra
+	 * 		
+	 * @return
+	 * 		Bollean de acordo com a especificacao.
+	 */
+	private boolean verificaSuperMercado(String localDeCompra) {
+		if(localDeCompra == null || localDeCompra.trim().isEmpty()) {
+			return false;
+		}
+		return true;	
+	}
+	
+	
 	/**
 	 * Lanca excecoes para validar a categoria do item
 	 * 
