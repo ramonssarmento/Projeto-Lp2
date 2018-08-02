@@ -311,12 +311,19 @@ public class ControllerLista {
 	}
 	
 	public HashMap<Integer, Integer> retornaItensEQuantidadesDeUmaLista(String descritorLista){
+		verificaRetornaQuantidadesEitens(descritorLista);
 		return this.listasDeCompras.get(descritorLista).retornaItensEQuantidades();
 	}
 	
 	public ArrayList<String> ordenaProdutosParaSuperMercado(ArrayList<Integer> ids, String descritorLista){
 		return this.listasDeCompras.get(descritorLista).ordenaProdutosParaSupermercado(ids);
 		
+	}
+	
+	private void verificaRetornaQuantidadesEitens(String descritorLista) {
+		if (!this.listasDeCompras.containsKey(descritorLista)) {
+			throw new IllegalArgumentException("Erro: essa lista de compras nao existe no sistema.");
+		}
 	}
 
 }
