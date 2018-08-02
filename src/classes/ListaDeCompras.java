@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
+import interfaces.ProdutoListaOrdenavel;
 
 public class ListaDeCompras implements ListaOrdenavel {
 
@@ -160,6 +161,16 @@ public class ListaDeCompras implements ListaOrdenavel {
 		return false;
 	}
 	
+	public HashMap<Integer, Integer> retornaItensEQuantidades(){
+		HashMap<Integer, Integer> itensEQuantidades = new HashMap();
+		
+		for (ProdutoLista produto : this.produtosLista.values()) {
+			itensEQuantidades.put(produto.getId(), produto.getQuantidade());
+		}
+		
+		return itensEQuantidades;
+	}
+	
 	public boolean getExistenciaDeItem(String descritor) {
 
 		for (ProdutoLista produto : this.produtosLista.values()) {
@@ -176,6 +187,23 @@ public class ListaDeCompras implements ListaOrdenavel {
 		}
 		
 		return this.produtosLista.get(id).getQuantidade();
+	}
+	
+	public ArrayList<String> ordenaProdutosParaSupermercado(ArrayList<Integer> ids) {
+		ArrayList<String> saidaProdutos = new ArrayList<>();
+		ArrayList<ProdutoListaOrdenavel> produtosParaOrdenar = new ArrayList<>();
+		
+		for(int id : ids) {
+			produtosParaOrdenar.add(this.produtosLista.get(id));
+		}
+		
+		Collections.sort(produtosParaOrdenar, new OrdenaItemLista());
+		
+		for (ProdutoListaOrdenavel produto : produtosParaOrdenar) {
+			saidaProdutos.add("- " + produto.toString());
+		}
+		
+		return saidaProdutos;
 	}
 	
 	public ListaDeCompras getClone(String descritor, String data, String hora) {

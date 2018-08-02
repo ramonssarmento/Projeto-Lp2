@@ -1,16 +1,20 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import classes.SuperMercado;
+import classes.SuperMercadoComItens;
+import interfaces.OrdenaSuperMercadoComItens;
+import interfaces.SupermercadoComItensOrdenavel;
 
 public class ControllerSupermercados {
 	
 	private HashMap<String, SuperMercado> superMercados;
 	
 	public ControllerSupermercados() {
-		this.superMercados = new HashMap<>();
+		this.superMercados = new HashMap<String, SuperMercado>();
 	}
 	
 	/**
@@ -27,7 +31,13 @@ public class ControllerSupermercados {
 
 		return false;
 	}
-
+	
+	public void deletaItem(int id) {
+		for (SuperMercado supermercado : this.superMercados.values()) {
+			supermercado.deletaItem(id);
+		}
+	}
+	
 	/**
 	 * Adiciona determinado produto ao supermercado
 	 * 
@@ -49,20 +59,51 @@ public class ControllerSupermercados {
 		}
 	}
 	
-	public String sugereMelhorSuperMercado(ArrayList<Integer> ids) {
+	public  ArrayList<SupermercadoComItensOrdenavel> retornaSuperMercadosComItens(HashMap<Integer, Integer> itensEQuantidades) {
+		
+		ArrayList<SupermercadoComItensOrdenavel> superMercadosComItens = new ArrayList<>();
+		for (SuperMercado supermercado : this.superMercados.values()) {
+			double valorTotal = 0;
+			ArrayList<Integer> produtosNoSuperMercado = new ArrayList<>();
+			for (Integer id : itensEQuantidades.keySet()) {
+				
+				if (supermercado.verificaExistProduto(id)) {
+					produtosNoSuperMercado.add(id);
+					valorTotal += supermercado.retornaValorDeItemParaLista(id, itensEQuantidades.get(id));
+					
+				}
+			}
+			
+			if (produtosNoSuperMercado.size() > 0) {
+				SuperMercadoComItens novoSuperMercadoComItens = new SuperMercadoComItens(supermercado.getNome(), valorTotal, produtosNoSuperMercado);
+				superMercadosComItens.add(novoSuperMercadoComItens);
+			}
+			
+		}
+		
+		Collections.sort(superMercadosComItens, new OrdenaSuperMercadoComItens());
+		return superMercadosComItens;
+		
+	}
+	
+	public String sugereMelhorEstabelecimento(ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens) {
+		
+		String saida = "";
+		for (SupermercadoComItensOrdenavel supermercado : supermercadosComItens) {
+			saida += supermercado.toString();
+		}
+		
+		return saida;
+	}
+	
+	public String sugereMelhorEstabelecimento(ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens, int posicaoSupermercado, int posicaoItem) {
+		if (posicaoSupermercado >= 0 && posicaoSupermercado < supermercadosComItens.size()) {
+			SupermercadoComItensOrdenavel supermercado = supermercadosComItens.get(posicaoSupermercado);
+		
+			return supermercado.getItemOrdenado(posicaoItem);
+		}
 		
 		return "";
-		
 	}
-	/**
-	 * Metodo privado responsavel por verificar, a partir de uma lista de Id's, se existe algum produto da lista nos supermecados
-	 * 
-	 * @param ids, recebe uma lista de inteiros que representam os produtos.
-	 * @return
-	 * 		Retorna uma lista com o nome dos supermercados que contem todos/alguns itens.
-	 */
-	private ArrayList<String> getSuperComProdutos(ArrayList<Integer> ids){
-		for(String nome: superMercados.keySet())
-		
-	}
+
 }

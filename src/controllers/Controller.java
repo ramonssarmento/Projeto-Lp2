@@ -2,104 +2,104 @@ package controllers;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import classes.Item;
 import classes.SuperMercado;
+import interfaces.SupermercadoComItensOrdenavel;
 
 public class Controller {
-	
+
 	private ControllerLista controleListas;
 	private ControllerItem controleItem;
 	private ControllerSupermercados controleSuperMercados;
-	
+
 	public Controller() {
 		this.controleListas = new ControllerLista();
 		this.controleItem = new ControllerItem();
 		this.controleSuperMercados = new ControllerSupermercados();
 	}
-	
+
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
-		
+
 		int id = controleItem.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
-		
+
 		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
-		
+
 		return id;
 	}
-	
+
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
-		
+
 		int id = controleItem.adicionaItemPorQuilo(nome, categoria, kg, localDeCompra, preco);
-		
+
 		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
-		
+
 		return id;
 	}
-	
+
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		
 		int id = controleItem.adicionaItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
-		
+
 		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
-		
+
 		return id;
 	}
-	
+
 	public String exibeItem(int id) {
 		validaListagem(id);
-		
+
 		return controleItem.exibeItem(id);
 	}
-	
+
 	public void atualizaItem(int id, String atributo, String novoValor) {
 		validaAtualizacao(id);
-		
+
 		controleItem.atualizaItem(id, atributo, novoValor);
 	}
-	
+
 	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
-		validaCadastroPreco(id);
-		
+		validaCadastroPreco(id, localDeCompra, preco);
+
+		controleSuperMercados.adicionaItemNoSupermercado(localDeCompra, preco, id);
 		controleItem.adicionaPrecoItem(id, localDeCompra, preco);
 	}
-	
+
 	public void deletaItem(int id) {
 		validaDeletaItem(id);
-		
+
 		controleItem.deletaItem(id);
+		controleSuperMercados.deletaItem(id);
 	}
-	
+
 	public String getItem(int posicao) {
-		
 		return controleItem.getItem(posicao);
 	}
-	
+
 	public String getItemPorCategoria(String categoria, int posicao) {
 		verificaCategoria(categoria);
-		
+
 		return controleItem.getItemPorCategoria(categoria, posicao);
-	}	
-	
+	}
+
 	public String getItemPorMenorPreco(int posicao) {
-		
 		return controleItem.getItemPorMenorPreco(posicao);
 	}
-	
+
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
-		
 		return controleItem.getItemPorPesquisa(strPesquisada, posicao);
 	}
-	
+
 	public String adicionaListaDeCompras(String descritorLista) {
 		validaAdicionaLista(descritorLista);
 		String data = dataAtual();
 		String hora = horaAtual();
-		
+
 		return controleListas.adicionaListaDeCompras(descritorLista, data, hora);
 	}
-	
+
 	public String pesquisaListaDeCompras(String descritorLista) {
 		validaPesquisaListaDeCompras(descritorLista);
 
@@ -108,99 +108,119 @@ public class Controller {
 
 	public void adicionaCompraALista(String descritorLista, int quantidade, int itemId) {
 		validaCompraDeItem(descritorLista, itemId);
-		
+
 		Item item = controleItem.retornaItem(itemId);
 		controleListas.adicionaCompraALista(descritorLista, quantidade, item);
 	}
-	
+
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
 		validaFinalizaLista(descritorLista);
-		
+
 		controleListas.finalizarListaDeCompras(descritorLista, localDaCompra, valorFinalDaCompra);
 	}
-	
+
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
 		validaItemPesquisaCompraLista(itemId, descritorLista);
-		
+
 		return controleListas.pesquisaCompraEmLista(descritorLista, itemId);
 	}
-	
+
 	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
 		validaAtualizaCompraDeLista(descritorLista, itemId);
-		
+
 		controleListas.atualizaCompraDeLista(descritorLista, itemId, operacao, quantidade);
 	}
-	
+
 	public String getItemLista(String descritorLista, int itemPosicao) {
-		
 		return controleListas.getItemLista(descritorLista, itemPosicao);
 	}
-	
+
 	public void deletaCompraDeLista(String descritorLista, int itemId) {
 		validaExcluirItemDaLista(descritorLista, itemId);
-		
+
 		controleListas.deletaCompraDeLista(descritorLista, itemId);
 	}
-	
+
 	public String imprimirListaDeCompras(String descritorLista) {
-		
 		return controleListas.imprimirListaDeCompras(descritorLista);
 	}
-	
+
 	public String getListaPorData(String data, int posicaoLista) {
 		verificaData(data);
-		
+
 		return controleListas.getListaPorData(data, posicaoLista);
 	}
-	
+
 	public String buscaListasPorItem(int itemId) {
-		
 		return controleListas.buscaListasPorItem(itemId);
 	}
-	
+
 	public String buscaListaPorItem(int itemId, int posicaoLista) {
-		
 		return controleListas.buscaListaPorItem(itemId, posicaoLista);
 	}
-	
+
 	public String pesquisaListasDeComprasPorData(String data) {
 		verificaData(data);
-		
+
 		return controleListas.pesquisaListasDeComprasPorData(data);
 	}
-	
+
 	public String geraAutomaticaUltimaLista() {
-		
 		return controleListas.geraAutomaticaUltimaLista(dataAtual(), horaAtual());
 	}
-	
+
 	public String geraAutomaticaItem(String descritorItem) {
-		
 		return controleListas.geraAutomaticaItem(descritorItem, dataAtual(), horaAtual());
 	}
-	
+
 	public String geraAutomaticaItensMaisPresentes() {
-		
-		HashMap<Integer, Integer> idsEQuantidades = controleListas.geraListaDeIdsEQuantidadesItensMaisRecorrentes(controleItem.getIds());
-		HashMap<Integer, Item> idsEItensParaListaAutomatica = controleItem.getItensParaListaAutomatica(idsEQuantidades.keySet());
-		
-		return controleListas.geraAutomaticaItensMaisPresentes(dataAtual(), horaAtual(), idsEItensParaListaAutomatica, idsEQuantidades);
+		HashMap<Integer, Integer> idsEQuantidades = controleListas
+				.geraListaDeIdsEQuantidadesItensMaisRecorrentes(controleItem.getIds());
+		HashMap<Integer, Item> idsEItensParaListaAutomatica = controleItem
+				.getItensParaListaAutomatica(idsEQuantidades.keySet());
+
+		return controleListas.geraAutomaticaItensMaisPresentes(dataAtual(), horaAtual(), idsEItensParaListaAutomatica,
+				idsEQuantidades);
 	}
-	
+
+	public String sugereMelhorEstabelecimento(String descritorLista, int posicaoSupermercado, int posicaoItem) {
+		ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens = ordenaSuperMercados(descritorLista);
+
+		return controleSuperMercados.sugereMelhorEstabelecimento(supermercadosComItens, posicaoSupermercado,
+				posicaoItem);
+	}
+
+	private ArrayList<SupermercadoComItensOrdenavel> ordenaSuperMercados(String descritorLista) {
+		HashMap<Integer, Integer> itensEQuantidades = controleListas.retornaItensEQuantidadesDeUmaLista(descritorLista);
+		ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens;
+
+		supermercadosComItens = controleSuperMercados.retornaSuperMercadosComItens(itensEQuantidades);
+
+		for (SupermercadoComItensOrdenavel supermercado : supermercadosComItens) {
+			ArrayList<String> saidaTextoSuperMercado;
+			saidaTextoSuperMercado = controleListas.ordenaProdutosParaSuperMercado(supermercado.getIds(),
+					descritorLista);
+			supermercado.setSaidaTexto(saidaTextoSuperMercado);
+		}
+
+		return supermercadosComItens;
+
+	}
+
 	public String dataAtual() {
 		Date data = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		
+
 		return formatador.format(data);
 	}
-	
+
 	public String horaAtual() {
 		Date hora = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:S");
-		
+
 		return formatador.format(hora);
 	}
-	
+
 	/**
 	 * Lanca exececoes para verificar identificador unico do item
 	 * 
@@ -231,14 +251,23 @@ public class Controller {
 	/**
 	 * Lanca excecoes para verificar se o item com determinado id existe no mapa
 	 * 
-	 * @param id,
-	 *            identificador unico do produto
+	 * Assim como para: valores invalidos e locais de compras vazios ou nulos.
+	 * 
+	 * @param id - identificador unico do produto
 	 */
-	private void validaCadastroPreco(int id) {
+	private void validaCadastroPreco(int id, String localDeCompras, double valor) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: id de item invalido.");
 		} else if (!controleItem.verificaPresencaItem(id)) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: item nao existe.");
+		}
+		
+		if(localDeCompras == null || localDeCompras.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
+		}
+		
+		if(valor <= 0){
+			throw new IllegalArgumentException("Erro no cadastro de preco: preco de item invalido.");
 		}
 	}
 
@@ -336,7 +365,7 @@ public class Controller {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: lista de compras nao existe.");
 		}
 	}
-	
+
 	private void validaDeletaItem(int id) {
 		if (!controleItem.verificaPresencaItem(id)) {
 			throw new IllegalArgumentException("Erro ao deletar item: esse item nao existe");

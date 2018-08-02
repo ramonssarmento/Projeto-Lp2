@@ -126,6 +126,10 @@ public class Facade {
 		return controller.geraAutomaticaItensMaisPresentes();
 	}
 	
+	public String sugereMelhorEstabelecimento(String descritorLista, int posicaoSupermercado, int posicaoItem) {
+		return controller.sugereMelhorEstabelecimento(descritorLista, posicaoSupermercado, posicaoItem);
+	}
+	
 
 	public static void main(String[] args) {
 		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",

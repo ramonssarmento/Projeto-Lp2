@@ -309,5 +309,14 @@ public class ControllerLista {
 
 		return false;
 	}
+	
+	public HashMap<Integer, Integer> retornaItensEQuantidadesDeUmaLista(String descritorLista){
+		return this.listasDeCompras.get(descritorLista).retornaItensEQuantidades();
+	}
+	
+	public ArrayList<String> ordenaProdutosParaSuperMercado(ArrayList<Integer> ids, String descritorLista){
+		return this.listasDeCompras.get(descritorLista).ordenaProdutosParaSupermercado(ids);
+		
+	}
 
 }

@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Esta classe permite adicionar itens a um determinado supermercado e calcula o
@@ -56,31 +57,36 @@ public class SuperMercado {
 
 		return precoCompras;
 	}
-	/**
-	 * Verifica se o supermercado possui determinado item
-	 * @return um booleando relatando se ha ou nao presenca de tal produto no supermercado
-	 */
-	public boolean getComprasParciais() {
-		boolean retorno = this.comprasParciais;
-		this.comprasParciais = false;
-
-		return retorno;
-
+	
+	public void deletaItem(int id) {
+		if (this.produtos.containsKey(id)) {
+			this.produtos.remove(id);
+		}
 	}
 	
+	public String getNome() {
+		return this.nomeSupermercado;
+	}
+
 	/**
 	 * Metodo responsavel para verificar se existe produto no supermercado
 	 * 
-	 * @param id, recebe o id(inteiro) representativo de um produto.
-	 * @return
-	 * 		boolean, true caso tenha, caso contrário, false.
+	 * @param id - recebe o id(inteiro) representativo de um produto.
+	 * 
+	 * @return boolean, true caso tenha, caso contrário, false.
 	 */
 	public boolean verificaExistProduto(int id) {
-		for(Integer ids: produtos.keySet()) {
-			if(id == ids) {
-				return true;
-			}
+		if (this.produtos.containsKey(id)) {
+			return true;
 		}
+
 		return false;
+	}
+
+	public double retornaValorDeItemParaLista(int idItem, int quantidadeItem) {
+		return this.produtos.get(idItem) * quantidadeItem;
+	}
+	public Set<Integer> test() {
+		return this.produtos.keySet();
 	}
 }
