@@ -17,6 +17,8 @@ import interfaces.OrdenaItemMenorPreco;
 /**
  * Classe controladora dos itens, permite adicionar os itens em suas respectivas
  * categorias, exibi-los, atualizar/deletar, recuperar informacoes.
+ * 
+ * @author Abel Antunes, Hercules Anselmo, Jose Adriao e Ramon Sarmento.
  */
 
 public class ControllerItem implements Serializable {
@@ -34,20 +36,20 @@ public class ControllerItem implements Serializable {
 
 	/**
 	 * Adiciona um item que tem seu preco calculado por quantidade ao mapa de itens,
-	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo
-	 * item era valida, e em seguida lhe é dado um identificador unico
+	 * depois de ter verifacado as excecoes, para saber se a aquisicao do novo item
+	 * era valida, e em seguida lhe e dado um identificador unico
 	 * 
-	 * @param nome,
+	 * @param nome
 	 *            representa nome do item
-	 * @param categoria,
+	 * @param categoria
 	 *            representa categoria do item
-	 * @param qtd,
+	 * @param qtd
 	 *            quantidade do item
-	 * @param unidadeDeMedida,
+	 * @param unidadeDeMedida
 	 *            unidade de medida do item (kg, g, mg)
-	 * @param localDeCompra,
+	 * @param localDeCompra
 	 *            supermercado o qual o item vai ser cadastrad
-	 * @param preco,
+	 * @param preco
 	 *            preco do produto em determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
@@ -70,15 +72,15 @@ public class ControllerItem implements Serializable {
 	 * depois de ter verifacado as excecoes, para saber se a aquisicao do novo item
 	 * era valida, e em seguida lhe e dado um identificador unico
 	 * 
-	 * @param nome,
+	 * @param nome
 	 *            nome do produto a ser adicionado
-	 * @param categoria,
+	 * @param categoria
 	 *            categoria do produto que vai ser adicionado
-	 * @param kg,
+	 * @param kg
 	 *            unidade de medida do produto, que sera usada no calculo do valor
-	 * @param localDeCompra,
+	 * @param localDeCompra
 	 *            supermercado o qual o produto sera cadastrado
-	 * @param preco,
+	 * @param preco
 	 *            preco do produto no determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
@@ -100,15 +102,15 @@ public class ControllerItem implements Serializable {
 	 * ter verifacado as excecoes, para saber se a aquisicao do novo item era
 	 * valida, e em seguida lhe e dado um identificador unico
 	 * 
-	 * @param nome,
+	 * @param nome
 	 *            nome do produto a ser adicionado
-	 * @param categoria,
+	 * @param categoria
 	 *            categoria do produto que vai ser adicionado
-	 * @param unidade,
+	 * @param unidade
 	 *            produto e comprado por unidade
-	 * @param localDeCompra,
+	 * @param localDeCompra
 	 *            supermercado onde o produto e comprado
-	 * @param preco,
+	 * @param preco
 	 *            preco do produto em determinado supermercado
 	 * @return identificador unico gerado para o item
 	 */
@@ -128,7 +130,7 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Exibe um item a partir de seu identificador
 	 * 
-	 * @param id,
+	 * @param id
 	 *            identificador unico do produto
 	 * @return representacao do item em string
 	 */
@@ -140,11 +142,11 @@ public class ControllerItem implements Serializable {
 	 * Altera os atributos de um item, e verifica a excecao para saber se a
 	 * atualizacao e valida
 	 * 
-	 * @param id,
+	 * @param id
 	 *            identificador unico do item
-	 * @param atributo,
+	 * @param atributo
 	 *            atributo do item que sera mudado
-	 * @param novoValor,
+	 * @param novoValor
 	 *            novo valor do atributo que sera passado
 	 */
 	public void atualizaItem(int id, String atributo, String novoValor) {
@@ -155,11 +157,11 @@ public class ControllerItem implements Serializable {
 	 * Adiciona preco de item a lista de produtos de um supermercado, verificando a
 	 * excecao para saber se aquisicao e valida
 	 * 
-	 * @param id,
+	 * @param id
 	 *            identificador unico do item
-	 * @param localDeCompra,
+	 * @param localDeCompra
 	 *            supermercado que o item esta presente
-	 * @param preco,
+	 * @param preco
 	 *            preco do item em determinado supermercado
 	 */
 	public void adicionaPrecoItem(int id, String localDeCompra, double preco) {
@@ -169,7 +171,7 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Deleta um item presente no mapa de itens
 	 * 
-	 * @param id,
+	 * @param id
 	 *            identificador unico
 	 */
 	public void deletaItem(int id) {
@@ -180,7 +182,7 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Recupera um item presente no mapa de itens
 	 * 
-	 * @param posicao,
+	 * @param posicao
 	 *            posicao do identificador
 	 * @return representacao em string do item
 	 */
@@ -197,9 +199,9 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Recupera uma lista de todos itens cadastrados de um determinada categoria
 	 * 
-	 * @param categoria,
+	 * @param categoria
 	 *            categoria do produto
-	 * @param posicao,
+	 * @param posicao
 	 *            posicao do identificador
 	 * @return a representacao dessa lista em string
 	 */
@@ -222,7 +224,7 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Recupera uma lista com os itens de menor precos disponiveis no mapa de itens
 	 * 
-	 * @param posicao,
+	 * @param posicao
 	 *            posicao do identificador
 	 * @return a representacao dessa lista em string
 	 */
@@ -239,9 +241,9 @@ public class ControllerItem implements Serializable {
 	/**
 	 * Permite recuperar um produto disponivel no mapa de itens a partir de seu nome
 	 * 
-	 * @param strPesquisada,
+	 * @param strPesquisada
 	 *            nome do produto que vai ser pesquisado
-	 * @param posicao,
+	 * @param posicao
 	 *            posicao do identificador unico
 	 * @return a representacao desse item em string
 	 */

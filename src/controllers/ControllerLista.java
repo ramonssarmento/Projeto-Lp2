@@ -17,6 +17,13 @@ import classes.ListaDeCompras;
 import interfaces.OrdenaListaDescritorEData;
 import interfaces.OrdenaStrings;
 
+/**
+ * Classe que controla e armazena listas, faz ligacoes com o controller
+ * principal.
+ * 
+ * @author Abel Antunes, Hercules Anselmo, Jose Adriao e Ramon Sarmento.
+ *
+ */
 public class ControllerLista implements Serializable {
 
 	private LinkedHashMap<String, ListaDeCompras> listasDeCompras;
@@ -226,9 +233,9 @@ public class ControllerLista implements Serializable {
 	 * alfabeticamente.
 	 * 
 	 * @param itemId
-	 *            - Id do item a  ser pesquisado.
+	 *            Id do item a  ser pesquisado.
 	 * 
-	 * @return - Representacao textual das datas e dos descritores das listas.
+	 * @return Representacao textual das datas e dos descritores das listas.
 	 */
 
 	public String buscaListasPorItem(int itemId) {
@@ -261,12 +268,12 @@ public class ControllerLista implements Serializable {
 	 * listas sao ordenadas alfabeticamente.
 	 * 
 	 * @param itemId
-	 *            - Id do item a  ser pesquisado.
+	 *            Id do item a  ser pesquisado.
 	 * 
 	 * @param posicaoLista
-	 *            - Posicao da lista desejada.
+	 *            Posicao da lista desejada.
 	 * 
-	 * @return - Representacao textual da data e do descritor da lista.
+	 * @return Representacao textual da data e do descritor da lista.
 	 */
 
 	public String buscaListaPorItem(int itemId, int posicaoLista) {
@@ -322,6 +329,15 @@ public class ControllerLista implements Serializable {
 		return saida.trim();
 	}
 
+	/**
+	 * Gera lista automaticamente com os mesmo itens da ultima lista criada
+	 * 
+	 * @param data
+	 *            atual
+	 * @param hora
+	 *            atual
+	 * @return decritor da nova lista
+	 */
 	public String geraAutomaticaUltimaLista(String data, String hora) {
 
 		Set<String> chaves = this.listasDeCompras.keySet();
@@ -341,6 +357,18 @@ public class ControllerLista implements Serializable {
 
 	}
 
+	/**
+	 * Gera lista automaticamente com os mesmo itens da ultima lista criada que
+	 * contem um determinado item
+	 * 
+	 * @param descritorItem
+	 *            item que ira ser procurado para criar a nova lista
+	 * @param data
+	 *            atual
+	 * @param hora
+	 *            atual
+	 * @return decritor da nova lista
+	 */
 	public String geraAutomaticaItem(String descritorItem, String data, String hora) {
 		Set<String> chaves = this.listasDeCompras.keySet();
 		Iterator<String> it = chaves.iterator();
@@ -369,6 +397,20 @@ public class ControllerLista implements Serializable {
 		return listaSaida.getDescritor();
 	}
 
+	/**
+	 * Gera lista automaticamente uma lista com oa itens que apareceram em 50% das
+	 * listas
+	 * 
+	 * @param data
+	 *            atual
+	 * @param hora
+	 *            atual
+	 * @param IdsEItens
+	 *            id dos itens
+	 * @param idsEQuantidades
+	 *            quantidade de vezes que cada item aparece nas listas
+	 * @return decritor da nova lista
+	 */
 	public String geraAutomaticaItensMaisPresentes(String data, String hora, HashMap<Integer, Item> IdsEItens,
 			HashMap<Integer, Integer> idsEQuantidades) {
 		ListaDeCompras lista = new ListaDeCompras("Lista automatica 3 " + data, data, hora);

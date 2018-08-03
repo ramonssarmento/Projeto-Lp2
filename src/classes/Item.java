@@ -74,6 +74,7 @@ public abstract class Item implements ItemCompravel, Serializable {
 	 *            a ser modificado
 	 * @param novoValor
 	 *            valor apos a atualizacao
+	 * @return booleano confirmando ou nao a atualizacao.
 	 */
 	public boolean atualizaItem(String atributo, String novoValor) {
 		validaAtualizaItem(atributo, novoValor);
