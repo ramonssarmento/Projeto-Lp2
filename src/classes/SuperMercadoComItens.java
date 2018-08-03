@@ -54,7 +54,7 @@ public class SuperMercadoComItens implements SupermercadoComItensOrdenavel {
 		String saida = this.getNome() + System.lineSeparator();
 
 		for (String saidaTexto : this.saidaTexto) {
-			saida += saidaTexto + System.lineSeparator();
+			saida += "    " + saidaTexto + System.lineSeparator();
 		}
 
 		return saida.trim();

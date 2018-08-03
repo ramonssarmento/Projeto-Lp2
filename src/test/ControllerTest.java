@@ -10,7 +10,8 @@ import controllers.Controller;
 
 public class ControllerTest {
 	private Controller controle;
-
+	private String data;
+	
 	@Before
 	public void setUp() {
 		this.controle = new Controller();
@@ -23,6 +24,7 @@ public class ControllerTest {
 		this.controle.adicionaCompraALista("Compras da semana", 2, 1);
 		this.controle.adicionaCompraALista("Compras da semana", 3, 2);
 		this.controle.adicionaCompraALista("Cachaca de Domingo", 4, 2);
+		this.data = controle.dataAtual();
 	}
 
 	@Test
@@ -235,30 +237,38 @@ public class ControllerTest {
 
 	@Test
 	public void testBuscaListasPorItem() {
-		assertEquals("02/08/2018 - Cachaca de Domingo\n" + "02/08/2018 - Compras da semana",
+		assertEquals(this.data + " - Cachaca de Domingo\n" + this.data + " - Compras da semana",
 				controle.buscaListasPorItem(2));
-		assertEquals("02/08/2018 - Compras da semana", controle.buscaListaPorItem(2, 1));
+		assertEquals(this.data + " - Compras da semana", controle.buscaListaPorItem(2, 1));
 	}
 
 	@Test
 	public void testGeraAutomaticaUltimaLista() {
-		assertEquals("Lista automatica 1 02/08/2018", controle.geraAutomaticaUltimaLista());
+		assertEquals("Lista automatica 1 " + this.data, controle.geraAutomaticaUltimaLista());
 	}
 
 	@Test
 	public void testGeraAutomaticaItem() {
-		assertEquals("Lista automatica 2 02/08/2018", controle.geraAutomaticaItem("Refrigerante Cola-Coca"));
+		assertEquals("Lista automatica 2 " + this.data, controle.geraAutomaticaItem("Refrigerante Cola-Coca"));
 	}
 
 	@Test
 	public void testGeraAutomaticaItensMaisPresentes() {
-		assertEquals("Lista automatica 3 02/08/2018", controle.geraAutomaticaItensMaisPresentes());
+		assertEquals("Lista automatica 3 " + this.data, controle.geraAutomaticaItensMaisPresentes());
 	}
 
 	@Test
 	public void testSugereMelhorEstabelecimentos() {
 		assertEquals("- 2 Papel Higienico, higiene pessoal, 6 rolos",
 				controle.sugereMelhorEstabelecimento("Compras da semana", 1, 1));
+	}
+	
+	@Test
+	public void testSugereMelhorEstabelecimentoSemPosicao() {
+		assertEquals("Atacadinho: R$ 10,50\n" + 
+				"    - 3 Refrigerante Cola-Coca, alimento industrializadoPreco HiperBom: R$ 15,70\n" + 
+				"    - 2 Papel Higienico, higiene pessoal, 6 rolos",
+				controle.sugereMelhorEstabelecimento("Compras da semana"));
 	}
 
 }
