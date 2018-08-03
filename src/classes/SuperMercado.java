@@ -47,7 +47,7 @@ public class SuperMercado implements Serializable{
 	 */
 	public double calculaPrecoCompras(ArrayList<Integer> ids) {
 		double precoCompras = 0;
-
+		
 		for (int id : ids) {
 			if (this.produtos.containsKey(id)) {
 				precoCompras += this.produtos.get(id);
