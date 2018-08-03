@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import interfaces.OrdenaItemMenorPreco;
  * categorias, exibi-los, atualizar/deletar, recuperar informacoes.
  */
 
-public class ControllerItem {
+public class ControllerItem implements Serializable{
 	private int id;
 	private HashMap<Integer, Item> itens;
 

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import interfaces.SupermercadoComItensOrdenavel;
  *
  */
 
-public class ControllerSupermercados {
+public class ControllerSupermercados implements Serializable {
 	
 	private HashMap<String, SuperMercado> superMercados;
 	

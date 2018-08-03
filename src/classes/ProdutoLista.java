@@ -1,8 +1,10 @@
 package classes;
 
+import java.io.Serializable;
+
 import interfaces.ProdutoListaOrdenavel;
 
-public class ProdutoLista implements ProdutoListaOrdenavel {
+public class ProdutoLista implements ProdutoListaOrdenavel, Serializable {
 
 	private int id;
 	private Item produto;

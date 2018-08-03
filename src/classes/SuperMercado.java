@@ -1,5 +1,6 @@
 package classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -9,7 +10,7 @@ import java.util.Set;
  * preco das compras no mesmo
  *
  */
-public class SuperMercado {
+public class SuperMercado implements Serializable{
 
 	private HashMap<Integer, Double> produtos;
 	private String nomeSupermercado;

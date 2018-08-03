@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import interfaces.OrdenaDataEHora;
 import interfaces.OrdenaListaDescritorEData;
 import interfaces.OrdenaStrings;
 
-public class ControllerLista {
+public class ControllerLista implements Serializable{
 
 	private LinkedHashMap<String, ListaDeCompras> listasDeCompras;
 

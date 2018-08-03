@@ -1,5 +1,6 @@
 package classes;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import interfaces.ItemCompravel;
@@ -9,7 +10,7 @@ import interfaces.ItemCompravel;
  * repassar para suas extensões
  *
  */
-public abstract class Item implements ItemCompravel {
+public abstract class Item implements ItemCompravel, Serializable {
 	/**
 	 * Mapa para o preco do item no supermercado
 	 */

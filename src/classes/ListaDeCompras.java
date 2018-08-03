@@ -1,5 +1,6 @@
 package classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
 import interfaces.ProdutoListaOrdenavel;
 
-public class ListaDeCompras implements ListaOrdenavel {
+public class ListaDeCompras implements ListaOrdenavel, Serializable {
 
 	private String descritor, data, localDeCompra, hora;
 	private HashMap<Integer, ProdutoLista> produtosLista;

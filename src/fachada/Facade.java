@@ -9,7 +9,19 @@ public class Facade {
 	public Facade() {
 		this.controller = new Controller();
 	}
-
+	
+	public void iniciaSistema() {
+		controller.iniciarSistema();
+	}
+	
+	public void fechaSistema() {
+		controller.fecharSistema();
+	}
+	
+	public void quit() {
+		controller.quit();
+	}
+	
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
 		return controller.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
@@ -135,7 +147,7 @@ public class Facade {
 		args = new String[] { "fachada.Facade", "EasyAccept/use_case1.txt", "EasyAccept/use_case1_exception.txt",
 				"EasyAccept/use_case2.txt", "EasyAccept/use_case2_exception.txt", "EasyAccept/use_case3.txt",
 				"EasyAccept/use_case3_exception.txt", "EasyAccept/use_case4.txt", "EasyAccept/use_case4_exception.txt",
-				"EasyAccept/use_case5.txt", "EasyAccept/use_case6.txt", "EasyAccept/use_case6_exception.txt" };
+				"EasyAccept/use_case5.txt", "EasyAccept/use_case6.txt", "EasyAccept/use_case6_exception.txt", "EasyAccept/use_case7.txt"};
 		EasyAccept.main(args);
 	}
 }

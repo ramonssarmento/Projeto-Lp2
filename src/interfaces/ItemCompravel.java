@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface ItemCompravel extends Comparable<ItemCompravel> {
+public interface ItemCompravel extends Comparable<ItemCompravel>{
 
 	public double getMenorPreco();
 

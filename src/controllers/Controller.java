@@ -1,12 +1,13 @@
 package controllers;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import classes.Item;
-import classes.SuperMercado;
+import empacotamento.Empacotamento;
 import interfaces.SupermercadoComItensOrdenavel;
 
 public class Controller {
@@ -20,6 +21,37 @@ public class Controller {
 		this.controleItem = new ControllerItem();
 		this.controleSuperMercados = new ControllerSupermercados();
 	}
+	
+	public void iniciarSistema() {
+		try{
+			this.controleItem = (ControllerItem) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerItens.bin");
+			this.controleListas = (ControllerLista) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerListas.bin");
+			this.controleSuperMercados = (ControllerSupermercados) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerSupermercados.bin");
+		}catch(FileNotFoundException e){
+			this.controleItem = new ControllerItem();
+		}catch(ClassNotFoundException | IOException e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void fecharSistema() {
+		try{
+			Empacotamento.salvarObjeto(this.controleItem, "DadosDoSistema/DadosControllerItens.bin");
+			Empacotamento.salvarObjeto(this.controleListas, "DadosDoSistema/DadosControllerListas.bin");
+			Empacotamento.salvarObjeto(this.controleSuperMercados, "DadosDoSistema/DadosControllerSupermercados.bin");
+		}catch(IOException e){
+			System.out.println("Erro ao ler arquivo.");
+			e.printStackTrace();
+		}
+		
+		this.controleListas = null;
+		this.controleItem = null;
+		this.controleSuperMercados = null;
+	}
+	
+	public void quit() {
+		System.exit(0);
+	}
 
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
@@ -30,6 +62,7 @@ public class Controller {
 
 		return id;
 	}
+	
 
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 
