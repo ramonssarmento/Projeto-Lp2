@@ -225,6 +225,12 @@ public class Controller {
 				posicaoItem);
 	}
 
+	public String sugereMelhorEstabelecimento(String descritorLista) {
+		ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens = ordenaSuperMercados(descritorLista);
+
+		return controleSuperMercados.sugereMelhorEstabelecimento(supermercadosComItens);
+	}
+
 	public String dataAtual() {
 		Date data = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");

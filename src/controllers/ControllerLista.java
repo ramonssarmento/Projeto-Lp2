@@ -24,11 +24,16 @@ public class ControllerLista implements Serializable {
 	public ControllerLista() {
 		this.listasDeCompras = new LinkedHashMap<>();
 	}
+
 	/**
 	 * Cria uma lista de compras
-	 * @param descritorLista da lista
-	 * @param data atual
-	 * @param hora atual
+	 * 
+	 * @param descritorLista
+	 *            da lista
+	 * @param data
+	 *            atual
+	 * @param hora
+	 *            atual
 	 * @return descritor da lista
 	 */
 	public String adicionaListaDeCompras(String descritorLista, String data, String hora) {
@@ -39,9 +44,13 @@ public class ControllerLista implements Serializable {
 
 		return descritorLista;
 	}
+
 	/**
-	 * Adiciona uma lista de compras a partir de outra ja existente (lista gerada automaticamente)
-	 * @param lista a ser adicionada
+	 * Adiciona uma lista de compras a partir de outra ja existente (lista gerada
+	 * automaticamente)
+	 * 
+	 * @param lista
+	 *            a ser adicionada
 	 * @return descritor da lista
 	 */
 	public String adicionaListaDeCompras(ListaDeCompras lista) {
@@ -50,16 +59,29 @@ public class ControllerLista implements Serializable {
 
 		return lista.getDescritor();
 	}
+
 	/**
 	 * Pesquisa uma lista de compras a partir do seu descritor
-	 * @param descritorLista da lista
-	 * @return
+	 * 
+	 * @param descritorLista
+	 *            da lista
+	 * @return descritor da lista
 	 */
 	public String pesquisaListaDeCompras(String descritorLista) {
 
 		return descritorLista;
 	}
 
+	/**
+	 * Adiciona um item na lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param quantidade
+	 *            do item
+	 * @param item
+	 *            id do item
+	 */
 	public void adicionaCompraALista(String descritorLista, int quantidade, Item item) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -67,6 +89,16 @@ public class ControllerLista implements Serializable {
 		lista.adicionaProdutoNaLista(item, quantidade);
 	}
 
+	/**
+	 * Fecha uma lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param localDaCompra
+	 *            onde foi comprado os produtos da lista
+	 * @param valorFinalDaCompra
+	 *            quanto foi pago
+	 */
 	public void finalizarListaDeCompras(String descritorLista, String localDaCompra, int valorFinalDaCompra) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -74,6 +106,15 @@ public class ControllerLista implements Serializable {
 		lista.finalizarLista(localDaCompra, valorFinalDaCompra);
 	}
 
+	/**
+	 * Busca um item na lista pelo seu id
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param itemId
+	 *            do item
+	 * @return representacao textual de um produto da lista
+	 */
 	public String pesquisaCompraEmLista(String descritorLista, int itemId) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -82,6 +123,18 @@ public class ControllerLista implements Serializable {
 
 	}
 
+	/**
+	 * Altera a quantidade do produto na lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param itemId
+	 *            do item
+	 * @param operacao
+	 *            a ser realizada(aumenta e diminui)
+	 * @param quantidade
+	 *            valor da mudanca
+	 */
 	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -89,6 +142,15 @@ public class ControllerLista implements Serializable {
 		lista.atualizaProduto(itemId, operacao, quantidade);
 	}
 
+	/**
+	 * Representacao de um item da lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param itemPosicao
+	 *            do item
+	 * @return representacao textual do produto
+	 */
 	public String getItemLista(String descritorLista, int itemPosicao) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -97,6 +159,14 @@ public class ControllerLista implements Serializable {
 
 	}
 
+	/**
+	 * Remove um item da lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @param itemId
+	 *            id do item
+	 */
 	public void deletaCompraDeLista(String descritorLista, int itemId) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -104,6 +174,13 @@ public class ControllerLista implements Serializable {
 		lista.deletaProdutoLista(itemId);
 	}
 
+	/**
+	 * Representacao textual da lista
+	 * 
+	 * @param descritorLista
+	 *            descritor da lista
+	 * @return representacao da lista
+	 */
 	public String imprimirListaDeCompras(String descritorLista) {
 
 		ListaDeCompras lista = this.listasDeCompras.get(descritorLista);
@@ -111,6 +188,16 @@ public class ControllerLista implements Serializable {
 		return lista.toString();
 	}
 
+	/**
+	 * Filtra a lista por data e seleciona a que esta na posicao indicada
+	 * 
+	 * @param data
+	 *            de criacao da lista
+	 * @param posicaoLista
+	 *            posicao da lista (em relacao as listas que foram criadas naquela
+	 *            data em ordem alfabetica)
+	 * @return descritor da lista
+	 */
 	public String getListaPorData(String data, int posicaoLista) {
 
 		String saida = "";
@@ -133,15 +220,15 @@ public class ControllerLista implements Serializable {
 	}
 
 	/**
-	 * Esse método serve para pesquisar listas que possuem um determinado item.
-	 * Essas listas são ordenadas primeiramente pelas datas, com as mais antigas
-	 * vindo à frente Caso hajam datas iguais, as listas são ordenadas
-	 * alfabéticamente.
+	 * Esse metodo serve para pesquisar listas que possuem um determinado item.
+	 * Essas listas sao ordenadas primeiramente pelas datas, com as mais antigas
+	 * vindo a� frente Caso hajam datas iguais, as listas sao ordenadas
+	 * alfabeticamente.
 	 * 
 	 * @param itemId
-	 *            - Id do itém à ser pesquisado.
+	 *            - Id do item a� ser pesquisado.
 	 * 
-	 * @return - Representação textual das datas e dos descritores das listas.
+	 * @return - Representacao textual das datas e dos descritores das listas.
 	 */
 
 	public String buscaListasPorItem(int itemId) {
@@ -168,18 +255,18 @@ public class ControllerLista implements Serializable {
 	}
 
 	/**
-	 * Esse método serve para pesquisar uma lista que contém um determinado item,
-	 * pesquisando pela posição da lista. Essas listas são ordenadas
-	 * primeiramente pelas datas, com as mais antigas vindo à frente Caso hajam
-	 * datas iguais, as listas são ordenadas alfabéticamente.
+	 * Esse metodo serve para pesquisar uma lista que contem um determinado item,
+	 * pesquisando pela posicao da lista. Essas listas sao ordenadas primeiramente
+	 * pelas datas, com as mais antigas vindo a� frente Caso hajam datas iguais, as
+	 * listas sao ordenadas alfabeticamente.
 	 * 
 	 * @param itemId
-	 *            - Id do itém à ser pesquisado.
+	 *            - Id do item a� ser pesquisado.
 	 * 
 	 * @param posicaoLista
-	 *            - Posição da lista desejada.
+	 *            - Posicao da lista desejada.
 	 * 
-	 * @return - Representação textual da data e do descritor da lista.
+	 * @return - Representacao textual da data e do descritor da lista.
 	 */
 
 	public String buscaListaPorItem(int itemId, int posicaoLista) {
@@ -204,6 +291,15 @@ public class ControllerLista implements Serializable {
 		return listaSaidaOrdenada.get(posicaoLista).getDescritorComData();
 	}
 
+	/**
+	 * Esse metodo serve para pesquisar uma lista que foram cridas em determinada
+	 * data
+	 * 
+	 * @param data
+	 *            de criacao das lista
+	 * 
+	 * @return descritores das listas cridas nesta data
+	 */
 	public String pesquisaListasDeComprasPorData(String data) {
 
 		String saida = "";

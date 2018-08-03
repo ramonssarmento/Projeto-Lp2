@@ -82,7 +82,7 @@ public class SuperMercado implements Serializable {
 	 * Metodo responsavel para verificar se existe produto no supermercado
 	 * 
 	 * @param id
-	 *            - recebe o id(inteiro) representativo de um produto.
+	 *            recebe o id(inteiro) representativo de um produto.
 	 * 
 	 * @return boolean, true caso tenha, caso contrario, false.
 	 */

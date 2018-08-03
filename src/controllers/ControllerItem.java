@@ -19,12 +19,12 @@ import interfaces.OrdenaItemMenorPreco;
  * categorias, exibi-los, atualizar/deletar, recuperar informacoes.
  */
 
-public class ControllerItem implements Serializable{
+public class ControllerItem implements Serializable {
 	private int id;
 	private HashMap<Integer, Item> itens;
 
 	/**
-	 * Construtor inicializa o idenficador unico como zero, e o mapa que será
+	 * Construtor inicializa o idenficador unico como zero, e o mapa que sera�
 	 * armazenado os itens
 	 */
 	public ControllerItem() {
@@ -34,8 +34,8 @@ public class ControllerItem implements Serializable{
 
 	/**
 	 * Adiciona um item que tem seu preco calculado por quantidade ao mapa de itens,
-	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
-	 * era valida, e em seguida lhe é dado um identificador unico
+	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo
+	 * item era valida, e em seguida lhe é dado um identificador unico
 	 * 
 	 * @param nome,
 	 *            representa nome do item
@@ -67,15 +67,15 @@ public class ControllerItem implements Serializable{
 
 	/**
 	 * Adiciona um item que tem seu preco calculado por quilo ao mapa de itens,
-	 * depois de ter verifacado as excecoes, para saber se a aquisição do novo item
-	 * era valida, e em seguida lhe é dado um identificador unico
+	 * depois de ter verifacado as excecoes, para saber se a aquisicao do novo item
+	 * era valida, e em seguida lhe e dado um identificador unico
 	 * 
 	 * @param nome,
 	 *            nome do produto a ser adicionado
 	 * @param categoria,
 	 *            categoria do produto que vai ser adicionado
 	 * @param kg,
-	 *            unidade de medida do produto, que será usada no calculo do valor
+	 *            unidade de medida do produto, que sera usada no calculo do valor
 	 * @param localDeCompra,
 	 *            supermercado o qual o produto sera cadastrado
 	 * @param preco,
@@ -97,17 +97,17 @@ public class ControllerItem implements Serializable{
 
 	/**
 	 * Adiciona um item que tem seu preco calculado por unidade ao mapa, depois de
-	 * ter verifacado as excecoes, para saber se a aquisição do novo item era
-	 * valida, e em seguida lhe é dado um identificador unico
+	 * ter verifacado as excecoes, para saber se a aquisicao do novo item era
+	 * valida, e em seguida lhe e dado um identificador unico
 	 * 
 	 * @param nome,
 	 *            nome do produto a ser adicionado
 	 * @param categoria,
 	 *            categoria do produto que vai ser adicionado
 	 * @param unidade,
-	 *            produto é comprado por unidade
+	 *            produto e comprado por unidade
 	 * @param localDeCompra,
-	 *            supermercado onde o produto é comprado
+	 *            supermercado onde o produto e comprado
 	 * @param preco,
 	 *            preco do produto em determinado supermercado
 	 * @return identificador unico gerado para o item
@@ -138,7 +138,7 @@ public class ControllerItem implements Serializable{
 
 	/**
 	 * Altera os atributos de um item, e verifica a excecao para saber se a
-	 * atualizacao é valida
+	 * atualizacao e valida
 	 * 
 	 * @param id,
 	 *            identificador unico do item
@@ -153,7 +153,7 @@ public class ControllerItem implements Serializable{
 
 	/**
 	 * Adiciona preco de item a lista de produtos de um supermercado, verificando a
-	 * excecao para saber se aquisicao é valida
+	 * excecao para saber se aquisicao e valida
 	 * 
 	 * @param id,
 	 *            identificador unico do item
@@ -182,7 +182,7 @@ public class ControllerItem implements Serializable{
 	 * 
 	 * @param posicao,
 	 *            posicao do identificador
-	 * @return representaçao em string do item
+	 * @return representacao em string do item
 	 */
 	public String getItem(int posicao) {
 

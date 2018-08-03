@@ -10,7 +10,7 @@ public class ItemUnidade extends Item {
 
 	/**
 	 * Construtor que inicializa os atributos da classe Item, os atributos da classe
-	 * ItemUnidade e verifica as exececoes lancadas para ItemUnidade é valido
+	 * ItemUnidade e verifica as exececoes lancadas para ItemUnidade e valido
 	 * 
 	 * @param id,
 	 *            identificador unico do produto

@@ -139,7 +139,7 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 	}
 
 	/**
-	 * Busca um item na lista pelo id
+	 * Busca um item na lista pelo seu id
 	 * 
 	 * @param itemId
 	 *            do item

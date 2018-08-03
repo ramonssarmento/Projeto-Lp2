@@ -1,7 +1,7 @@
 package classes;
 
 /**
- * Classe extendida de Item, implementa itens que seus precos são calculados a
+ * Classe extendida de Item, implementa itens que seus precos sao calculados a
  * partir do peso do kg passado como parametro
  *
  */

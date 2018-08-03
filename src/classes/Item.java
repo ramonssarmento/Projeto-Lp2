@@ -7,7 +7,7 @@ import interfaces.ItemCompravel;
 
 /**
  * Classe abstrata que permite definir os atributos em comum de "item" e
- * repassar para suas extensões
+ * repassar para suas extensoes
  *
  */
 public abstract class Item implements ItemCompravel, Serializable {

@@ -70,7 +70,7 @@ public class ItemQtd extends Item {
 	}
 
 	/**
-	 * Lanca exececoes para verificar se a quantidade de itens passados é valida
+	 * Lanca exececoes para verificar se a quantidade de itens passados e valida
 	 * 
 	 * @param valor,
 	 *            valor da quantidade passada
@@ -93,7 +93,7 @@ public class ItemQtd extends Item {
 	}
 
 	/**
-	 * Lanca exececoes para verificar se a quantidade e unidade de medida é valida
+	 * Lanca exececoes para verificar se a quantidade e unidade de medida e valida
 	 * 
 	 * @param qtd,
 	 *            quantidade disponivel em uma unidade do produto
