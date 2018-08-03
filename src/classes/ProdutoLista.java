@@ -11,6 +11,14 @@ public class ProdutoLista implements ProdutoListaOrdenavel, Serializable {
 	private int quantidade;
 	private String nome, categoria;
 
+	/**
+	 * Construtor da classe
+	 * 
+	 * @param produto
+	 *            item do produto lista
+	 * @param quantidade
+	 *            do item
+	 */
 	public ProdutoLista(Item produto, int quantidade) {
 
 		this.produto = produto;
@@ -34,11 +42,11 @@ public class ProdutoLista implements ProdutoListaOrdenavel, Serializable {
 	public int getQuantidade() {
 		return this.quantidade;
 	}
-	
+
 	public String getNome() {
 		return this.nome;
 	}
-	
+
 	public String getCategoria() {
 		return this.categoria;
 	}
@@ -47,12 +55,12 @@ public class ProdutoLista implements ProdutoListaOrdenavel, Serializable {
 
 		return String.format("%d %s", this.quantidade, this.produto.getDescricao());
 	}
-	
+
 	private int verificaQuantidade(int quantidade) {
 		if (quantidade <= 0) {
-		throw new IllegalArgumentException("Quantidade invalida!");
+			throw new IllegalArgumentException("Quantidade invalida!");
 		}
-		
+
 		return quantidade;
 	}
 

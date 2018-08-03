@@ -55,10 +55,10 @@ public abstract class Item implements ItemCompravel, Serializable {
 	 *            preco do item
 	 */
 	public void adicionaPrecoItem(String localDeCompra, double preco) {
-		if(!verificaSuperMercado(localDeCompra)) {
+		if (!verificaSuperMercado(localDeCompra)) {
 			throw new IllegalArgumentException("Local de compra invalido");
 		}
-		if(preco < 0) {
+		if (preco < 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		this.precos.put(localDeCompra, preco);
@@ -71,7 +71,9 @@ public abstract class Item implements ItemCompravel, Serializable {
 	 * Atualiza item passando novos atributo
 	 * 
 	 * @param atributo
+	 *            a ser modificado
 	 * @param novoValor
+	 *            valor apos a atualizacao
 	 */
 	public boolean atualizaItem(String atributo, String novoValor) {
 		validaAtualizaItem(atributo, novoValor);
@@ -91,8 +93,7 @@ public abstract class Item implements ItemCompravel, Serializable {
 	}
 
 	/**
-	 * Pega o menor preco do item comparando em todos os mercados que possuem tal
-	 * item
+	 * retorna o preco minimo do produto(menor preco)
 	 */
 	public double getMenorPreco() {
 		return this.menorPreco;
@@ -121,6 +122,11 @@ public abstract class Item implements ItemCompravel, Serializable {
 
 	public abstract String getDescricao();
 
+	/**
+	 * Formatacao do supermercado e seus respectivos precos
+	 * 
+	 * @return representacao textual do item
+	 */
 	public String getPrecos() {
 		String result = "";
 		for (String supermercados : precos.keySet()) {
@@ -148,8 +154,6 @@ public abstract class Item implements ItemCompravel, Serializable {
 					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
 		}
 	}
-	
-	
 
 	/**
 	 * Lanca exececoes para validar um item e poder ser cadastrado
@@ -176,23 +180,21 @@ public abstract class Item implements ItemCompravel, Serializable {
 			throw new IllegalArgumentException("Erro no cadastro de item: preco de item invalido.");
 		}
 	}
-	
+
 	/**
 	 * Metodo privado para verificar Local de compra
 	 * 
 	 * @param localDeCompra
-	 * 		
-	 * @return
-	 * 		Bollean de acordo com a especificacao.
+	 * 
+	 * @return Bollean de acordo com a especificacao.
 	 */
 	private boolean verificaSuperMercado(String localDeCompra) {
-		if(localDeCompra == null || localDeCompra.trim().isEmpty()) {
+		if (localDeCompra == null || localDeCompra.trim().isEmpty()) {
 			return false;
 		}
-		return true;	
+		return true;
 	}
-	
-	
+
 	/**
 	 * Lanca excecoes para validar a categoria do item
 	 * 

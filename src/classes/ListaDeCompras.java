@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import interfaces.ListaOrdenavel;
 import interfaces.OrdenaItemLista;
@@ -20,19 +18,37 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 	private double valorFinal;
 	private boolean finalizada;
 
+	/**
+	 * Construtor do metodo
+	 * 
+	 * @param descritor
+	 *            da lista
+	 * @param data
+	 *            de cricao da lista
+	 * @param hora
+	 *            de cricao da lista
+	 */
 	public ListaDeCompras(String descritor, String data, String hora) {
 		this.descritor = descritor;
 		this.data = data;
 		this.hora = hora;
 		this.produtosLista = new HashMap<>();
 		this.saidaOrdenada = new ArrayList();
-		this.finalizada = false;		
+		this.finalizada = false;
 	}
 
+	/**
+	 * Adiciona um protudo na lista
+	 * 
+	 * @param item
+	 *            a ser adicionado
+	 * @param quantidade
+	 *            do item
+	 */
 	public void adicionaProdutoNaLista(Item item, int quantidade) {
-		
+
 		ProdutoLista produto = new ProdutoLista(item, quantidade);
-		
+
 		int id = produto.getId();
 		if (!this.produtosLista.containsKey(id)) {
 			this.produtosLista.put(id, produto);
@@ -44,11 +60,17 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 
 		ordenaSaida();
 	}
-	
+
+	/**
+	 * Adiciona um produto na lista
+	 * 
+	 * @param produto
+	 *            a ser adiconado
+	 */
 	public void adicionaProdutoNaLista(ProdutoLista produto) {
-		
+
 		int id = produto.getId();
-		
+
 		if (!this.produtosLista.containsKey(id)) {
 			this.produtosLista.put(id, produto);
 		}
@@ -60,6 +82,12 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 		ordenaSaida();
 	}
 
+	/**
+	 * Remove um item da lista
+	 * 
+	 * @param itemId
+	 *            id do item
+	 */
 	public void deletaProdutoLista(int itemId) {
 
 		if (!this.produtosLista.containsKey(itemId)) {
@@ -70,6 +98,16 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 		ordenaSaida();
 	}
 
+	/**
+	 * Altera a quantidade do produto na lista
+	 * 
+	 * @param itemId
+	 *            do item
+	 * @param operacao
+	 *            a ser realizada(aumenta e diminui)
+	 * @param quantidade
+	 *            valor da mudanca
+	 */
 	public void atualizaProduto(int itemId, String operacao, int quantidade) {
 
 		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
@@ -100,6 +138,13 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 		ordenaSaida();
 	}
 
+	/**
+	 * Busca um item na lista pelo id
+	 * 
+	 * @param itemId
+	 *            do item
+	 * @return representacao textual de um produto da lista
+	 */
 	public String pesquisaCompraEmLista(int itemId) {
 
 		if (!this.produtosLista.containsKey(itemId)) {
@@ -110,6 +155,13 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 
 	}
 
+	/**
+	 * Representacao de um item da lista
+	 * 
+	 * @param itemPosicao
+	 *            do item
+	 * @return representacao textual do produto
+	 */
 	public String retornaItemPosicao(int itemPosicao) {
 		if (itemPosicao < 0 || itemPosicao >= this.saidaOrdenada.size()) {
 			return "";
@@ -118,6 +170,14 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 		return this.saidaOrdenada.get(itemPosicao);
 	}
 
+	/**
+	 * Fecha a lista
+	 * 
+	 * @param localDaCompra
+	 *            onde foi comprado os produtos da lista
+	 * @param valorFinalDaCompra
+	 *            quanto foi pago
+	 */
 	public void finalizarLista(String localDaCompra, double valorFinalDaCompra) {
 		if (localDaCompra == null || localDaCompra.trim().isEmpty()) {
 			throw new IllegalArgumentException(
@@ -126,12 +186,17 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 			throw new IllegalArgumentException(
 					"Erro na finalizacao de lista de compras: valor final da lista invalido.");
 		}
-		
+
 		this.finalizada = true;
 		this.localDeCompra = localDaCompra;
 		this.valorFinal = valorFinalDaCompra;
 	}
 
+	/**
+	 * Set contendo tododos os ids dos items na lista que sera usado
+	 * 
+	 * @return set dos ids dos items na lista
+	 */
 	public Set<Integer> getIdsProdutos() {
 
 		return this.produtosLista.keySet();
@@ -140,38 +205,34 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 	public String getDescritor() {
 		return this.descritor;
 	}
-		
+
 	public String getData() {
 		return this.data;
 	}
-	
+
 	public String getHora() {
 		return this.hora;
 	}
-	
+
 	public String getDescritorComData() {
 		return String.format("%s - %s", this.data, this.descritor);
 	}
 
 	public boolean getExistenciaDeItem(int itemId) {
-		
-		if (this.produtosLista.containsKey(itemId)) {
-			return true;
-		}
 
-		return false;
+		return this.produtosLista.containsKey(itemId);
 	}
-	
-	public HashMap<Integer, Integer> retornaItensEQuantidades(){
-		HashMap<Integer, Integer> itensEQuantidades = new HashMap();
-		
+
+	public HashMap<Integer, Integer> retornaItensEQuantidades() {
+		HashMap<Integer, Integer> itensEQuantidades = new HashMap<>();
+
 		for (ProdutoLista produto : this.produtosLista.values()) {
 			itensEQuantidades.put(produto.getId(), produto.getQuantidade());
 		}
-		
+
 		return itensEQuantidades;
 	}
-	
+
 	public boolean getExistenciaDeItem(String descritor) {
 
 		for (ProdutoLista produto : this.produtosLista.values()) {
@@ -181,40 +242,40 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 		}
 		return false;
 	}
-	
+
 	public int getQuantidadeItem(int id) {
 		if (!this.getExistenciaDeItem(id)) {
 			throw new IllegalArgumentException("Erro: Esse item nao esta na lista.");
 		}
-		
+
 		return this.produtosLista.get(id).getQuantidade();
 	}
-	
+
 	public ArrayList<String> ordenaProdutosParaSupermercado(ArrayList<Integer> ids) {
 		ArrayList<String> saidaProdutos = new ArrayList<>();
 		ArrayList<ProdutoListaOrdenavel> produtosParaOrdenar = new ArrayList<>();
-		
-		for(int id : ids) {
+
+		for (int id : ids) {
 			produtosParaOrdenar.add(this.produtosLista.get(id));
 		}
-		
+
 		Collections.sort(produtosParaOrdenar, new OrdenaItemLista());
-		
+
 		for (ProdutoListaOrdenavel produto : produtosParaOrdenar) {
 			saidaProdutos.add("- " + produto.toString());
 		}
-		
+
 		return saidaProdutos;
 	}
-	
+
 	public ListaDeCompras getClone(String descritor, String data, String hora) {
-		
+
 		ListaDeCompras lista = new ListaDeCompras(descritor, data, hora);
-		
+
 		for (ProdutoLista produto : this.produtosLista.values()) {
 			lista.adicionaProdutoNaLista(produto);
 		}
-		
+
 		return lista;
 	}
 
@@ -239,7 +300,7 @@ public class ListaDeCompras implements ListaOrdenavel, Serializable {
 
 		for (ProdutoLista produto : produtos) {
 			this.saidaOrdenada.add(produto.toString());
-		}		
+		}
 	}
-	
+
 }

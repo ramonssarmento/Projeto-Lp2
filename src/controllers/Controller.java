@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import classes.Item;
 import empacotamento.Empacotamento;
 import interfaces.SupermercadoComItensOrdenavel;
@@ -21,34 +22,36 @@ public class Controller {
 		this.controleItem = new ControllerItem();
 		this.controleSuperMercados = new ControllerSupermercados();
 	}
-	
+
 	public void iniciarSistema() {
-		try{
+		try {
 			this.controleItem = (ControllerItem) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerItens.bin");
-			this.controleListas = (ControllerLista) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerListas.bin");
-			this.controleSuperMercados = (ControllerSupermercados) Empacotamento.lerObjetos("DadosDoSistema/DadosControllerSupermercados.bin");
-		}catch(FileNotFoundException e){
+			this.controleListas = (ControllerLista) Empacotamento
+					.lerObjetos("DadosDoSistema/DadosControllerListas.bin");
+			this.controleSuperMercados = (ControllerSupermercados) Empacotamento
+					.lerObjetos("DadosDoSistema/DadosControllerSupermercados.bin");
+		} catch (FileNotFoundException e) {
 			this.controleItem = new ControllerItem();
-		}catch(ClassNotFoundException | IOException e){
+		} catch (ClassNotFoundException | IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void fecharSistema() {
-		try{
+		try {
 			Empacotamento.salvarObjeto(this.controleItem, "DadosDoSistema/DadosControllerItens.bin");
 			Empacotamento.salvarObjeto(this.controleListas, "DadosDoSistema/DadosControllerListas.bin");
 			Empacotamento.salvarObjeto(this.controleSuperMercados, "DadosDoSistema/DadosControllerSupermercados.bin");
-		}catch(IOException e){
+		} catch (IOException e) {
 			System.out.println("Erro ao ler arquivo.");
 			e.printStackTrace();
 		}
-		
+
 		this.controleListas = null;
 		this.controleItem = null;
 		this.controleSuperMercados = null;
 	}
-	
+
 	public void quit() {
 		System.exit(0);
 	}
@@ -62,7 +65,6 @@ public class Controller {
 
 		return id;
 	}
-	
 
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 
@@ -223,6 +225,20 @@ public class Controller {
 				posicaoItem);
 	}
 
+	public String dataAtual() {
+		Date data = new Date(System.currentTimeMillis());
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+		return formatador.format(data);
+	}
+
+	public String horaAtual() {
+		Date hora = new Date(System.currentTimeMillis());
+		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:S");
+
+		return formatador.format(hora);
+	}
+
 	private ArrayList<SupermercadoComItensOrdenavel> ordenaSuperMercados(String descritorLista) {
 		HashMap<Integer, Integer> itensEQuantidades = controleListas.retornaItensEQuantidadesDeUmaLista(descritorLista);
 		ArrayList<SupermercadoComItensOrdenavel> supermercadosComItens;
@@ -238,20 +254,6 @@ public class Controller {
 
 		return supermercadosComItens;
 
-	}
-
-	public String dataAtual() {
-		Date data = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
-		return formatador.format(data);
-	}
-
-	public String horaAtual() {
-		Date hora = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("hh:mm:ss:S");
-
-		return formatador.format(hora);
 	}
 
 	/**

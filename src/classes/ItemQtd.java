@@ -1,7 +1,5 @@
 package classes;
 
-import classes.Item;
-
 /**
  * Classe extendida de Item, implementa itens que seus precos sao calculados por
  * quantidade

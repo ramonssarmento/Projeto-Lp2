@@ -14,19 +14,23 @@ import java.util.TreeSet;
 
 import classes.Item;
 import classes.ListaDeCompras;
-import interfaces.ListaOrdenavel;
-import interfaces.OrdenaDataEHora;
 import interfaces.OrdenaListaDescritorEData;
 import interfaces.OrdenaStrings;
 
-public class ControllerLista implements Serializable{
+public class ControllerLista implements Serializable {
 
 	private LinkedHashMap<String, ListaDeCompras> listasDeCompras;
 
 	public ControllerLista() {
 		this.listasDeCompras = new LinkedHashMap<>();
 	}
-
+	/**
+	 * Cria uma lista de compras
+	 * @param descritorLista da lista
+	 * @param data atual
+	 * @param hora atual
+	 * @return descritor da lista
+	 */
 	public String adicionaListaDeCompras(String descritorLista, String data, String hora) {
 
 		ListaDeCompras lista = new ListaDeCompras(descritorLista, data, hora);
@@ -35,14 +39,22 @@ public class ControllerLista implements Serializable{
 
 		return descritorLista;
 	}
-
+	/**
+	 * Adiciona uma lista de compras a partir de outra ja existente (lista gerada automaticamente)
+	 * @param lista a ser adicionada
+	 * @return descritor da lista
+	 */
 	public String adicionaListaDeCompras(ListaDeCompras lista) {
 
 		this.listasDeCompras.put(lista.getDescritor(), lista);
 
 		return lista.getDescritor();
 	}
-
+	/**
+	 * Pesquisa uma lista de compras a partir do seu descritor
+	 * @param descritorLista da lista
+	 * @return
+	 */
 	public String pesquisaListaDeCompras(String descritorLista) {
 
 		return descritorLista;
@@ -157,9 +169,9 @@ public class ControllerLista implements Serializable{
 
 	/**
 	 * Esse método serve para pesquisar uma lista que contém um determinado item,
-	 * pesquisando pela posição da lista. Essas listas são ordenadas primeiramente
-	 * pelas datas, com as mais antigas vindo à frente Caso hajam datas iguais, as
-	 * listas são ordenadas alfabéticamente.
+	 * pesquisando pela posição da lista. Essas listas são ordenadas
+	 * primeiramente pelas datas, com as mais antigas vindo à frente Caso hajam
+	 * datas iguais, as listas são ordenadas alfabéticamente.
 	 * 
 	 * @param itemId
 	 *            - Id do itém à ser pesquisado.
@@ -215,16 +227,15 @@ public class ControllerLista implements Serializable{
 	}
 
 	public String geraAutomaticaUltimaLista(String data, String hora) {
-		
-		
+
 		Set<String> chaves = this.listasDeCompras.keySet();
-		Iterator<String>  it = chaves.iterator();
-		
+		Iterator<String> it = chaves.iterator();
+
 		String key = null;
-		while(it.hasNext()) {
-			key = it.next();	
+		while (it.hasNext()) {
+			key = it.next();
 		}
-		
+
 		String descritor = "Lista automatica 1 " + data;
 		ListaDeCompras lista = this.listasDeCompras.get(key).getClone(descritor, data, hora);
 
@@ -239,11 +250,11 @@ public class ControllerLista implements Serializable{
 		Iterator<String> it = chaves.iterator();
 		String key = null;
 		ListaDeCompras ultimaListaComItem = null;
-		
+
 		while (it.hasNext()) {
-			key = it.next(); 
+			key = it.next();
 			ListaDeCompras lista = this.listasDeCompras.get(key);
-			
+
 			if (lista.getExistenciaDeItem(descritorItem)) {
 				ultimaListaComItem = lista;
 			}
@@ -253,7 +264,6 @@ public class ControllerLista implements Serializable{
 			throw new IllegalArgumentException(
 					"Erro na geracao de lista automatica por item: nao ha compras cadastradas com o item desejado.");
 		}
-
 
 		String descritor = "Lista automatica 2 " + data;
 		ListaDeCompras listaSaida = ultimaListaComItem.getClone(descritor, data, hora);
@@ -310,17 +320,17 @@ public class ControllerLista implements Serializable{
 
 		return false;
 	}
-	
-	public HashMap<Integer, Integer> retornaItensEQuantidadesDeUmaLista(String descritorLista){
+
+	public HashMap<Integer, Integer> retornaItensEQuantidadesDeUmaLista(String descritorLista) {
 		verificaRetornaQuantidadesEitens(descritorLista);
 		return this.listasDeCompras.get(descritorLista).retornaItensEQuantidades();
 	}
-	
-	public ArrayList<String> ordenaProdutosParaSuperMercado(ArrayList<Integer> ids, String descritorLista){
+
+	public ArrayList<String> ordenaProdutosParaSuperMercado(ArrayList<Integer> ids, String descritorLista) {
 		return this.listasDeCompras.get(descritorLista).ordenaProdutosParaSupermercado(ids);
-		
+
 	}
-	
+
 	private void verificaRetornaQuantidadesEitens(String descritorLista) {
 		if (!this.listasDeCompras.containsKey(descritorLista)) {
 			throw new IllegalArgumentException("Erro: essa lista de compras nao existe no sistema.");
